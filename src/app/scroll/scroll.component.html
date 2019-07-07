@@ -1,0 +1,7 @@
+<div class="scrolling-wrapper">
+
+    <div class="card"><ion-button  [color] = "allClicked ? 'darkred' : 'mediumAltered'" (click) = "allClickedFunc()">ALL</ion-button></div>
+
+    <div class="card"> <ion-button *ngFor = "let days of daysEntries; index as i" [color] = "days[1] ? 'darkred' : 'mediumAltered'" (click) = "changeColor(i)">{{days[0]}}</ion-button></div>
+   
+  </div>
