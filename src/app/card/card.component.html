@@ -1,41 +1,4 @@
-<!-- <ion-card > 
-    <ion-card-header> 
 
-      <ion-card-title>
-        {{newCard.name}}
- 
-      </ion-card-title>
-      <ion-card-subtitle>
-        {{newCard.date}}
-        
-      </ion-card-subtitle>
-      <ion-grid>
-
-        <ion-row class="ion-align-items-start">
-          <ion-col >
-            <div> 
-              <div class="ion-text-start"> Location: {{newCard.location}}</div>
-            </div>
-            <div> 
-              Students: {{newCard.who}}
-            </div>
-            <div> 
-              Category: {{newCard.category}}
-            </div>
-        
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      
-    </ion-card-header>
-
-
-    <ion-card-content>  
-
-      Description: {{newCard.Description}}
-    </ion-card-content>
-  </ion-card> -->
 
   <div class = "final"> 
   <ion-item-sliding class = "item-sliding">
@@ -44,15 +7,56 @@
       <ion-item-option color="danger" (click)="share(item)">Not Going!</ion-item-option>
     </ion-item-options>
 
-    <ion-item class = "item">
+    <!-- <ion-item class = "item">
+
       <div class = "card" >
-      
-      <!-- (click) = "showCardDetail(newCard.id)" -->
-        <div class = "outer"> 
+              <div class = "outer"> 
            
            </div>
-        </div>        
-      </ion-item>
+        </div>    
+        
+        
+
+      </ion-item> -->
+
+      <ion-card > 
+          <ion-card-header> 
+      
+            <ion-card-title>
+              {{newCard.event_name}}
+       
+            </ion-card-title>
+            <ion-card-subtitle>
+              {{newCard.event_date}}
+              
+            </ion-card-subtitle>
+            <ion-grid>
+      
+              <ion-row class="ion-align-items-start">
+                <ion-col >
+                  <div> 
+                    <div class="ion-text-start"> Location: {{newCard.event_location}}</div>
+                  </div>
+                  <div> 
+                    Students: {{newCard.event_who}}
+                  </div>
+                  <div> 
+                    Category: {{newCard.event_category}}
+                  </div>
+              
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+      
+            
+          </ion-card-header>
+      
+      
+          <ion-card-content>  
+      
+            Description: {{newCard.event_Description}}
+          </ion-card-content>
+        </ion-card>
 
     <ion-item-options class = "item-options" side="end">
       <ion-item-option color = "success" (click)="unread(item)">Mark As Going</ion-item-option>

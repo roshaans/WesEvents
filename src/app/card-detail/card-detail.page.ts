@@ -1,6 +1,5 @@
 import { Database } from '@firebase/database';
 import { CardComponent } from './../card/card.component';
-import { FirebaseService } from './../firebase.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
@@ -14,13 +13,13 @@ import 'firebase/database';
   styleUrls: ['./card-detail.page.scss'],
 })
 export class CardDetailPage implements OnInit {
-  card = {};
+  cards = {};
 
-  constructor(private route: ActivatedRoute, private cardService: FirebaseService, private toastCtrl: ToastController) {
+  constructor(private route: ActivatedRoute, private toastCtrl: ToastController) {
 
     Firebase.database().ref('infos/'+this.route.snapshot.paramMap.get('id')).on('value', resp => {
-      this.card = snapshotToObject(resp);
-      console.log(this.card)
+      this.cards = snapshotToObject(resp);
+      console.log(this.cards)
     })
 
 

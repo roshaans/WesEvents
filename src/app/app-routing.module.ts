@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './services/user/auth.guard';
 
 const routes: Routes = [
-  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
-  { path: 'tab4', loadChildren: './tab4/tab4.module#Tab4PageModule' },
-  { path: 'card/:id', loadChildren: './card-detail/card-detail.module#CardDetailPageModule' }
+  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuard] },
+  { path: 'home', redirectTo: '', pathMatch: "full"},
+  { path: 'card/:id', loadChildren: './card-detail/card-detail.module#CardDetailPageModule' , canActivate: [AuthGuard] },
+  { path: 'login', loadChildren: './Account/login/login.module#LoginPageModule'  },
+  { path: 'reset-password', loadChildren: './Account/reset-password/reset-password.module#ResetPasswordPageModule' },
+  { path: 'signup', loadChildren: './Account/signup/signup.module#SignupPageModule' },
+  { path: 'menu', loadChildren: './menu/menu.module#MenuPageModule' },
+  { path: 'about', loadChildren: '/MenuPages/about/about.module#AboutPageModule' }
 ];
 @NgModule({
   imports: [
