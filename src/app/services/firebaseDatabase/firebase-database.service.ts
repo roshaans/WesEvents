@@ -25,29 +25,36 @@ export class FirebaseDatabaseService {
 
    eventIDArray = [] //entries with 
 
-   eventsDataDict = new Map();
+eventsDataDict = new Map();
 
   constructor(public fStore: AngularFirestore) {
       this.eventsCollection = fStore.collection<Event>('events')
-      console.log(this.eventsCollection.get())
-      this.events = this.eventsCollection.snapshotChanges()
-      .pipe(
-              map(actions => { 
-              return actions.map( a => { 
-                  const data = a.payload.doc.data(); 
-                  const id = a.payload.doc.id; 
-                  return {id, ...data }; 
-            });
-         }) );
+    //   console.log(this.eventsCollection.get())
+      
+
     //   this.events = this.fStore.collection('events').snapshotChanges()
      
     // this.events = this.fStore.collection('events').valueChanges()
 //   
+
+this.events = this.eventsCollection.snapshotChanges()
+.pipe(
+        map(actions => { 
+        return actions.map( a => { 
+            let data = a.payload.doc.data(); 
+            let id = a.payload.doc.id; 
+            return {id, ...data }; 
+      });
+   }) )
   }
 
 
   eventCollectionRef = this.fStore.collection('events');
 
+  getEvents() {
+
+   
+  }
 createEvent(event: Event) {
    this.eventCollectionRef.add({
 

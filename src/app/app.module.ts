@@ -21,21 +21,13 @@ import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ng
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import {AngularFireAuth} from '@angular/fire/auth'
 import {AngularFireAuthModule} from '@angular/fire/auth'
-var config =  {
-  apiKey: "AIzaSyAda2rGGrmtWjGtg3bYvGKOv-EsZnG_Cm0",
-  authDomain: "wesleyaneventsapp.firebaseapp.com",
-  databaseURL: "https://wesleyaneventsapp.firebaseio.com",
-  projectId: "wesleyaneventsapp",
-  storageBucket: "",
-  messagingSenderId: "41400534112",
-  appId: "1:41400534112:web:afbdc39393804002"
-  }
+
 @NgModule({
   declarations: [AppComponent, KeysPipe],
   entryComponents: [],
   imports: [ 
     ReactiveFormsModule,  
-    FormsModule, AngularFireModule.initializeApp(config),AngularFireAuthModule, 
+    FormsModule, AngularFireModule.initializeApp(environment),AngularFireAuthModule, 
     AngularFirestoreModule, AngularFireDatabaseModule,
 BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [AngularFireAuth, FirebaseAuthentication,FirebaseDatabaseService,
