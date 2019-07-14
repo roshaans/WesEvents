@@ -8,7 +8,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import {Event} from '../../Models/Event'
 import { ObjectToUniqueKey } from '@firebase/database/dist/src/core/util/util';
-import {map} from 'rxjs/operators'
+import {map, take} from 'rxjs/operators'
 
 
 @Injectable({
@@ -19,7 +19,7 @@ import {map} from 'rxjs/operators'
 export class FirebaseDatabaseService {
   
   eventsCollection: AngularFirestoreCollection<Event>;
-  private events: Observable<Event[]>;
+   events: Observable<Event[]>;
   // public event: Event;
 
 
@@ -29,13 +29,7 @@ eventsDataDict = new Map();
 
   constructor(public fStore: AngularFirestore) {
       this.eventsCollection = fStore.collection<Event>('events')
-    //   console.log(this.eventsCollection.get())
-      
-
-    //   this.events = this.fStore.collection('events').snapshotChanges()
-     
-    // this.events = this.fStore.collection('events').valueChanges()
-//   
+    
 
 this.events = this.eventsCollection.snapshotChanges()
 .pipe(
@@ -58,19 +52,19 @@ this.events = this.eventsCollection.snapshotChanges()
 createEvent(event: Event) {
    this.eventCollectionRef.add({
 
-  event_title: event.event_title, 
-  event_location: event.event_location,  
-  event_students: event.event_students, 
-  event_category: event.event_category, 
-  event_date: event.event_date, 
-  event_startTime: event.event_startTime, 
-  event_endTime: event.event_endTime, 
-  event_description: event.event_description, 
-  event_pictureURL: event.event_pictureURL, 
-  event_chatNumber: event.event_chatNumber, 
-  event_goingCounter: event.event_goingCounter, 
-  event_maybeGoingCounter: event.event_maybeGoingCounter, 
-   event_creation_timeStamp: firebase.firestore.FieldValue.serverTimestamp()
+    event_title: event.event_title, 
+    event_location: event.event_location,  
+    event_students: event.event_students, 
+    event_category: event.event_category, 
+    event_date: event.event_date, 
+    event_startTime: event.event_startTime, 
+    event_endTime: event.event_endTime, 
+    event_description: event.event_description, 
+    event_pictureURL: event.event_pictureURL, 
+    event_chatNumber: event.event_chatNumber, 
+    event_goingCounter: event.event_goingCounter, 
+    event_maybeGoingCounter: event.event_maybeGoingCounter, 
+     event_creation_timeStamp: firebase.firestore.FieldValue.serverTimestamp()
    
   })
     .then(function() {
@@ -86,20 +80,10 @@ getEvent(id:string) {
 
     return this.eventsCollection.doc<Event>(id).valueChanges().pipe(take(1), map(event => {
         event.id = id;
+        console.log(event, "returned event")
         return event
     }))
-return this.eventCollectionRef.doc<Event>(id).valueChanges();
-//   this.eventCollectionRef.doc(event_id).ref.get()
-//   .then(function(doc) {
-//     if (doc.exists) {
-//         console.log("Document data:", doc.data());
-//         return doc.data()
-//     } else {
-//         console.log("No such document:" + event_id);
-//     }
-// }).catch(function(error) {
-//     console.log("Error getting document:", error);
-// });
+
 
 }
 

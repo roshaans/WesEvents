@@ -69,11 +69,14 @@ export class Tab3Page {
     createdBy: this.user.uid,
     
   }
-    this.FirebaseDatabase.createEvent(
+    this.FirebaseDatabase.createEvent(this.event)
+
+   
+  
+  
     
-      this.event
-    )
-    console.log(this.event, "Printing events")
+    
+     console.log(this.event, "Printing events") // Test createEvent
 
 
     this.showToast("Event has been created.");
