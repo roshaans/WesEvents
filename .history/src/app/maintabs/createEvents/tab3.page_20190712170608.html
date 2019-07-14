@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+Create Event
+    </ion-title>
+  </ion-toolbar>
+  <!-- <ion-segment (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="friends">
+        <ion-label>Friends</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="enemies">
+        <ion-label>Enemies</ion-label>
+      </ion-segment-button>
+    </ion-segment> -->
+    <ion-segment (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="camera">
+          <ion-icon name="create"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="bookmark">
+          <ion-icon name="eye"></ion-icon>
+        </ion-segment-button>
+      </ion-segment>
+</ion-header>
+
+<ion-content>
+   <!-- <div class = "realtimeText" ><strong > Realtime Preview </strong>  </div> 
+        <div class = "card">
+                <div class = "outer"> 
+                   
+                   </div>
+                </div> -->
+   
+    <form [formGroup]="createEventForm">
+        <ion-item>
+          <ion-label  position="floating">Event Title</ion-label>
+          <ion-input spellcheck = "true" required = "true" maxlength = 50 type="text" formControlName="event_title"></ion-input>
+        </ion-item>
+        <ion-item>
+            <!-- <ion-label  position="floating">Category</ion-label>
+            <ion-input  required = "true" maxlength = 15 type="text" formControlName="event_category"></ion-input> -->
+            <ion-label>Category</ion-label>
+
+                <ion-select formControlName="event_category" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Select One">
+                    <ion-select-option value="f">Volunteering</ion-select-option>
+                    <ion-select-option value="m">Sports</ion-select-option>
+                    <ion-select-option value="f">Gordon Career Center</ion-select-option>
+                    <ion-select-option value="m">Food</ion-select-option>
+                    <ion-select-option value="f">Special lectures</ion-select-option>
+                    <ion-select-option value="m">Parties</ion-select-option>
+                    <ion-select-option value="f">Usdan</ion-select-option>
+                    <ion-select-option value="m">Exley</ion-select-option>
+                    <ion-select-option value="m">Foss Hill</ion-select-option>
+                    <ion-select-option value="m">Movies</ion-select-option>
+                </ion-select>
+                <!-- iconsMatch = {"volunteer": "globe", "sports": "american-football","Gordon Career Center": "briefcase",
+                "food": "pizza", "talks": "school",
+                  "Parties":  "beer", "Usdan": "restaurant", "Exley": "true", "Foss Hill": "sunny", "movies": "film" } -->
+        
+        <ion-item>
+          <ion-label  position="floating">Location</ion-label>
+          <ion-input required = "true" maxlength = 15 type="text" formControlName="event_location"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label  position="floating">Invited Students</ion-label>
+            <ion-input required = "true" maxlength = 15 type="text" formControlName="event_students"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">Date</ion-label>
+            <ion-input required = "true" type="date" formControlName="event_date"></ion-input>
+          </ion-item>
+          <ion-grid>
+
+            <ion-row>
+                <ion-col size = "6">
+                        <ion-item>
+                    <ion-label position="floating">Start Time</ion-label>
+                    <ion-datetime displayFormat="h:mm A" minuteValues="0,15,30,45" formControlName="event_startTime" ></ion-datetime>
+
+                    <!-- <ion-input type="number" ></ion-input> -->
+                  </ion-item>
+                  
+                </ion-col>
+                <ion-col size = "6" >
+                    <ion-item>
+                        
+                        <ion-label position="floating">End Time</ion-label>
+                        <ion-datetime displayFormat="h:mm A" minuteValues="0,15,30,45" formControlName="event_endTime" ></ion-datetime>
+
+                        <!-- <ion-input type="number" formControlName="event_endTime"></ion-input> -->
+                      </ion-item>
+                </ion-col>
+            </ion-row>
+          </ion-grid>
+           
+          <ion-item>
+            <ion-label position="floating">Description</ion-label>
+            <ion-textarea maxlength = "200" autogrow = "true" class = "desc" spellcheck = "true" placeholder = "2-3 sentences describing the event..." type="text" formControlName="event_description"></ion-textarea>
+          </ion-item>
+        <ion-button shape="round" color="primary" expand="block" [disabled]="!createEventForm.valid" (click)="createEvent()">Create Event</ion-button>
+      
+    
+    </form>
+    
+        
+</ion-content>

@@ -1,0 +1,28 @@
+
+
+.card {
+    display: block;
+    height: 150px;
+    width: 370px;
+  background-image: radial-gradient(50% 100%, #195DF7 0%, #616DFF 100%);
+  border-radius: 20;
+  // justify-content: center;
+//   backround-image: radial-gradient( )
+    // border: 1px solid blue;
+     
+  }
+  .content {
+    
+  
+      display: flex;
+      flex-direction: column;
+  
+  }
+  .outer {
+    display: flex;
+    flex-direction: row;
+  }
+ .final{
+
+  border-radius: 15px;
+ }

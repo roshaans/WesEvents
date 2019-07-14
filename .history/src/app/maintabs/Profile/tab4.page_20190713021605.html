@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot = "end">
+      <ion-button (click) = "settingsButtonClicked()"</ion-button>> <ion-icon name = "settings"></ion-icon> </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+   
+      <ion-item>
+        <ion-label>hh:mm A (15 min steps)</ion-label>
+        <ion-datetime displayFormat="h:mm A" minuteValues="0,15,30,45"></ion-datetime>
+      </ion-item>
+      <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div>
+                1 of 3
+              </div>
+            </ion-col>
+            <ion-col size="8">
+              <div>
+                2 of 3 (wider)
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                3 of 3
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <div>
+                1 of 3
+              </div>
+            </ion-col>
+            <ion-col size="6">
+              <div>
+                2 of 3 (wider)
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                3 of 3
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-button (click) = "alogoutUser()"> Log Out!</ion-button>
+</ion-content>
