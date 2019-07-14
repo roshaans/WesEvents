@@ -1,0 +1,39 @@
+
+
+  
+  <ion-item class = "item" *ngIf = "event">
+    <ion-card   color = "light" class = "newCard">
+      <ion-card-content>
+        <ion-card-title>
+                    {{event.event_title}}
+             
+                  </ion-card-title>
+        <ion-card-subtitle>
+                    {{event.event_date}}
+                    
+          <ion-chip>
+            <ion-icon name="{{iconsMatch[event.event_category]}}" color="dark"></ion-icon>
+            <ion-label>{{event.event_category}}</ion-label>
+          </ion-chip>
+        </ion-card-subtitle>
+        <ion-grid>
+          <ion-row class="ion-align-items-start">
+            <ion-col >
+              <div>
+                <div class="ion-text-start">
+                  <strong>Location: </strong> {{event.event_location}}
+                </div>
+              </div>
+              <div>
+                <strong>Students:</strong> {{event.event_students}}
+                        
+              </div>
+              <div></div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <strong> Description:</strong> {{event.event_description}}
+            
+      </ion-card-content>
+    </ion-card>
+  </ion-item>

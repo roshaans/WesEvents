@@ -1,4 +1,3 @@
-import { card } from './../../Models/cardDetail';
 import { Injectable } from '@angular/core';
  import  * as firebase from 'firebase/app';
 
@@ -50,23 +49,11 @@ this.events = this.eventsCollection.snapshotChanges()
    
   }
 createEvent(event: Event) {
-   this.eventCollectionRef.add({
+   this.eventCollectionRef.add(
 
-    event_title: event.event_title, 
-    event_location: event.event_location,  
-    event_students: event.event_students, 
-    event_category: event.event_category, 
-    event_date: event.event_date, 
-    event_startTime: event.event_startTime, 
-    event_endTime: event.event_endTime, 
-    event_description: event.event_description, 
-    event_pictureURL: event.event_pictureURL, 
-    event_chatNumber: event.event_chatNumber, 
-    event_goingCounter: event.event_goingCounter, 
-    event_maybeGoingCounter: event.event_maybeGoingCounter, 
-     event_creation_timeStamp: firebase.firestore.FieldValue.serverTimestamp()
+   event
    
-  })
+  )
     .then(function() {
     console.log("Event was successfully created!");
 })
@@ -79,9 +66,9 @@ createEvent(event: Event) {
 getEvent(id:string) {
 
     return this.eventsCollection.doc<Event>(id).valueChanges().pipe(take(1), map(event => {
-        event.id = id;
-        console.log(event, "returned event")
+
         return event
+
     }))
 
 
@@ -103,21 +90,21 @@ this.eventCollectionRef.doc(id).delete();
 updateEvent(id: string, updates: Event) {
  
   var ref = this.eventCollectionRef.doc(id).update({
-    event_title: updates.event_title, 
-    event_id: updates.event_id, 
-    event_location: updates.event_location,  
-    event_students:updates.event_students, 
-    event_category: updates.event_category, 
-    event_date: updates.event_date, 
-    event_startTime: updates.event_startTime, 
-    event_endTime: updates.event_endTime, 
-    event_description: updates.event_description, 
-    event_pictureURL: updates.event_pictureURL, 
-    event_chatNumber: updates.event_chatNumber, 
-    event_goingCounter: updates.event_goingCounter, 
-    event_maybeGoingCounter: updates.event_maybeGoingCounter, 
-    event_creation_timeStamp: updates.event_creation_timeStamp,
-     lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
+    // event_title: updates.event_title, 
+    // event_id: updates.event_id, 
+    // event_location: updates.event_location,  
+    // event_students:updates.event_students, 
+    // event_category: updates.event_category, 
+    // event_date: updates.event_date, 
+    // event_startTime: updates.event_startTime, 
+    // event_endTime: updates.event_endTime, 
+    // event_description: updates.event_description, 
+    // event_pictureURL: updates.event_pictureURL, 
+    // event_chatNumber: updates.event_chatNumber, 
+    // event_goingCounter: updates.event_goingCounter, 
+    // event_maybeGoingCounter: updates.event_maybeGoingCounter, 
+    // event_creation_timeStamp: updates.event_creation_timeStamp,
+    //  lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
 
   })
 }

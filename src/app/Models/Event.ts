@@ -1,4 +1,5 @@
 export interface Event {
+  
   event_title?: String, 
   event_location?: String,  
   event_students?: String, 
@@ -12,9 +13,8 @@ export interface Event {
   event_chatNumber?: Number, 
   event_goingCounter?: Number, 
   event_maybeGoingCounter?: Number, 
-  event_creation_timeStamp?: Date,
+  event_creation_timeStamp?: Date ,
   event_id?: Number, 
   createdBy?: String,
-  lastUpdate?: Number,
-  id?: string
+  lastUpdate?: Number
 }

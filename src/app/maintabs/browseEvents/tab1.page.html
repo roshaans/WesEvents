@@ -27,9 +27,9 @@ WesEvents
 					<ion-item-option color="danger" (click)="notGoing(event)">Not Going!</ion-item-option>
         </ion-item-options>
         
-
+		<app-card [id]="event.id" > </app-card>
         
-				<ion-item class = "item">
+				<!-- <ion-item class = "item">
 					<ion-card   color = "light" class = "newCard">
 						<ion-card-content>
 							<ion-card-title>
@@ -40,7 +40,7 @@ WesEvents
                           {{event.event.event_date}}
                           
 								<ion-chip>
-									<ion-icon name="{{iconsMatch[event.event_category]}}" color="dark"></ion-icon>
+									<ion-icon name="{{iconsMatch[event.event.event_category]}}" color="dark"></ion-icon>
 									<ion-label>{{event.event.event_category}}</ion-label>
 								</ion-chip>
 							</ion-card-subtitle>
@@ -64,7 +64,7 @@ WesEvents
                   
 						</ion-card-content>
 					</ion-card>
-				</ion-item>
+				</ion-item> -->
 				<ion-item-options class = "item-options" side="end">
 					<ion-item-option color = "success" (click)="going(item)">Mark As Going</ion-item-option>
 				</ion-item-options>

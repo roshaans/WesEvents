@@ -1,3 +1,4 @@
+
 import { FirebaseDatabaseService } from './services/firebaseDatabase/firebase-database.service';
 import { MbscModule } from '@mobiscroll/angular';
 import { FormsModule } from '@angular/forms';
@@ -21,11 +22,10 @@ import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ng
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import {AngularFireAuth} from '@angular/fire/auth'
 import {AngularFireAuthModule} from '@angular/fire/auth'
-
 @NgModule({
   declarations: [AppComponent, KeysPipe],
   entryComponents: [],
-  imports: [ 
+  imports: [  
     ReactiveFormsModule,  
     FormsModule, AngularFireModule.initializeApp(environment),AngularFireAuthModule, 
     AngularFirestoreModule, AngularFireDatabaseModule,

@@ -30,8 +30,8 @@ export class Tab3Page {
       'event_startTime' : [null, Validators.required],
       'event_endTime' : [null, Validators.required],
       'event_description' : [null, Validators.required],
-      'event_category' : [null, Validators.required]
-
+      'event_category' : [null, Validators.required],
+      "event_creation_timeStamp" : [firebase.firestore.FieldValue.serverTimestamp()]
      
     });
 
@@ -54,31 +54,24 @@ export class Tab3Page {
     }).then(toast => toast.present());
   }
   createEvent() {
-    this.event = {  event_title: this.createEventForm.controls["event_title"].value,
+    this.event = {  
+    event_title: this.createEventForm.controls["event_title"].value,
     event_location: this.createEventForm.controls["event_location"].value,  
     event_students: this.createEventForm.controls["event_students"].value, 
     event_category: this.createEventForm.controls["event_category"].value, 
     event_date: this.createEventForm.controls["event_date"].value, 
     event_startTime: this.createEventForm.controls["event_startTime"].value, 
     event_endTime: this.createEventForm.controls["event_endTime"].value, 
+    event_creation_timeStamp: this.createEventForm.controls["event_creation_timeStamp"].value,
     event_description: this.createEventForm.controls["event_description"].value,
     event_pictureURL: "", 
     event_chatNumber: 0, 
     event_goingCounter: 0, 
     event_maybeGoingCounter: 0,
-    createdBy: this.user.uid,
+    createdBy: this.user.uid
     
   }
     this.FirebaseDatabase.createEvent(this.event)
-
-   
-  
-  
-    
-    
-     console.log(this.event, "Printing events") // Test createEvent
-
-
     this.showToast("Event has been created.");
   }
   

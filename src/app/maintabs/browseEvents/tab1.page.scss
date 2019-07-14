@@ -28,8 +28,6 @@
 }
 .timeFilter {
   display:block;
-  // margin-top: 5px;
-  // border: 1px solid blue;
   height: 33px;
 
 
@@ -39,7 +37,6 @@
 .days {
   display:block;
  
-  // border: 1px solid red;
   
   }
 .cards {
@@ -47,25 +44,32 @@
   // flex-direction: column;
   
   // justify-content: space-between;
-  display: block;
+  display: flex;
   // margin-bottom: 10px;
 
   // margin-top: -15px;
   // margin-bottom: -10px;
   //  border: 1px solid grey;
   
-  // margin: auto;
+  margin: auto;
   // align-items: center;
 }
 .newCard {
   // display:block;
   // --background: ;
   // --color: blue;
-  --backround: #E0CA3C;
+  display:flex;
+  align-self: stretch;
+ align-content: stretch;
+  // --backround: #E0CA3C;
 
 
 }
+
+
 .item {
+  display: flex;
+  align-content: stretch;
 
   // --background: linear-gradient(left, rgba(252,236,252,1) 0%, rgba(251,166,225,1) 50%, rgba(253,137,215,1) 51%, rgba(255,124,216,1) 100%);
 }
