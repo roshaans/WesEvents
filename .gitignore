@@ -12,8 +12,11 @@ log.txt
 .vscode/
 npm-debug.log*
 .history/src
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 0e7f54d01097687407711d9f45773cadaa55c2dd
 .idea/
 .ionic/
 .sourcemaps/
@@ -30,7 +33,7 @@ plugins/
 plugins/android.json
 plugins/ios.json
 $RECYCLE.BIN/
-
+environment/environment.ts
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
