@@ -1,30 +1,35 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab Two
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+		<ion-title    color = "#d33939" class="ion-text-center">
+WesEvents
     </ion-title>
-  </ion-toolbar>
+	</ion-toolbar>
 </ion-header>
-
-<!-- <ion-content> -->
-
-
-    <ion-list>
-        <!-- Sliding item with text options on both sides -->
-        <ion-item-sliding class = "item-sliding">
-          <!-- <ion-item-options side="start"> -->
-            <!-- <ion-item-option (click)="favorite(item)">Not Going!</ion-item-option> -->
-            <!-- <ion-item-option color="danger" (click)="share(item)">Not Going!</ion-item-option>
-          </ion-item-options> -->
-      
-          <ion-item class = "item">
-        <app-card class = "card"></app-card>
-              
-            </ion-item>
-      
-          <ion-item-options class = "item-options" side="end">
-            <ion-item-option color = "success" (click)="unread(item)">Mark As Going</ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
-<!-- </ion-content> -->
+<ion-content>
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content
+          pullingText="Pull to refresh"
+          refreshingText="Refreshing events.."></ion-refresher-content>
+	</ion-refresher>
+	<ion-searchbar placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear" debounce="1000"></ion-searchbar>
+	
+<div > 
+		<div class = "cards" *ngFor = "let event of events; index as i" [routerLink] ="['/card/', event]" class = "final">
+			<ion-item-sliding class = "item-sliding">
+				<ion-item-options side="start">
+					<ion-item-option color="danger" (click)="notGoing(event)">Not Going!</ion-item-option>
+        </ion-item-options>
+        
+		<app-card [id]="event" > </app-card>
+        
+				
+				<!-- <ion-item-options class = "item-options" side="end">
+					<ion-item-option color = "success" (click)="saveEvent()">Mark As Going</ion-item-option>
+				</ion-item-options> -->
+			</ion-item-sliding>
+		</div>  
+</div>  
+</ion-content>

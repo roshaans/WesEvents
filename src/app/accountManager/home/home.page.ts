@@ -33,7 +33,6 @@ export class HomePage {
     this.fireauth.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
-        console.log(this.user);
       }
     })
   }
@@ -68,7 +67,6 @@ export class HomePage {
   }
 
   updateImage() {
-
     this.user.updateProfile({
       photoURL: `https://picsum.photos/id/${this.image}/200/200`
     })

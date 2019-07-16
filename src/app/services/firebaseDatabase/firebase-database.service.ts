@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import {Event} from '../../Models/Event'
 import { ObjectToUniqueKey } from '@firebase/database/dist/src/core/util/util';
 import {map, take} from 'rxjs/operators'
+import { identifierName } from '@angular/compiler';
 
 
 @Injectable({
@@ -28,7 +29,7 @@ eventsDataDict = new Map();
 
   constructor(public fStore: AngularFirestore) {
       this.eventsCollection = fStore.collection<Event>('events')
-    
+        
 
 this.events = this.eventsCollection.snapshotChanges()
 .pipe(
@@ -38,7 +39,7 @@ this.events = this.eventsCollection.snapshotChanges()
             let id = a.payload.doc.id; 
             return {id, ...data }; 
       });
-   }) )
+   }))
   }
 
 
@@ -48,18 +49,31 @@ this.events = this.eventsCollection.snapshotChanges()
 
    
   }
-createEvent(event: Event) {
-   this.eventCollectionRef.add(
 
-   event
-   
-  )
-    .then(function() {
+createEvent(event: Event, user_uid: string) {
+    var userRef = this.fStore.collection("users").doc(user_uid)
+
+   this.eventCollectionRef.add(event)
+    .then(function(docref) {
+        // var id = docref.id
     console.log("Event was successfully created!");
+    userRef.update({
+    createdEvents: firebase.firestore.FieldValue.arrayUnion(docref.id)
+    })
+
+    // userRef.set({
+    //     createdEvents: {id: docref.id}
+    // }, { merge: true })
+   
+
 })
     .catch(function(error) {
     console.log("Error Creating Event: ", error);
 });
+
+
+
+
     
 }
 
@@ -82,32 +96,34 @@ getEventIDs() {
 
 
 
+deleteEvent(event: string, user_uid: string) {
+    var userRef = this.fStore.collection("users").doc(user_uid)
 
-deleteEvent(id: string) {
-this.eventCollectionRef.doc(id).delete();
+   return userRef.update({
+    savedEvents: firebase.firestore.FieldValue.arrayRemove(event)
+})
+
+
 
 }
 updateEvent(id: string, updates: Event) {
  
-  var ref = this.eventCollectionRef.doc(id).update({
-    // event_title: updates.event_title, 
-    // event_id: updates.event_id, 
-    // event_location: updates.event_location,  
-    // event_students:updates.event_students, 
-    // event_category: updates.event_category, 
-    // event_date: updates.event_date, 
-    // event_startTime: updates.event_startTime, 
-    // event_endTime: updates.event_endTime, 
-    // event_description: updates.event_description, 
-    // event_pictureURL: updates.event_pictureURL, 
-    // event_chatNumber: updates.event_chatNumber, 
-    // event_goingCounter: updates.event_goingCounter, 
-    // event_maybeGoingCounter: updates.event_maybeGoingCounter, 
-    // event_creation_timeStamp: updates.event_creation_timeStamp,
-    //  lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
+  var ref = this.eventCollectionRef.doc(id).update(
+    updates
 
-  })
+  )
 }
+
+saveEvent(id: string, user_uid: string) {
+    var userRef = this.fStore.collection("users").doc(user_uid)
+
+
+    userRef.update({
+        savedEvents: firebase.firestore.FieldValue.arrayUnion(id)
+    })
+}
+
+
 }
 export const snapshotToArray = snapshot => {
   let returnArr = [];

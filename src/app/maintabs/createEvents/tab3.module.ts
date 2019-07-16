@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms'
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+
     RouterModule.forChild([{ path: '', component: Tab3Page }])
   ],
   declarations: [Tab3Page]

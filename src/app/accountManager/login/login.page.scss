@@ -10,8 +10,11 @@
     margin: auto;
   }
 }
+ion-text {
+  color: white;
+}
 ion-card {
-  --background:rgba(255,255,255,0.7);
+  --background:rgba(255,255,255,0);
   box-shadow: none;
   -webkit-box-shadow: none;
   overflow: scroll;

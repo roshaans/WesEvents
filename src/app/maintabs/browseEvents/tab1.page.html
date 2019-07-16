@@ -20,53 +20,20 @@ WesEvents
 	</div>
 	<app-time-filter class = "timeFilter"></app-time-filter>
 	<app-scroll class = "days"></app-scroll>
+
+	
   <div >
 		<div class = "cards" *ngFor = "let event of events; index as i" [routerLink] ="['/card/', event.id]"class = "final">
 			<ion-item-sliding class = "item-sliding">
-				<ion-item-options side="start">
-					<ion-item-option color="danger" (click)="notGoing(event)">Not Going!</ion-item-option>
-        </ion-item-options>
+				<!-- <ion-item-options side="start">
+					<ion-item-option color="danger" (click)="notGoing(event.id)">Not Going!</ion-item-option>
+        </ion-item-options> -->
         
 		<app-card [id]="event.id" > </app-card>
         
-				<!-- <ion-item class = "item">
-					<ion-card   color = "light" class = "newCard">
-						<ion-card-content>
-							<ion-card-title>
-                          {{event.event.event_title}}
-                   
-                        </ion-card-title>
-							<ion-card-subtitle>
-                          {{event.event.event_date}}
-                          
-								<ion-chip>
-									<ion-icon name="{{iconsMatch[event.event.event_category]}}" color="dark"></ion-icon>
-									<ion-label>{{event.event.event_category}}</ion-label>
-								</ion-chip>
-							</ion-card-subtitle>
-							<ion-grid>
-								<ion-row class="ion-align-items-start">
-									<ion-col >
-										<div>
-											<div class="ion-text-start">
-												<strong>Location: </strong> {{event.event.event_location}}
-											</div>
-										</div>
-										<div>
-											<strong>Students:</strong> {{event.event.event_students}}
-                              
-										</div>
-										<div></div>
-									</ion-col>
-								</ion-row>
-							</ion-grid>
-							<strong> Description:</strong> {{event.event.event_description}}
-                  
-						</ion-card-content>
-					</ion-card>
-				</ion-item> -->
+				
 				<ion-item-options class = "item-options" side="end">
-					<ion-item-option color = "success" (click)="going(item)">Mark As Going</ion-item-option>
+					<ion-item-option color = "success" (click)="saveEvent(event.id)">Mark As Going</ion-item-option>
 				</ion-item-options>
 			</ion-item-sliding>
 		</div> 

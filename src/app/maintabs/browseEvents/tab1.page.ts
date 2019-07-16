@@ -1,3 +1,4 @@
+import { ToastController } from '@ionic/angular';
 import { Event } from '../../Models/Event';
 import { card } from './../../Models/cardDetail';
 import { LocationFilterComponent } from './../../filters/location-filter/location-filter.component';
@@ -19,8 +20,7 @@ import 'firebase/database'
 export class Tab1Page implements OnInit{
   user: any;
   events: Event[];
-  eventEntries;
-  constructor( private fireauth: AngularFireAuth,private firebaseDatabase: FirebaseDatabaseService, private router: Router) {
+  constructor( private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router: Router) {
   
 
   }
@@ -37,10 +37,6 @@ export class Tab1Page implements OnInit{
     }, (err) => {
       console.log(err)
     })
-
-    
-    
-      
   }
   ionViewDidEnter() {
     this.fireauth.auth.onAuthStateChanged((user) => {
@@ -57,15 +53,21 @@ export class Tab1Page implements OnInit{
     }, 2000);
   }
 
-  notGoing(event: Event) {
-      // console.log(event.event_title)
+  
+
+
+  saveEvent(eventID: string) {
+  this.firebaseDatabase.saveEvent(eventID, this.user.uid)
+    this.showToast("Event Saved")
+}
+
+showToast(msg) {
+    this.toastCtrl.create({
+      position: 'bottom',
+      message: msg, 
+      duration: 2000
+    }).then(toast => toast.present());
   }
-
-
-  going(event) {
-
-  }
-
 }
 
 

@@ -1,27 +1,45 @@
 import { FirebaseDatabaseService } from './../../services/firebaseDatabase/firebase-database.service';
 import { ToastController } from '@ionic/angular';
 import  * as firebase from 'firebase/app';
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, ViewChild,ElementRef } from '@angular/core';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {Event} from '../../Models/Event'
 import { AngularFireAuth } from '@angular/fire/auth';
-
+class Port {
+  public id: number;
+  public name: string;
+}
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
+
 export class Tab3Page {
+  @ViewChild('myInput') myInput: ElementRef;
+ 
+resize() {
+    this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px' ;
+}
+  iconsMatch = {"volunteer": "globe", "sports": "american-football","gordon career center": "briefcase","food": "pizza", "special lectures": "school",  "parties":  "beer", "usdan": "restaurant", "exley": "true", "foss hill": "sunny", "movies": "film" }
+
+  description;
+  starttime;
+  endtime;
+  date;
+  invited;
+  location;
+  selected;
+  title;
   user: any;
   createEventForm: FormGroup;
- 
+  viewMode = true;
    event: Event;
   constructor(private fireauth: AngularFireAuth, private fStore: AngularFirestore, private formBuilder: FormBuilder, private router: Router, private toastCtrl: ToastController, private FirebaseDatabase: FirebaseDatabaseService) {
-    
-  
+   
     this.createEventForm = this.formBuilder.group({
       'event_title' : [null, Validators.required],
       'event_location' : [null, Validators.required], 
@@ -39,6 +57,8 @@ export class Tab3Page {
 
   }
   ionViewDidEnter() {
+    this.myInput.nativeElement.style.height = "130px";
+
     this.fireauth.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
@@ -46,6 +66,7 @@ export class Tab3Page {
       }
     })
   }
+
   showToast(msg) {
     this.toastCtrl.create({
       position: 'top',
@@ -71,8 +92,26 @@ export class Tab3Page {
     createdBy: this.user.uid
     
   }
-    this.FirebaseDatabase.createEvent(this.event)
+    this.FirebaseDatabase.createEvent(this.event, this.user.uid)
     this.showToast("Event has been created.");
   }
+
+  segmentChanged(ev: any) {
+    console.log('Segment changed', ev);
+    if (ev['detail']['value'] == "edit") {
+      this.viewMode = false
+
+    } else {
+      this.viewMode = true
+
+
+    }
+   
+  }
+  }
   
-}
+  
+  
+
+
+  
