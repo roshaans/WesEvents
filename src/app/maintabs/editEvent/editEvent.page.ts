@@ -4,18 +4,19 @@ import  * as firebase from 'firebase/app';
 import { Component, NgModule, ViewChild,ElementRef } from '@angular/core';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
-import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {Event} from '../../Models/Event'
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router, ActivatedRoute } from '@angular/router';
 import {iconDict} from './../../Models/CategoryIconsDictionary'
+
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  selector: 'app-edit',
+  templateUrl: 'editEvent.page.html',
+  styleUrls: ['editEvent.page.scss']
 })
 
-export class Tab3Page {
+export class editEventPage {
   @ViewChild('myInput') myInput: ElementRef;
  
   
@@ -23,23 +24,23 @@ resize() {
     this.myInput.nativeElement.style.height = this.myInput.nativeElement.scrollHeight + 'px' ;
 }
   iconsMatch = iconDict;
-  description;
+  id;
+  event: Event;
+  description; 
   starttime;
   endtime;
   date;
   invited;
-  location;
-  selected;
   selectedCategory;
   selectedLocation;
-  title;
   other = "custom field";
+  location;
+  selected;
+  title;
   user: any;
   createEventForm: FormGroup;
   viewMode = true;
-   event: Event;
-  constructor(private fireauth: AngularFireAuth, private fStore: AngularFirestore, private formBuilder: FormBuilder, private router: Router, private toastCtrl: ToastController, private FirebaseDatabase: FirebaseDatabaseService) {
-   
+  constructor(private route: ActivatedRoute,private fireauth: AngularFireAuth, private fStore: AngularFirestore, private formBuilder: FormBuilder, private router: Router, private toastCtrl: ToastController, private FirebaseDatabase: FirebaseDatabaseService) {
     this.createEventForm = this.formBuilder.group({
       'event_title' : [null, Validators.required],
       'event_location' : [null, Validators.required], 
@@ -57,6 +58,26 @@ resize() {
 
   }
   ionViewDidEnter() {
+    this.id = this.route.snapshot.paramMap.get('id')
+    // this.FirebaseDatabase.getEvent(this.id).subscribe();
+    if (this.id) { 
+      this.FirebaseDatabase.getEvent(this.id).subscribe(res => {
+       this.event = res
+         this.description = this.event.event_description
+         this.starttime = this.event.event_startTime
+         this.endtime = this.event.event_endTime
+
+         this.date = this.event.event_date
+         this.invited = this.event.event_students
+
+         this.location = this.event.event_location
+         this.selected = this.event.event_category
+         this.title = this.event.event_title
+
+      }, (err) => {
+        console.log(err)
+      })
+     }
     this.myInput.nativeElement.style.height = "130px";
 
     this.fireauth.auth.onAuthStateChanged((user) => {
@@ -74,7 +95,7 @@ resize() {
       duration: 2000
     }).then(toast => toast.present());
   }
-  createEvent() {
+  editEvent() {
     this.event = {  
     event_title: this.createEventForm.controls["event_title"].value,
     event_location: this.createEventForm.controls["event_location"].value,  
@@ -91,13 +112,15 @@ resize() {
     event_maybeGoingCounter: 0,
     createdBy: this.user.uid
     
+    
   }
-    this.FirebaseDatabase.createEvent(this.event, this.user.uid)
-    this.showToast("Event has been created.");
+    this.FirebaseDatabase.editEvent(this.event, this.id)
+
+    this.showToast("Event edit was successful!");
   }
 
   segmentChanged(ev: any) {
-    console.log('Segment changed', ev);
+    // console.log('Segment changed', ev);
     if (ev['detail']['value'] == "edit") {
       this.viewMode = false
 

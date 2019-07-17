@@ -1,4 +1,4 @@
-.locationContainer {
+.activityContainer {
     overflow-x: scroll;
     
     overflow-y: hidden;
@@ -7,8 +7,8 @@
         ion-button{
             display: inline-block;
             // vertical-align: middle;
-            height: 30px;
-            width: 200px;
+            height: 45px;
+            width: 160px;
             // --color: white;
             --background-activated: transparent;
             --background: transparent;
@@ -16,18 +16,14 @@
             
             font-family: BebasNeue;
             
-            font-size: 18px;
+            font-size: 20px;
             color: #9F9B9B;
             letter-spacing: 0;
 
 
     }
-    
 }
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* make scrollbar transparent */
-}
-.all{
-    width: 50px;
 }

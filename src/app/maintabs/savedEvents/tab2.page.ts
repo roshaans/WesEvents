@@ -14,7 +14,8 @@ import {UserService} from './../../services/user/user.service'
 })
 export class Tab2Page implements OnInit{
   user: any;
-  events;
+  events: any[];
+  firstTime: boolean = false;
   
   constructor(private userService: UserService,private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router: Router) {
     
@@ -22,15 +23,16 @@ export class Tab2Page implements OnInit{
 
   }
 
-
   ngOnInit() {
-   
-    
+    this.fetchEvents()
+
+  
+
   
   }
 
   notGoing(event: string) {
-      this.firebaseDatabase.deleteEvent(event, this.user.uid).then(() => {
+      this.firebaseDatabase.deleteEventFromArray(event, this.user.uid).then( () => {
         this.fetchEvents()
 
       })
@@ -39,7 +41,15 @@ export class Tab2Page implements OnInit{
 
     fetchEvents() {
       this.userService.getSavedIds().get().subscribe((snapshot) => {
-        this.events = snapshot.data().savedEvents
+        if ( snapshot.data().savedEvents) {
+          this.events = snapshot.data().savedEvents
+          if (this.events.length >= 1){
+            this.firstTime = true;
+          } else {
+            this.firstTime = false
+          }
+        }
+       
     })
     }
   ionViewDidEnter() {

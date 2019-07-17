@@ -26,6 +26,17 @@
 
 
 }
+
+.activityFilter{
+  display: block;
+  // padding: 0px 0px 0px 0px;
+  height: 48px;
+  // border: 1px solid red;
+
+  // border: 1px solid #FF0000;
+/* ALL: */
+
+}
 .timeFilter {
   display:block;
   height: 33px;
@@ -61,6 +72,7 @@
   display:flex;
   align-self: stretch;
  align-content: stretch;
+
   // --backround: #E0CA3C;
 
 

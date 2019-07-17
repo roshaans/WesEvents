@@ -20,12 +20,9 @@ export class FirebaseDatabaseService {
   
   eventsCollection: AngularFirestoreCollection<Event>;
    events: Observable<Event[]>;
-  // public event: Event;
 
 
-   eventIDArray = [] //entries with 
 
-eventsDataDict = new Map();
 
   constructor(public fStore: AngularFirestore) {
       this.eventsCollection = fStore.collection<Event>('events')
@@ -61,11 +58,7 @@ createEvent(event: Event, user_uid: string) {
     createdEvents: firebase.firestore.FieldValue.arrayUnion(docref.id)
     })
 
-    // userRef.set({
-    //     createdEvents: {id: docref.id}
-    // }, { merge: true })
-   
-
+ 
 })
     .catch(function(error) {
     console.log("Error Creating Event: ", error);
@@ -77,6 +70,25 @@ createEvent(event: Event, user_uid: string) {
     
 }
 
+editEvent(event: Event, eventID: string) {
+
+   this.eventCollectionRef.doc(eventID).update(event )
+    .then(function(docref) {
+    console.log("Event was successfully updated!");
+   
+    
+   
+
+})
+    .catch(function(error) {
+    console.log("Error Editing Event: ", error);
+});
+
+
+
+
+    
+}
 getEvent(id:string) {
 
     return this.eventsCollection.doc<Event>(id).valueChanges().pipe(take(1), map(event => {
@@ -97,14 +109,29 @@ getEventIDs() {
 
 
 deleteEvent(event: string, user_uid: string) {
+    var eventRef = this.fStore.collection("events").doc(event)
+    this.deleteEventCreatedFromArray(event, user_uid).then(() => {
+
+        return eventRef.delete()
+
+    })
+
+
+
+}
+deleteEventCreatedFromArray(event: string, user_uid: string) {
     var userRef = this.fStore.collection("users").doc(user_uid)
+    return userRef.update({
+        createdEvents: firebase.firestore.FieldValue.arrayRemove(event)
+    })
+}
 
-   return userRef.update({
-    savedEvents: firebase.firestore.FieldValue.arrayRemove(event)
-})
 
-
-
+deleteEventFromArray(event: string, user_uid: string) {
+    var userRef = this.fStore.collection("users").doc(user_uid)
+    return userRef.update({
+        savedEvents: firebase.firestore.FieldValue.arrayRemove(event)
+    })
 }
 updateEvent(id: string, updates: Event) {
  

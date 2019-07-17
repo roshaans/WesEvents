@@ -2,13 +2,13 @@
 
   
   <ion-item class = "item" *ngIf = "event">
-    <ion-card   color = "light" class = "newCard">
-      <ion-card-content>
-        <ion-card-title>
+    <ion-card  [ngStyle]="{'background':  'linear-gradient(#e66465, #9198e5)'}" class = "newCard">
+      <ion-card-content [ngStyle]="{'color':  'white'}">
+        <ion-card-title [ngStyle]="{'color':  'white'}">
                     {{event.event_title}}
              
                   </ion-card-title>
-        <ion-card-subtitle>
+        <ion-card-subtitle [ngStyle]="{'color':  'white'}">
                     {{event.event_date}}
           <ion-chip>
             <ion-icon name="{{iconsMatch[event.event_category]}}" color="dark"></ion-icon>

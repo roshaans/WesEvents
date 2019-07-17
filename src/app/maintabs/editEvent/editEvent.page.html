@@ -1,37 +1,29 @@
 <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
-          <ion-title    color = "#d33939" class="ion-text-center">
-      WesEvents
-          </ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title    color = "#d33939" class="ion-text-center">
+  WesEvents
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-header>
 
-  <ion-segment  (ionChange)="segmentChanged($event) ">
-      <ion-segment-button checked value="preview">
-        <ion-icon slot = "end"name="create"></ion-icon>
-        <div class = "color">
-            Create Event
-          </div>
-      </ion-segment-button>
-      <ion-segment-button value="edit">
-        <ion-icon slot = "end" name="eye"></ion-icon>
-        <div class = "color">
-            Live Preview
-          </div>
-      </ion-segment-button>
-    </ion-segment>
-  <!-- <ion-segment (ionChange)="segmentChanged($event)">
-      <ion-segment-button value="friends">
-        <ion-label>Friends</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="enemies">
-        <ion-label>Enemies</ion-label>
-      </ion-segment-button>
-    </ion-segment> -->
+<ion-segment  (ionChange)="segmentChanged($event) ">
+  <ion-segment-button checked value="preview">
+    <ion-icon slot = "end"name="create"></ion-icon>
+    <div class = "color">
+        Create Event
+      </div>
+  </ion-segment-button>
+  <ion-segment-button value="edit">
+    <ion-icon slot = "end" name="eye"></ion-icon>
+    <div class = "color">
+        Live Preview
+      </div>
+  </ion-segment-button>
+</ion-segment>
    
     
 </ion-header>
@@ -85,18 +77,18 @@
     <form [formGroup]="createEventForm">
         <ion-item>
           <ion-label  position="floating">Event Title</ion-label>
-          <ion-input placeholder = "e.g. Fashion Show 2019..."[(ngModel)] = "title" spellcheck = "true" required = "true" maxlength = 50 type="text" formControlName="event_title"></ion-input>
+          <ion-input [(ngModel)] = "title" spellcheck = "true" required = "true" maxlength = 50 type="text" formControlName="event_title"></ion-input>
         </ion-item>
-      
         <ion-item>
             <!-- <ion-label  position="floating">Category</ion-label>
             <ion-input  required = "true" maxlength = 15 type="text" formControlName="event_category"></ion-input> -->
            
             <ion-label>Category</ion-label>
               <ion-select [(ngModel)] = "selected" formControlName="event_category" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder = "Select One">
-                  <ion-select-option > </ion-select-option>
+                  <ion-select-option value = " "></ion-select-option>
 
                 <ion-select-option value = "custom field"> Other</ion-select-option>
+
                 <ion-select-option value ="Volunteering"> Volunteering </ion-select-option>
                     <ion-select-option value ="Community"> Community </ion-select-option>
                     <ion-select-option value ="Sports"> Sports </ion-select-option>
@@ -132,7 +124,7 @@
 
            <ion-label>Location</ion-label> 
             <ion-select [(ngModel)] = "selectedLocation" formControlName="event_location" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder = "Select One">
-                <ion-select-option > </ion-select-option>
+                <ion-select-option value = " "></ion-select-option>
 
               <ion-select-option value = "custom field"> Other</ion-select-option>
                 <ion-select-option value ="Volunteering"> Volunteering </ion-select-option>
@@ -165,8 +157,9 @@
             <ion-input maxlength = 20 required = "true" formControlName="event_location" placeholder = "Custom Location:"> </ion-input>
           </ion-item>
         <ion-item>
+        <ion-item>
             <ion-label  position="floating">Invited Students</ion-label>
-            <ion-input placeholder = "e.g. All, MSA members, Students Of Color"[(ngModel)] = "invited" required = "true" maxlength = 15 type="text" formControlName="event_students"></ion-input>
+            <ion-input [(ngModel)] = "invited" required = "true" maxlength = 15 type="text" formControlName="event_students"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="stacked">Date</ion-label>
@@ -195,17 +188,18 @@
                 </ion-col>
             </ion-row>
           </ion-grid>
-<div padding>  
-          <ion-label class = "label" position = "fixed">Description</ion-label>
-        </div>       
-          <ion-item >
 
-            <textarea [(ngModel)] = "description" #myInput id="myInput" rows="5" maxLength="250" class = "desc" (keyup)="resize()" spellcheck = "true" placeholder = "3-4 sentences describing your event..." formControlName="event_description"></textarea>
+         
+                <ion-label class = "label"position="floating">Description</ion-label>
+
+         
+          <ion-item>
+            <textarea [(ngModel)] = "description" #myInput id="myInput" rows="5" maxLength="250" class = "desc" (keyup)="resize()" spellcheck = "true" placeholder = "2-3 sentences describing the event..." formControlName="event_description"></textarea>
 
             <!-- <ion-textarea   maxlength = "200" autogrow = "true" class = "desc" spellcheck = "true" placeholder = "2-3 sentences describing the event..." type="text" formControlName="event_description"></ion-textarea> -->
           </ion-item>
         <ion-button shape="round" color = "danger"
-        expand="block" [disabled]="!createEventForm.valid" (click)="createEvent()">Create Event</ion-button>
+        expand="block" [disabled]="!createEventForm.valid" (click)="editEvent()">Edit Event</ion-button>
 
 
     </form>
@@ -216,3 +210,5 @@
 
 
  
+
+

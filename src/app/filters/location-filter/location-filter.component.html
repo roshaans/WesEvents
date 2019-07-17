@@ -1,7 +1,7 @@
 <div class = "locationContainer" > 
 
   <div class = "buttonBox"  > 
-      <ion-button fill = "outline"  [color] = "allClicked ? 'danger' : 'medium' " (click) = "allClickedFunc()" >ALL</ion-button>
+      <ion-button class = "all" fill = "outline"  [color] = "allClicked ? 'danger' : 'medium' " (click) = "allClickedFunc()" >ALL</ion-button>
 
     <ion-button *ngFor = "let location of locationEntries; index as i" fill = "outline"   [color] = "location[1] ? 'danger' : 'medium' " (click) = "changeColor(i)" >{{location[0] | uppercase}}</ion-button>
   

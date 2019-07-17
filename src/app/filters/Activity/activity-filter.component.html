@@ -1,0 +1,21 @@
+<div class = "activityContainer" > 
+
+  <div class = "buttonBox"  > 
+      <ion-button fill = "outline"  [color] = "allClicked ? 'danger' : 'medium' " (click) = "allClickedFunc()" >ALL</ion-button>
+
+    <ion-button *ngFor = "let activity of activityEntries; index as i" fill = "outline"   [color] = "activity[1] ? 'danger' : 'medium' " (click) = "changeColor(i)" >
+        <!-- <ion-icon slot = "start" name = "{{iconsMatch[activity[0]]}}"> </ion-icon> -->
+
+    
+      {{activity[0] | uppercase}} 
+       <!-- <ion-icon *ngIf = "custom" src = "{{iconsMatch[activity[0]]}}"> </ion-icon> -->
+
+
+
+        
+    </ion-button>
+  
+  </div> 
+
+</div>
+

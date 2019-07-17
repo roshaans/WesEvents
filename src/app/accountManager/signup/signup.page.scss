@@ -61,6 +61,7 @@ ion-card {
 }
 .block {
   display: block;
+  color: white;
 }
 .fire-logo {
   display: flex;
@@ -94,4 +95,8 @@ ion-card {
 .bg-image {
   --background: #fff url('../../../assets/img/loginbackround.png') no-repeat center center / cover;
 
+}
+
+h2 {
+  color: white;
 }

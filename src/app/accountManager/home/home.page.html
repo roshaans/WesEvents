@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar >
     <ion-title>
       Profile Settings
     </ion-title>
@@ -21,7 +21,10 @@
           <h3>{{user.displayName}}</h3>
         </ion-text>
         <p>{{user.email}}</p>
+        <p> <strong>Status: </strong> {{user.status}} </p>
+
       </ion-label>
+
     </ion-item>
   </div>
   <ion-list-header color="medium">
@@ -32,6 +35,11 @@
     <ion-input type="string" placeholder="Enter new" [(ngModel)]="username"></ion-input>
     <ion-button slot="end" color="success" expand="full" (click)="updateUsername()">Update</ion-button>
   </ion-item>
+  <ion-item>
+      <ion-label position="fixed">Status</ion-label>
+      <ion-input type="string" placeholder="Say what you want to the rest of Wes!" [(ngModel)]="status"></ion-input>
+      <ion-button slot="end" color="success" expand="full" (click)="updateStatus()">Update</ion-button>
+    </ion-item>
   <ion-item>
     <ion-label position="fixed">Image</ion-label>
     <ion-input type="number" placeholder="A number 1-1000" [(ngModel)]="image"></ion-input>

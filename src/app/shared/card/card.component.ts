@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as Firebase from 'firebase/app';
 import { Database } from '@firebase/database';
 import 'firebase/database';
+import { iconDict } from '../../Models/CategoryIconsDictionary';
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -13,13 +14,19 @@ import 'firebase/database';
 })
 export class CardComponent implements OnInit {
   @Input() id;
-  iconsMatch = {"volunteer": "globe", "sports": "american-football","gordon career center": "briefcase","food": "pizza", "special lectures": "school",  "parties":  "beer", "usdan": "restaurant", "exley": "true", "foss hill": "sunny", "movies": "film" }
+  iconsMatch = iconDict
 
   event: Event;
    
-
+  colorScheme = {"Sports": "#195DF7", "Party": "#36454f" }
   constructor(private route: ActivatedRoute, private firebaseDatabase: FirebaseDatabaseService) { 
-   
+    // const el = document.querySelector('.fancy-button');
+    // document.querySelector("newCard").assignedSlot.style.setProperty('background', '#36454f')
+    // document.documentElement.style.setProperty(`backround`, "#195DF7");
+    // document.getElementById("newCard").style.color = "blue";
+
+    // el.style
+    // style.setProperty('--background', '#36454f');
   }
 
   ngOnInit() {

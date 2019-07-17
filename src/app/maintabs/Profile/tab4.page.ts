@@ -15,19 +15,34 @@ import {UserService} from './../../services/user/user.service'
 export class Tab4Page implements OnInit {
   user: any;
   events;
+  firstTime: boolean = false;
 
   customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
   customDayShortNames = ['s\u00f8n', 'man', 'tir', 'ons', 'tor', 'fre', 'l\u00f8r'];
   customPickerOptions: any;
   constructor( private userService: UserService,private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router:Router) { 
+    this.fireauth.auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.user = user;
+        
+        
     
+      }
+    })
     
   }
 
   ionViewDidEnter() {
-    this.userService.getSavedIds().get().subscribe((snapshot) => {
-      this.events = snapshot.data().createdEvents
-  })
+    this.fetchEvent()
+}
+deleteEvent(event) {
+
+this.firebaseDatabase.deleteEvent(event, this.user.uid)
+this.fetchEvent();
+
+}
+editEvent(event) {
+  this.router.navigateByUrl("editEvent/"+event)
 }
   showToast(msg) {
     this.toastCtrl.create({
@@ -38,16 +53,21 @@ export class Tab4Page implements OnInit {
   }
   ngOnInit() {
     this.fetchEvent();
-
+    
   }
  fetchEvent() {
-  this.fireauth.auth.onAuthStateChanged((user) => {
-    if (user) {
-      this.user = user;
-     
-  
+  this.userService.getSavedIds().get().subscribe((snapshot) => {
+    if (snapshot.data().createdEvents) {
+      this.events = snapshot.data().createdEvents
+      if (this.events.length >= 1){
+        this.firstTime = true;
+      } else {
+        this.firstTime = false
+      }
     }
-  })
+   
+})
+  
  }
 settingsButtonClicked() {
   this.router.navigateByUrl('/settings');

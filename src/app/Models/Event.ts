@@ -16,5 +16,5 @@ export interface Event {
   event_creation_timeStamp?: Date ,
   event_id?: Number, 
   createdBy?: String,
-  lastUpdate?: Number
+  lastUpdate?: Date
 }

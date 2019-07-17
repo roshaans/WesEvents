@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuard] },
   { path: 'home', redirectTo: '', pathMatch: "full"},
   { path: 'card/:id', loadChildren: './card-detail/card-detail.module#CardDetailPageModule' , canActivate: [AuthGuard] },
+  { path: 'editEvent/:id', loadChildren: './maintabs/editEvent/editEvent.module#EditEventPageModule' , canActivate: [AuthGuard] },
   { path: 'login', loadChildren: './accountManager/login/login.module#LoginPageModule' },
   { path: 'forgot', loadChildren: './accountManager/forgot/forgot.module#ForgotPageModule' },
   { path: 'signup', loadChildren: './accountManager/signup/signup.module#SignupPageModule' },

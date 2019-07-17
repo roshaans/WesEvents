@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LocationFilterComponent implements OnInit {
 
-  locations = {"movies": true, "food": true, "sports": true, "volunteer": true, "Gordon Career Center": true, "Parties":  true, "Usdan": true, "Exley": true, "Foss Hill": true }
+  locations = {" Exley " : true , " Foss hill " : true , " Usdan University Center " : true , " Russel House " : true , " Davison Art Center " : true , " Fayerweather " : true , " Memorial Chapel " : true , " Patricelli ’92 Theater " : true , " Powell Family Cinema " : true , " Resource Center " : true , " Gordon Career Center " : true , " Religious and Spiritual Life " : true , " Student Resource Center " : true , " Wesleyan RJ Julia Bookstore " : true}
 
   locationEntries = Object.entries(this.locations)
   allClicked = true; 

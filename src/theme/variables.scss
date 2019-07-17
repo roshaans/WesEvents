@@ -116,3 +116,17 @@
   --ion-color-tint: var(--ion-color-mediumAltered-tint) !important;
   }
   
+
+  @font-face {
+    font-family: 'My Custom Font BebasNeue';
+    font-style: bold;
+    font-weight: bold;
+    src: url('../assets/fonts/BebasNeue-Bold.ttf');
+  }
+  @font-face {
+    font-family: 'Arial-Custom';
+    font-style: bold;
+    font-weight: bold;
+    src: url('../assets/fonts/Arial-Black.ttf');
+  }
+  

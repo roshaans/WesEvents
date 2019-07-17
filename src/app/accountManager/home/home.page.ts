@@ -21,6 +21,7 @@ export class HomePage {
   email: string = '';
   password: string = '';
   username: string = '';
+  status: string = '';
   image: number;
   phone: number;
   error: string;
@@ -38,10 +39,25 @@ export class HomePage {
   }
 
   updateEmail() {
+    
     this.user.updateEmail(this.email)
       .then(() => {
         this.email = '';
         this.presentToast('Email updated', false, 'bottom', 1000);
+        this.error = '';
+      })
+      .catch(err => {
+        console.log(` failed ${err}`);
+        this.error = err.message;
+      });
+  }
+
+  updateStatus() {
+    this.user.updateProfile({
+      status: this.status})
+      .then(() => {
+        this.status = '';
+        this.presentToast('Status updated', false, 'bottom', 1000);
         this.error = '';
       })
       .catch(err => {

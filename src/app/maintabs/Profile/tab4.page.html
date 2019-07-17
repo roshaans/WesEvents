@@ -7,8 +7,44 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+<div class="ion-padding">
+  
+    <ion-item *ngIf="user">
+      <ion-thumbnail slot="start">
+        <img [src]="user.photoURL">
+      </ion-thumbnail>
+      <ion-label text-wrap>
+        <ion-text color="primary">
+          <h3> <strong> {{user.displayName}} </strong></h3>
+        </ion-text>
+        <p>{{user.email}}</p>
+      </ion-label>
+    </ion-item>
 
-<ion-content>
+  </div>
+<ion-content *ngIf = "!firstTime">
+    <ion-card color = "darkred">
+
+      <ion-card-header>
+
+        <ion-card-title>
+            😱
+            
+            You have not hosted any events yet!
+
+
+        </ion-card-title>
+
+      </ion-card-header>
+      <ion-card-content>
+
+					<h2>	<strong> Tip:</strong> Try creating one from the Create Event screen!	</h2>
+
+					 </ion-card-content>
+    </ion-card>
+
+  </ion-content>
+<ion-content  *ngIf = "firstTime">
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
       <ion-refresher-content
             pullingText="Pull to refresh"
@@ -19,9 +55,12 @@
   <div > 
       <div class = "cards" *ngFor = "let event of events; index as i" [routerLink] ="['/card/', event]" class = "final">
         <ion-item-sliding class = "item-sliding">
-          <ion-item-options side="start">
-            <ion-item-option color="danger" (click)="notGoing(event)">Not Going!</ion-item-option>
+            <ion-item-options side="start">
+                <ion-item-option color="danger" (click)="deleteEvent(event)">Delete</ion-item-option>
+              
+            <ion-item-option color="warning" (click)="editEvent(event)">Edit</ion-item-option>
           </ion-item-options>
+          
           
       <app-card [id]="event" > </app-card>
           
@@ -29,7 +68,10 @@
           <!-- <ion-item-options class = "item-options" side="end">
             <ion-item-option color = "success" (click)="saveEvent()">Mark As Going</ion-item-option>
           </ion-item-options> -->
+         
         </ion-item-sliding>
+
+        
       </div>  
   </div>  
   </ion-content>

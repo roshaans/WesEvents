@@ -24,6 +24,7 @@ export class SignupPage {
   error: string = '';
   username: string = '';
   image: number;
+  status?: string = '';
   constructor(private fireauth: AngularFireAuth, private router: Router, private toastController: ToastController, private platform: Platform, public loadingController: LoadingController,
     public alertController: AlertController, private fStore:AngularFirestore) {
 
@@ -51,7 +52,8 @@ export class SignupPage {
 
           this.fStore.collection("users").doc(res.user.uid).set({
             displayName: this.username,
-            photoURL: `https://picsum.photos/id/${this.image}/200/200`
+            photoURL: `https://picsum.photos/id/${this.image}/200/200`,
+            status: this.status
             
           })
         }
@@ -77,7 +79,8 @@ export class SignupPage {
         console.log(user);
         user.updateProfile({
           displayName: this.username,
-          photoURL: `https://picsum.photos/id/${this.image}/200/200`
+          photoURL: `https://picsum.photos/id/${this.image}/200/200`,
+          status: this.status
         })
           .then(() => {
             this.router.navigateByUrl('/');

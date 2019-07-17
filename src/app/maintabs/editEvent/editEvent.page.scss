@@ -1,0 +1,67 @@
+
+.card {
+    display: inline-block;
+    height: 150px;
+    width: 370px;
+    // backround-color: blue;
+  //  background-image: radial-gradient(50% 100%, #195DF7 0%, #616DFF 100%);
+    border: 1px solid blue;
+  }
+  .identify {
+    border: 1px solid orange;
+  }
+  ion-segment{
+    height: 80px;
+}
+
+ion-segment-button{
+  font-size: 16px;
+  color: var(--ion-color-medium);
+  border: 0px;
+  border-radius: 0px;
+}
+.color{
+  color: rgb(70, 66, 66);
+}
+
+.segment-button-checked{
+  background: #FFF;
+  color: var(--ion-color-primary);
+  border-bottom: 3px solid var(--ion-color-primary);
+}
+.content {
+    
+  
+      display: flex;
+      flex-direction: column;
+  
+  }
+  .outer {
+    display: flex;
+    flex-direction: row;
+  }
+  .desc {
+    display:block;
+    height: 50px;
+  }
+  .realtimeText {
+    // display: block;
+text-align: center;
+padding-top: 20px;
+    // justify-content: center;
+
+  }
+  #myInput {
+    width: calc(100% - 10px);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+.label {
+  display: flex;
+  margin:auto;
+}
+ion-button{
+  color: #ffa000;
+
+}

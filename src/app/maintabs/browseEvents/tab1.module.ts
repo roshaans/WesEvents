@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
+import {ActivityFilterComponent} from './../../filters/Activity/activity-filter.component'
 import {SharedModule} from './../../shared/shared.module'
 import { LocationFilterComponent } from './../../filters/location-filter/location-filter.component';
 @NgModule({
@@ -18,6 +19,6 @@ import { LocationFilterComponent } from './../../filters/location-filter/locatio
     SharedModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }])
   ],
-  declarations: [Tab1Page, ScrollComponent, LocationFilterComponent, TimeFilterComponent ]
+  declarations: [Tab1Page, ScrollComponent, LocationFilterComponent, TimeFilterComponent,ActivityFilterComponent ]
 })
 export class Tab1PageModule {}
