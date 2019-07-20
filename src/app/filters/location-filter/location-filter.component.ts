@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Tab1Page } from './../../maintabs/browseEvents/tab1.page'
 
 @Component({
   selector: 'app-location-filter',
@@ -7,11 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LocationFilterComponent implements OnInit {
 
-  locations = {" Exley " : true , " Foss hill " : true , " Usdan University Center " : true , " Russel House " : true , " Davison Art Center " : true , " Fayerweather " : true , " Memorial Chapel " : true , " Patricelli ’92 Theater " : true , " Powell Family Cinema " : true , " Resource Center " : true , " Gordon Career Center " : true , " Religious and Spiritual Life " : true , " Student Resource Center " : true , " Wesleyan RJ Julia Bookstore " : true}
+  locations = {"Exley" : true , "Foss Hill" : true , "Usdan University Center" : true , "Russel House" : true , "Davison Art Center" : true , "Fayerweather" : true , "Memorial Chapel" : true , "Patricelli ’92 Theater" : true , "Powell Family Cinema" : true , "Resource Center " : true , " Gordon Career Center" : true , "Religious and Spiritual Life" : true , "Student Resource Center" : true , "Wesleyan RJ Julia Bookstore" : true}
 
   locationEntries = Object.entries(this.locations)
   allClicked = true; 
-  constructor() { }
+  constructor(private tab1: Tab1Page) { }
 
   ngOnInit() {}
 
@@ -23,6 +24,7 @@ export class LocationFilterComponent implements OnInit {
       this.locationEntries[index][1] = false
 
     }
+    this.tab1.filterList(this.locationEntries, "location", false)
 
     
   }
@@ -45,6 +47,7 @@ export class LocationFilterComponent implements OnInit {
     element[1] = false;
 })
 }
+this.tab1.filterList(this.locationEntries, "location", true)
 
 
 

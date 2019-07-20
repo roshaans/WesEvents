@@ -23,6 +23,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import {AngularFireAuth} from '@angular/fire/auth'
 import {AngularFireAuthModule} from '@angular/fire/auth'
 import {Autosize } from './autosize'
+
 @NgModule({
   declarations: [AppComponent, KeysPipe, Autosize],
   entryComponents: [],

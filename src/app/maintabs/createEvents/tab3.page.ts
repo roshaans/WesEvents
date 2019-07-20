@@ -71,7 +71,7 @@ resize() {
     this.toastCtrl.create({
       position: 'top',
       message: msg, 
-      duration: 2000
+      duration: 4000
     }).then(toast => toast.present());
   }
   createEvent() {
@@ -92,8 +92,11 @@ resize() {
     createdBy: this.user.uid
     
   }
+
+  
     this.FirebaseDatabase.createEvent(this.event, this.user.uid)
-    this.showToast("Event has been created.");
+    this.clearFields()
+    this.showToast("Event has been created. Please head to the profile section to make any edits to your event.");
   }
 
   segmentChanged(ev: any) {
@@ -107,6 +110,18 @@ resize() {
 
     }
    
+  }
+  clearFields() {
+    this.description = "";
+    this.starttime= "";
+    this.endtime= "";
+    this.date= "";
+    this.invited= "";
+    this.location= "";
+    this.selected= "";
+    this.selectedCategory= "";
+    this.selectedLocation= "";
+    this.title= ""; 
   }
   }
   
