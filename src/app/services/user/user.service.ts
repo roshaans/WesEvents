@@ -23,7 +23,6 @@ export class UserService {
     this.fireauth.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user; 
-        console.log(user.uid, "printing UID")
         this.savedEventsCollection = fStore.doc("users/"+user.uid)
         
 
@@ -35,6 +34,10 @@ export class UserService {
       
     
 }
+getUsername(id: string): any {
+
+   return this.fStore.collection("users").doc(id).snapshotChanges()
+} 
 
 
   getSavedIds(): AngularFirestoreDocument {

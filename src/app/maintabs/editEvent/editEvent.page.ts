@@ -108,7 +108,7 @@ resize() {
     event_description: this.createEventForm.controls["event_description"].value,
     event_pictureURL: "", 
     event_chatNumber: 0, 
-    event_goingCounter: 0, 
+    event_goingCounter: [], 
     event_maybeGoingCounter: 0,
     createdBy: this.user.uid
     

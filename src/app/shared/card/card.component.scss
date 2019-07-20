@@ -30,3 +30,19 @@
 
   border-radius: 15px;
  }
+
+ .chip {
+//   display: flex;
+// // flex-grow: 2;
+// width: 30px;
+// justify-content: flex-end;
+
+ }
+
+ .flex {
+   display: flex;
+   flex-direction: row;
+ }
+ .removedLabel {
+   --color: black;
+ }

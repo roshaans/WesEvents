@@ -1,3 +1,4 @@
+import { UserService } from '../../services/user/user.service'
 import { FirebaseDatabaseService } from './../../services/firebaseDatabase/firebase-database.service';
 import { Event } from '../../Models/Event';
 import { Component, OnInit, Input} from '@angular/core';
@@ -13,32 +14,52 @@ import { iconDict } from '../../Models/CategoryIconsDictionary';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  @Input() id;
+  @Input() id?;
   iconsMatch = iconDict
-
+  going: Number = 0;
   event: Event;
-   
-  colorScheme = {"Sports": "#195DF7", "Party": "#36454f" }
-  constructor(private route: ActivatedRoute, private firebaseDatabase: FirebaseDatabaseService) { 
-    // const el = document.querySelector('.fancy-button');
-    // document.querySelector("newCard").assignedSlot.style.setProperty('background', '#36454f')
-    // document.documentElement.style.setProperty(`backround`, "#195DF7");
-    // document.getElementById("newCard").style.color = "blue";
+  maybe: Number = 0;
+  goingIDs;
+  goingUserObjects = [];
 
-    // el.style
-    // style.setProperty('--background', '#36454f');
+  colorScheme = {"Sports": "#195DF7", "Party": "#36454f" }
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,private firebaseDatabase: FirebaseDatabaseService) { 
+    
   }
+
 
   ngOnInit() {
-    this.firebaseDatabase.getEvent(this.id).subscribe( res => {
-      this.event = res
-    })
-   
+    
+
+    this.refreshGoingButton()
+
 
   }
-  clickButton() {
+  showGoingList () {
+    this.refreshGoingButton()
+    this.router.navigateByUrl("show-going/" + this.id)
+  
+}
+  refreshGoingButton() {
+    if(this.id) {
+    this.firebaseDatabase.getEvent(this.id).subscribe( res => {
+      console.log(res, "res")
+      this.event = res
+      
+      console.log("inside refreshGoingButton")
+
+    //   if(res.event_goingCounter){ 
+    //     if(res.event_goingCounter.length > 0) {
+    //       console.log("inside guard")
+
+    //       this.going = res.event_goingCounter.length
+    //      this.goingIDs = res.event_goingCounter
+    //    }
    
+    // }
+    })
   }
+  } 
   // showCardDetail(id) {
   //   this.router.navigateByUrl('/card/' + id);
   // }

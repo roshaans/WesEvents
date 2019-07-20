@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
  import  * as firebase from 'firebase/app';
-
-// import 'firebase/database'
-// import 'firebase/firestore'
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import {Event} from '../../Models/Event'
@@ -17,7 +14,8 @@ import { identifierName } from '@angular/compiler';
 })
 
 export class FirebaseDatabaseService {
-  
+eventCollectionRef = this.fStore.collection('events');
+
   eventsCollection: AngularFirestoreCollection<Event>;
    events: Observable<Event[]>;
 
@@ -40,11 +38,13 @@ this.events = this.eventsCollection.snapshotChanges()
   }
 
 
-  eventCollectionRef = this.fStore.collection('events');
 
-  getEvents() {
-
-   
+ 
+  deleteGoing(event: string, user_uid: string) {
+    var userRef = this.eventCollectionRef.doc(event)
+    return userRef.update({
+        event_goingCounter: firebase.firestore.FieldValue.arrayRemove(user_uid)
+    })
   }
 
 createEvent(event: Event, user_uid: string) {
@@ -90,7 +90,7 @@ editEvent(event: Event, eventID: string) {
     
 }
 getEvent(id:string) {
-
+  
     return this.eventsCollection.doc<Event>(id).valueChanges().pipe(take(1), map(event => {
 
         return event
@@ -102,6 +102,7 @@ getEvent(id:string) {
 
 
 getEventIDs() {
+    
     return this.events
   
 }
@@ -112,13 +113,17 @@ deleteEvent(event: string, user_uid: string) {
     var eventRef = this.fStore.collection("events").doc(event)
     this.deleteEventCreatedFromArray(event, user_uid).then(() => {
 
-        return eventRef.delete()
+         eventRef.update({
+             eventDeleted: true
+         })
 
     })
 
 
 
+
 }
+
 deleteEventCreatedFromArray(event: string, user_uid: string) {
     var userRef = this.fStore.collection("users").doc(user_uid)
     return userRef.update({
@@ -127,7 +132,7 @@ deleteEventCreatedFromArray(event: string, user_uid: string) {
 }
 
 
-deleteEventFromArray(event: string, user_uid: string) {
+deleteEventFromSavedEents(event: string, user_uid: string) {
     var userRef = this.fStore.collection("users").doc(user_uid)
     return userRef.update({
         savedEvents: firebase.firestore.FieldValue.arrayRemove(event)
@@ -148,6 +153,22 @@ saveEvent(id: string, user_uid: string) {
     userRef.update({
         savedEvents: firebase.firestore.FieldValue.arrayUnion(id)
     })
+
+    this.eventCollectionRef.doc(id).update({
+        event_goingCounter: firebase.firestore.FieldValue.arrayUnion(user_uid)
+
+
+    })
+    .then(function(docref) {
+        // var id = docref.id
+    console.log("Going!");
+   
+
+ 
+})
+    .catch(function(error) {
+    console.log("Error Creating Event: ", error);
+});
 }
 
 

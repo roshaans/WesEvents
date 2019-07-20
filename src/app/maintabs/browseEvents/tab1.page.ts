@@ -20,13 +20,13 @@ import 'firebase/database'
 })
 export class Tab1Page implements OnInit{
   user: any;
-  loadedEvents: Event[];
+  loadedEvents: Event[] = [];
   events: Event[];
   searchTerm;
-   newEvents: Event[] = [];
+  newEvents: Event[] = [];
   allfalse = false;
   counter = 0;
-
+  hasEvents = true;
   // activity = this.activityFilter.activity
   // activityEntries = Object.entries(this.activity)
   constructor( private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router: Router) {
@@ -38,14 +38,21 @@ export class Tab1Page implements OnInit{
    
   }
   fetchEvents() {
+
     this.firebaseDatabase.getEventIDs()
     .subscribe((events) => {
       this.events = events;
       this.loadedEvents = events
-    
+      if(this.loadedEvents.length > 0) {
+        this.hasEvents = true;
+  
+      } else {
+        this.hasEvents = false;
+      }
     }, (err) => {
       console.log(err)
     })
+    
   }
 
   initializeItems(): void {

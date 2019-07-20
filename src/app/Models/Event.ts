@@ -11,7 +11,7 @@ export interface Event {
   event_description?: String, 
   event_pictureURL?: String, 
   event_chatNumber?: Number, 
-  event_goingCounter?: Number, 
+  event_goingCounter?: any[], 
   event_maybeGoingCounter?: Number, 
   event_creation_timeStamp?: Date ,
   event_id?: Number, 

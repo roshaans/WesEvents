@@ -56,6 +56,7 @@ editEvent(event) {
     
   }
  fetchEvent() {
+   this.events = []
   this.userService.getSavedIds().get().subscribe((snapshot) => {
     if (snapshot.data().createdEvents) {
       this.events = snapshot.data().createdEvents

@@ -27,22 +27,22 @@ WesEvents
 	<app-time-filter class = "timeFilter"></app-time-filter>
 	<app-scroll class = "days"></app-scroll>
 
-	
-		<div  class = "cards" *ngFor = "let event of events; index as i" [routerLink] ="['/card/', event.id]"class = "final">
+	<!-- [routerLink] ="['/card/', event.id]" -->
+<div *ngIf = "hasEvents"> 
+		<div  class = "cards" *ngFor = "let event of events; index as i" class = "final">
 			<ion-item-sliding class = "item-sliding">
 				<!-- <ion-item-options side="start">
 					<ion-item-option color="danger" (click)="notGoing(event.id)">Not Going!</ion-item-option>
-        </ion-item-options> -->
+		</ion-item-options> -->
+		
+		<app-card *ngIf = "event.eventDeleted != true" [id]="event?.id" > </app-card>
         
-		<app-card  [id]="event.id" > </app-card>
-        
-				
 				<ion-item-options class = "item-options" side="end">
 					<ion-item-option color = "success" (click)="saveEvent(event.id)">Mark As Going</ion-item-option>
 				</ion-item-options>
 			</ion-item-sliding>
 		</div> 
-	 
+	</div>
 
 
 

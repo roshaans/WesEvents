@@ -20,7 +20,6 @@ export class Tab2Page implements OnInit{
   constructor(private userService: UserService,private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router: Router) {
     
 
-
   }
 
   ngOnInit() {
@@ -32,10 +31,13 @@ export class Tab2Page implements OnInit{
   }
 
   notGoing(event: string) {
-      this.firebaseDatabase.deleteEventFromArray(event, this.user.uid).then( () => {
+      this.firebaseDatabase.deleteEventFromSavedEents(event, this.user.uid).then( () => {
+        this.firebaseDatabase.deleteGoing(event, this.user.uid)
+
         this.fetchEvents()
 
       })
+
       this.showToast("Event Deleted")
     }
 
@@ -54,9 +56,6 @@ export class Tab2Page implements OnInit{
     }
   ionViewDidEnter() {
     this.fetchEvents()
-
-    // this.fetchEvents()
-
     this.fireauth.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user;

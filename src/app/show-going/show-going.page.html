@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+          </ion-buttons>
+      <ion-title    color = "#d33939" class="ion-text-center">
+  WesEvents
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content *ngIf = "!noMembers">
+    	<ion-card class="animated jello" color = "warning">
+
+          <ion-card-header>
+  
+            <ion-card-title>
+                 OOPS! 😅 It does not look like anyone has signed up for this event yet!
+  
+  
+            </ion-card-title>
+  
+          </ion-card-header>
+  
+          <ion-card-content>
+  
+            <h2>	<strong> Tip:</strong> Try spreading the word!!	</h2>
+  
+             </ion-card-content>
+        </ion-card>
+  </ion-content>
+  <ion-content *ngIf = "noMembers">
+  
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+            pullingText="Pull to refresh"
+            refreshingText="Refreshing events.."></ion-refresher-content>
+    </ion-refresher>
+    <ion-searchbar  placeholder="search username" animated showCancelButton="focus" cancelButtonText="Clear" ></ion-searchbar>
+    <ion-content>
+
+    <ion-item *ngFor = "let user of goingUserObjects; index as i" >
+
+     <strong> {{user.displayName}} </strong> 
+    </ion-item>
+</ion-content>

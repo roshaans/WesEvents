@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'signup', loadChildren: './accountManager/signup/signup.module#SignupPageModule' },
   { path: 'settings', loadChildren: './accountManager/home/home.module#HomePageModule', canActivate: [AuthGuard] },
   { path: 'homepage', loadChildren: './accountManager/homepage/homepage.module#HomepagePageModule' },
+  { path: 'show-going/:id', loadChildren: './show-going/show-going.module#ShowGoingPageModule' },
 
 ];
 
