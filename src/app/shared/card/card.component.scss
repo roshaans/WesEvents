@@ -1,5 +1,4 @@
 .newCard {
-  // background: blue;
   margin-left: auto;
   margin-right: auto;
 }
@@ -8,12 +7,8 @@
     display: block;
     height: 150px;
     width: 370px;
-  // background-image: radial-gradient( #195DF7 0%, #616DFF 100%,50% 100%);
-  border-radius: 20;
-  // justify-content: center;
-//   backround-image: radial-gradient( )
-    // border: 1px solid blue;
-     
+   border-radius: 20;
+
   }
   .content {
     
@@ -27,16 +22,12 @@
     flex-direction: row;
   }
  .final{
-
   border-radius: 15px;
  }
 
  .chip {
-//   display: flex;
-// // flex-grow: 2;
-// width: 30px;
-// justify-content: flex-end;
 
+color: white;
  }
 
  .flex {

@@ -1,6 +1,5 @@
 import { ToastController } from '@ionic/angular';
 import { Event } from '../../Models/Event';
-import { card } from './../../Models/cardDetail';
 import { LocationFilterComponent } from './../../filters/location-filter/location-filter.component';
 import { ScrollComponent } from './../../filters/DaysOfWeekFilter/scroll.component';
 import { Component, OnInit } from '@angular/core';
@@ -26,9 +25,7 @@ export class Tab1Page implements OnInit{
   newEvents: Event[] = [];
   allfalse = false;
   counter = 0;
-  hasEvents = true;
-  // activity = this.activityFilter.activity
-  // activityEntries = Object.entries(this.activity)
+ 
   constructor( private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router: Router) {
   
   }
@@ -43,12 +40,7 @@ export class Tab1Page implements OnInit{
     .subscribe((events) => {
       this.events = events;
       this.loadedEvents = events
-      if(this.loadedEvents.length > 0) {
-        this.hasEvents = true;
-  
-      } else {
-        this.hasEvents = false;
-      }
+     
     }, (err) => {
       console.log(err)
     })
@@ -59,7 +51,6 @@ export class Tab1Page implements OnInit{
     this.events = this.loadedEvents;
     this.newEvents = []
     this.allfalse = false;
-    this.counter = 0;
     }
 
     filterList(evt, filterOption: string, allClicked: Boolean) {
@@ -183,11 +174,9 @@ export class Tab1Page implements OnInit{
         });
         
         if (counter == filterEntries.length) {
-          console.log("Everything is True. ")
 
             return true
         } else {
-          console.log("Everything is False. ")
 
           return false
         }
@@ -209,7 +198,9 @@ export class Tab1Page implements OnInit{
   }
 
   
-
+categoryPressed(category) {
+    
+}
 
   saveEvent(eventID: string) {
   this.firebaseDatabase.saveEvent(eventID, this.user.uid)
@@ -218,7 +209,7 @@ export class Tab1Page implements OnInit{
 
 showToast(msg) {
     this.toastCtrl.create({
-      position: 'bottom',
+      position: 'top',
       message: msg, 
       duration: 2000
     }).then(toast => toast.present());

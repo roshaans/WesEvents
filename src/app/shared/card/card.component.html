@@ -1,54 +1,40 @@
-
-
-
-
-  <ion-item class = "item" *ngIf = "event">
-     
-      
-    <ion-card  [ngStyle]="{'background':  'linear-gradient(#e66465, #9198e5)'}" class = "newCard">
-      
-      <ion-card-content [ngStyle]="{'color':  'white'}">
-
-            <!-- <div class = "flex"> -->
-                <ion-label class = "removedLabel"*ngIf = "event.eventDeleted === true">
-                   <strong> This event was removed by the User.</strong> 
-                </ion-label>
-        <ion-card-title [ngStyle]="{'color':  'white'}">
-                    {{event.event_title}}
-             
-                  </ion-card-title>
-                  <!-- <div class = "chip">  -->
-                    <!-- </div> -->
-                 <!-- </div> -->
-        <ion-card-subtitle [ngStyle]="{'color':  'white'}">
-                    {{event.event_date}}
-          <ion-chip>
-            <ion-icon name="{{iconsMatch[event.event_category]}}" color="dark"></ion-icon>
-            <ion-label>{{event.event_category}}</ion-label>
-          </ion-chip>
-          <ion-chip (click) = "showGoingList()"class = "chip">   <strong><h2> 👍: {{event.event_goingCounter?.length}}</h2>  </strong> </ion-chip> 
-
-        </ion-card-subtitle>
-        <ion-grid>
-          <ion-row class="ion-align-items-start">
-            <ion-col >
-              <div>
-                <div class="ion-text-start">
-                  <strong>Location: </strong> {{event.event_location}}
-                </div>
-              </div>
-              <div>
-                <strong>Students:</strong> {{event.event_students}}
-                        
-              </div>
-              <div></div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <strong> Description:</strong> {{event.event_description}}
-          
-       
-      </ion-card-content>
-      
+<ion-item class = "item" *ngIf = "event">
+    <ion-card  [ngStyle]="{'background':  'linear-gradient(#e66465, #9198e5 )'}" class = "newCard">
+       <ion-card-content [ngStyle]="{'color':  'white'}">
+          <ion-label class = "removedLabel"*ngIf = "event.eventDeleted === true">
+             <strong> This event was removed by the User.</strong> 
+          </ion-label>
+          <ion-card-title [ngStyle]="{'color':  'white'}">
+             {{event.event_title}}
+          </ion-card-title>
+          <ion-card-subtitle [ngStyle]="{'color':  'white'}">
+             {{event.event_date}}
+             <ion-chip class = "chip">
+                <ion-icon  name="{{iconsMatch[event.event_category]}}" color="dark"></ion-icon>
+                <ion-label>{{event.event_category}}</ion-label>
+             </ion-chip>
+             <ion-chip (click) = "showGoingList()"class = "chip">   
+             <strong>
+                <h2> 👍: {{event.event_goingCounter?.length}}</h2>
+             </strong>
+             </ion-chip> 
+          </ion-card-subtitle>
+          <ion-grid>
+             <ion-row class="ion-align-items-start">
+                <ion-col >
+                   <div>
+                      <div class="ion-text-start">
+                         <strong>Location: </strong> {{event.event_location}}
+                      </div>
+                   </div>
+                   <div>
+                      <strong>Students:</strong> {{event.event_students}}
+                   </div>
+                   <div></div>
+                </ion-col>
+             </ion-row>
+          </ion-grid>
+          <strong> Description:</strong> {{event.event_description}}
+       </ion-card-content>
     </ion-card>
-  </ion-item>
+ </ion-item>

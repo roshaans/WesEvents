@@ -58,8 +58,9 @@ resize() {
 
   }
   ionViewDidEnter() {
+    this.myInput.nativeElement.style.height = "130px";
+
     this.id = this.route.snapshot.paramMap.get('id')
-    // this.FirebaseDatabase.getEvent(this.id).subscribe();
     if (this.id) { 
       this.FirebaseDatabase.getEvent(this.id).subscribe(res => {
        this.event = res
@@ -78,7 +79,6 @@ resize() {
         console.log(err)
       })
      }
-    this.myInput.nativeElement.style.height = "130px";
 
     this.fireauth.auth.onAuthStateChanged((user) => {
       if (user) {
@@ -120,7 +120,6 @@ resize() {
   }
 
   segmentChanged(ev: any) {
-    // console.log('Segment changed', ev);
     if (ev['detail']['value'] == "edit") {
       this.viewMode = false
 

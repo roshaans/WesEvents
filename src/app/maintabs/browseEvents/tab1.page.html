@@ -1,50 +1,34 @@
 <ion-header>
-	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-menu-button></ion-menu-button>
-		</ion-buttons>
-		<ion-title    color = "#d33939" class="ion-text-center">
-WesEvents
-    </ion-title>
-	</ion-toolbar>
-</ion-header>
+		<ion-toolbar>
+		   <ion-buttons slot="start">
+			  <ion-menu-button></ion-menu-button>
+		   </ion-buttons>
+		   <ion-title    color = "#d33939" class="ion-text-center">
+			  WesEvents
+		   </ion-title>
+		</ion-toolbar>
+	 </ion-header>
 
-<ion-content>
-
-	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-		<ion-refresher-content
-          pullingText="Pull to refresh"
-          refreshingText="Refreshing events.."></ion-refresher-content>
-	</ion-refresher>
-	<ion-searchbar  (ionInput)="filterList($event,'search')" placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear" ></ion-searchbar>
-	<div class = "activityFilter">
-			<app-activity-filter> </app-activity-filter>
+	 <ion-content>
+		<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		   <ion-refresher-content
+			  pullingText="Pull to refresh"
+			  refreshingText="Refreshing events.."></ion-refresher-content>
+		</ion-refresher>
+		<ion-searchbar  (ionInput)="filterList($event,'search')" placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear" ></ion-searchbar>
+		<div class = "activityFilter">
+		   <app-activity-filter> </app-activity-filter>
 		</div>
-	<!-- <div class = "locationFilter">
-		<app-location-filter ></app-location-filter>
-	</div> -->
-	
-	<app-time-filter class = "timeFilter"></app-time-filter>
-	<app-scroll class = "days"></app-scroll>
+		<app-time-filter class = "timeFilter"></app-time-filter>
+		<app-scroll class = "days"></app-scroll>
 
-	<!-- [routerLink] ="['/card/', event.id]" -->
-<div *ngIf = "hasEvents"> 
-		<div  class = "cards" *ngFor = "let event of events; index as i" class = "final">
-			<ion-item-sliding class = "item-sliding">
-				<!-- <ion-item-options side="start">
-					<ion-item-option color="danger" (click)="notGoing(event.id)">Not Going!</ion-item-option>
-		</ion-item-options> -->
-		
-		<app-card *ngIf = "event.eventDeleted != true" [id]="event?.id" > </app-card>
-        
-				<ion-item-options class = "item-options" side="end">
+
+		   <div  class = "cards" *ngFor = "let event of events; index as i" class = "final">
+			  <ion-item-sliding class = "item-sliding">
+				 <app-card *ngIf = "event.eventDeleted != true" [id]="event?.id" > </app-card>
+				 <ion-item-options class = "item-options" side="end">
 					<ion-item-option color = "success" (click)="saveEvent(event.id)">Mark As Going</ion-item-option>
-				</ion-item-options>
-			</ion-item-sliding>
-		</div> 
-	</div>
-
-
-
-</ion-content>
-
+				 </ion-item-options>
+			  </ion-item-sliding>
+		   </div>
+	 </ion-content>

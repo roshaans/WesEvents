@@ -27,7 +27,13 @@ export class ActivityFilterComponent implements OnInit {
   ngOnInit() {
 
   }
-
+  categoryPressed(category) {
+    this.activityEntries.forEach(element => {
+      if (element[1] != category) {
+        element[1] = false
+      }
+    });
+  }
   changeColor(index){
   
     

@@ -17,16 +17,10 @@ export class Tab4Page implements OnInit {
   events;
   firstTime: boolean = false;
 
-  customYearValues = [2020, 2016, 2008, 2004, 2000, 1996];
-  customDayShortNames = ['s\u00f8n', 'man', 'tir', 'ons', 'tor', 'fre', 'l\u00f8r'];
-  customPickerOptions: any;
   constructor( private userService: UserService,private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router:Router) { 
     this.fireauth.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
-        
-        
-    
       }
     })
     
@@ -56,9 +50,10 @@ editEvent(event) {
     
   }
  fetchEvent() {
-   this.events = []
+   
   this.userService.getSavedIds().get().subscribe((snapshot) => {
     if (snapshot.data().createdEvents) {
+      this.events = []
       this.events = snapshot.data().createdEvents
       if (this.events.length >= 1){
         this.firstTime = true;

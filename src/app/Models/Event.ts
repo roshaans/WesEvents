@@ -1,11 +1,9 @@
 export interface Event {
-  
   event_title?: String, 
   event_location?: String,  
   event_students?: String, 
   event_category?: String, 
   event_date?: String, 
-  
   event_startTime?: String, 
   event_endTime?: String, 
   event_description?: String, 

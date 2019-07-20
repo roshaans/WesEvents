@@ -1,68 +1,41 @@
 <ion-header>
-	<ion-toolbar>
-		<ion-buttons slot="start">
-			<ion-menu-button></ion-menu-button>
-		</ion-buttons>
-		<ion-title    color = "#d33939" class="ion-text-center">
-WesEvents
-	</ion-title>
-	
-
-	</ion-toolbar>
-</ion-header>
-<ion-content *ngIf = "!firstTime">
-			<ion-card class="animated jello" color = "darkred">
-
-				<ion-card-header>
-
-					<ion-card-title>
-							 OOPS! 😅 You have no saved events.
-
-
-					</ion-card-title>
-
-				</ion-card-header>
-
-				<ion-card-content>
-
-					<h2>	<strong> Tip:</strong> Try saving an event by swiping left on it!	</h2>
-
-					 </ion-card-content>
-			</ion-card>
-
-		</ion-content>
-		
-<ion-content *ngIf = "firstTime">
-
-
-	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-		<ion-refresher-content
-          pullingText="Pull to refresh"
-          refreshingText="Refreshing events.."></ion-refresher-content>
-	</ion-refresher>
-	<ion-searchbar  placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear" debounce="1000"></ion-searchbar>
-	
-	<!-- <template [ngIf]=> -->
-			
-			
-		<!-- </template> -->
-
-
-
-<div > 
-		<div  class = "cards" *ngFor = "let event of events; index as i" [routerLink] ="['/card/', event]" class = "final">
-			<ion-item-sliding class = "item-sliding">
-				<ion-item-options side="start">
-					<ion-item-option color="warning" (click)="notGoing(event)">Not Going!</ion-item-option>
-        </ion-item-options>
-        
-		<app-card [id]="event" > </app-card>
-        
-				
-				<!-- <ion-item-options class = "item-options" side="end">
-					<ion-item-option color = "success" (click)="saveEvent()">Mark As Going</ion-item-option>
-				</ion-item-options> -->
-			</ion-item-sliding>
+		<ion-toolbar>
+		   <ion-buttons slot="start">
+			  <ion-menu-button></ion-menu-button>
+		   </ion-buttons>
+		   <ion-title    color = "#d33939" class="ion-text-center">
+			  WesEvents
+		   </ion-title>
+		</ion-toolbar>
+	 </ion-header>
+	 <ion-content *ngIf = "!firstTime">
+		<ion-card class="animated jello" color = "darkred">
+		   <ion-card-header>
+			  <ion-card-title>
+				 OOPS! 😅 You have no saved events.
+			  </ion-card-title>
+		   </ion-card-header>
+		   <ion-card-content>
+			  <h2>	<strong> Tip:</strong> Try saving an event by swiping left on it!	</h2>
+		   </ion-card-content>
+		</ion-card>
+	 </ion-content>
+	 <ion-content *ngIf = "firstTime">
+		<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		   <ion-refresher-content
+			  pullingText="Pull to refresh"
+			  refreshingText="Refreshing events.."></ion-refresher-content>
+		</ion-refresher>
+		<ion-searchbar  placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear" debounce="1000"></ion-searchbar>
+		<div >
+				<!-- [routerLink] ="['/card/', event]" -->
+		   <div  class = "cards" *ngFor = "let event of events; index as i"  class = "final">
+		   <ion-item-sliding class = "item-sliding">
+			  <ion-item-options side="start">
+				 <ion-item-option color="warning" (click)="notGoing(event)">Not Going!</ion-item-option>
+			  </ion-item-options>
+			  <app-card [id]="event" > </app-card>
+		   </ion-item-sliding>
+		</div>
 		</div>  
-</div>  
-</ion-content>
+	 </ion-content>

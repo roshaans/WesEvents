@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import {iconDict} from './../Models/CategoryIconsDictionary'
 
-// import { Firebase } from '@ionic-native/firebase/ngx';
 import * as Firebase from 'firebase/app';
 import 'firebase/database';
 @Component({
@@ -19,10 +18,6 @@ export class CardDetailPage implements OnInit {
   id;
   event;
   constructor(private firebaseDatabase: FirebaseDatabaseService, private route: ActivatedRoute, private toastCtrl: ToastController) {
-
- 
-
-
 
    }
 

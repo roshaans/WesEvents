@@ -14,13 +14,9 @@ import { identifierName } from '@angular/compiler';
 })
 
 export class FirebaseDatabaseService {
-eventCollectionRef = this.fStore.collection('events');
 
-  eventsCollection: AngularFirestoreCollection<Event>;
-   events: Observable<Event[]>;
-
-
-
+eventsCollection: AngularFirestoreCollection<Event>;
+events: Observable<Event[]>;
 
   constructor(public fStore: AngularFirestore) {
       this.eventsCollection = fStore.collection<Event>('events')
@@ -37,22 +33,13 @@ this.events = this.eventsCollection.snapshotChanges()
    }))
   }
 
+  eventCollectionRef = this.fStore.collection('events');
 
-
- 
-  deleteGoing(event: string, user_uid: string) {
-    var userRef = this.eventCollectionRef.doc(event)
-    return userRef.update({
-        event_goingCounter: firebase.firestore.FieldValue.arrayRemove(user_uid)
-    })
-  }
-
-createEvent(event: Event, user_uid: string) {
+  createEvent(event: Event, user_uid: string) {
     var userRef = this.fStore.collection("users").doc(user_uid)
 
    this.eventCollectionRef.add(event)
     .then(function(docref) {
-        // var id = docref.id
     console.log("Event was successfully created!");
     userRef.update({
     createdEvents: firebase.firestore.FieldValue.arrayUnion(docref.id)
@@ -64,54 +51,34 @@ createEvent(event: Event, user_uid: string) {
     console.log("Error Creating Event: ", error);
 });
 
-
-
-
-    
 }
 
-editEvent(event: Event, eventID: string) {
-
-   this.eventCollectionRef.doc(eventID).update(event )
-    .then(function(docref) {
-    console.log("Event was successfully updated!");
-   
-    
-   
-
-})
-    .catch(function(error) {
-    console.log("Error Editing Event: ", error);
-});
-
-
-
-
-    
-}
 getEvent(id:string) {
-  
     return this.eventsCollection.doc<Event>(id).valueChanges().pipe(take(1), map(event => {
-
         return event
-
     }))
 
-
 }
 
-
-getEventIDs() {
-    
+getEventIDs() { 
     return this.events
-  
 }
+ 
+editEvent(event: Event, eventID: string) {
 
-
+    this.eventCollectionRef.doc(eventID).update(event )
+     .then(function(docref) {
+     console.log("Event was successfully updated!");
+ 
+ })
+     .catch(function(error) {
+     console.log("Error Editing Event: ", error);
+ });
+}
 
 deleteEvent(event: string, user_uid: string) {
     var eventRef = this.fStore.collection("events").doc(event)
-    this.deleteEventCreatedFromArray(event, user_uid).then(() => {
+    this.deleteEventCreatedByArray(event, user_uid).then(() => {
 
          eventRef.update({
              eventDeleted: true
@@ -119,12 +86,17 @@ deleteEvent(event: string, user_uid: string) {
 
     })
 
-
-
-
 }
 
-deleteEventCreatedFromArray(event: string, user_uid: string) {
+  deleteGoing(event: string, user_uid: string) {
+    var eventRef = this.eventCollectionRef.doc(event)
+    return eventRef.update({
+        event_goingCounter: firebase.firestore.FieldValue.arrayRemove(user_uid)
+    })
+  }
+
+
+deleteEventCreatedByArray(event: string, user_uid: string) {
     var userRef = this.fStore.collection("users").doc(user_uid)
     return userRef.update({
         createdEvents: firebase.firestore.FieldValue.arrayRemove(event)
@@ -132,23 +104,16 @@ deleteEventCreatedFromArray(event: string, user_uid: string) {
 }
 
 
-deleteEventFromSavedEents(event: string, user_uid: string) {
+deleteEventFromSavedEvents(event: string, user_uid: string) {
     var userRef = this.fStore.collection("users").doc(user_uid)
     return userRef.update({
         savedEvents: firebase.firestore.FieldValue.arrayRemove(event)
     })
 }
-updateEvent(id: string, updates: Event) {
- 
-  var ref = this.eventCollectionRef.doc(id).update(
-    updates
 
-  )
-}
 
 saveEvent(id: string, user_uid: string) {
     var userRef = this.fStore.collection("users").doc(user_uid)
-
 
     userRef.update({
         savedEvents: firebase.firestore.FieldValue.arrayUnion(id)
@@ -160,11 +125,8 @@ saveEvent(id: string, user_uid: string) {
 
     })
     .then(function(docref) {
-        // var id = docref.id
-    console.log("Going!");
+    console.log("Marked as Going!");
    
-
- 
 })
     .catch(function(error) {
     console.log("Error Creating Event: ", error);
@@ -172,21 +134,4 @@ saveEvent(id: string, user_uid: string) {
 }
 
 
-}
-export const snapshotToArray = snapshot => {
-  let returnArr = [];
-
-  snapshot.forEach(childSnapshot => {
-      let item = childSnapshot.val();
-
-
-
-    
-
-
-      item.key = childSnapshot.key;
-      returnArr.push(item);
-  });
-
-  return returnArr;
 }

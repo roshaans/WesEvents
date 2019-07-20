@@ -1,13 +1,14 @@
+// import { ActivityFilterComponent } from './../../filters/Activity/activity-filter.component'
 import { UserService } from '../../services/user/user.service'
 import { FirebaseDatabaseService } from './../../services/firebaseDatabase/firebase-database.service';
 import { Event } from '../../Models/Event';
 import { Component, OnInit, Input} from '@angular/core';
-import {card} from '../../Models/cardDetail';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as Firebase from 'firebase/app';
 import { Database } from '@firebase/database';
 import 'firebase/database';
 import { iconDict } from '../../Models/CategoryIconsDictionary';
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -16,57 +17,40 @@ import { iconDict } from '../../Models/CategoryIconsDictionary';
 export class CardComponent implements OnInit {
   @Input() id?;
   iconsMatch = iconDict
-  going: Number = 0;
   event: Event;
-  maybe: Number = 0;
-  goingIDs;
-  goingUserObjects = [];
+  colorScheme = {"Sports": ["#FF0000", "#195DF7"], "Party": "#36454f" }
 
-  colorScheme = {"Sports": "#195DF7", "Party": "#36454f" }
+
+
+
   constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,private firebaseDatabase: FirebaseDatabaseService) { 
-    
+    // console.log(this.colorScheme["Sports"][0].valueOf(), "priting value")
+    // console.log(this.colorScheme["Sports"][0], "priting sports")
+
   }
 
 
   ngOnInit() {
-    
-
-    this.refreshGoingButton()
+    this.fetchEvent()
 
 
   }
   showGoingList () {
-    this.refreshGoingButton()
+    this.fetchEvent()
     this.router.navigateByUrl("show-going/" + this.id)
   
 }
-  refreshGoingButton() {
+  fetchEvent() {
     if(this.id) {
     this.firebaseDatabase.getEvent(this.id).subscribe( res => {
-      console.log(res, "res")
       this.event = res
-      
-      console.log("inside refreshGoingButton")
 
-    //   if(res.event_goingCounter){ 
-    //     if(res.event_goingCounter.length > 0) {
-    //       console.log("inside guard")
-
-    //       this.going = res.event_goingCounter.length
-    //      this.goingIDs = res.event_goingCounter
-    //    }
-   
-    // }
     })
   }
-  } 
-  // showCardDetail(id) {
-  //   this.router.navigateByUrl('/card/' + id);
+  }
+  
+  // categoryClicked(category) {
+  //   this.activity.categoryPressed(category)
   // }
-}
-export const snapshotToObject = snapshot => {
-  let item = snapshot.val();
-  item.key = snapshot.key;
 
-  return item;
 }

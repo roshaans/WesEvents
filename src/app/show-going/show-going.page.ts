@@ -11,8 +11,8 @@ export class ShowGoingPage implements OnInit {
 id;
 event;
 goingIDs =[];
-goingUserObjects = [];
-noMembers = false;
+goingUsers = [];
+members = false;
   constructor( private route: ActivatedRoute,  private user: UserService, private firebaseDatabase: FirebaseDatabaseService) { }
 
   ngOnInit() {
@@ -20,16 +20,22 @@ noMembers = false;
     this.fetchmembers()
    }
    fetchmembers() {
-    this.goingUserObjects = [];
+    this.goingUsers = [];
     this.goingIDs = []
     this.firebaseDatabase.getEvent(this.id).subscribe(res => {
       this.event = res
-      console.log("inside Fetchmembers")
       if(res["event_goingCounter"]){ 
      if(res.event_goingCounter.length > 0) {
-      this.noMembers = true
+      this.members = true
+
+
       this.goingIDs = res.event_goingCounter
-      this.showGoingList()
+
+      this.goingIDs.forEach(element => {
+        this.user.getUsername(element).subscribe((snapshot) => {
+          this.goingUsers.push(snapshot.payload.data())        
+        })
+      });
     }
 
  }})
@@ -41,15 +47,7 @@ noMembers = false;
     event.target.complete();
   }, 2000);
 }
-    showGoingList() { 
-    this.goingIDs.forEach(element => {
-      this.user.getUsername(element).subscribe((snapshot) => {
-        this.goingUserObjects.push(snapshot.payload.data())
-        console.log(this.goingUserObjects)
-      
-      })
-    });
-  }
+
 
  
 

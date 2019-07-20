@@ -1,4 +1,3 @@
-import { card } from './../../Models/cardDetail';
 import { TimeFilterComponent } from './../../filters/time-filter/time-filter.component';
 import { ScrollComponent } from './../../filters/DaysOfWeekFilter/scroll.component';
 import { CardComponent } from './../../shared/card/card.component';

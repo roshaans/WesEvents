@@ -18,20 +18,15 @@ export class Tab2Page implements OnInit{
   firstTime: boolean = false;
   
   constructor(private userService: UserService,private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router: Router) {
-    
 
   }
 
   ngOnInit() {
     this.fetchEvents()
-
-  
-
-  
   }
 
   notGoing(event: string) {
-      this.firebaseDatabase.deleteEventFromSavedEents(event, this.user.uid).then( () => {
+      this.firebaseDatabase.deleteEventFromSavedEvents(event, this.user.uid).then( () => {
         this.firebaseDatabase.deleteGoing(event, this.user.uid)
 
         this.fetchEvents()
@@ -44,6 +39,7 @@ export class Tab2Page implements OnInit{
     fetchEvents() {
       this.userService.getSavedIds().get().subscribe((snapshot) => {
         if ( snapshot.data().savedEvents) {
+          this.events = []
           this.events = snapshot.data().savedEvents
           if (this.events.length >= 1){
             this.firstTime = true;

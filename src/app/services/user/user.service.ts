@@ -25,8 +25,6 @@ export class UserService {
         this.user = user; 
         this.savedEventsCollection = fStore.doc("users/"+user.uid)
         
-
-
         }
 
     })
