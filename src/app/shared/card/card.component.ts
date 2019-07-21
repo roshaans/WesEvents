@@ -1,3 +1,4 @@
+import { Tab1Page } from './../../maintabs/browseEvents/tab1.page';
 // import { ActivityFilterComponent } from './../../filters/Activity/activity-filter.component'
 import { UserService } from '../../services/user/user.service'
 import { FirebaseDatabaseService } from './../../services/firebaseDatabase/firebase-database.service';
@@ -8,7 +9,6 @@ import * as Firebase from 'firebase/app';
 import { Database } from '@firebase/database';
 import 'firebase/database';
 import { iconDict } from '../../Models/CategoryIconsDictionary';
-
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -24,7 +24,7 @@ export class CardComponent implements OnInit {
 
 
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router, private firebaseDatabase: FirebaseDatabaseService) {
+  constructor(private tab1: Tab1Page, private userService: UserService, private route: ActivatedRoute, private router: Router, private firebaseDatabase: FirebaseDatabaseService) {
     // console.log(this.colorScheme["Sports"][0].valueOf(), "priting value")
     // console.log(this.colorScheme["Sports"][0], "priting sports")
 
@@ -38,6 +38,11 @@ export class CardComponent implements OnInit {
   }
   seeMore() {
     this.router.navigateByUrl('/card/' + this.id)
+  }
+
+  categoryClicked(event_category) {
+this.tab1.categoryPressed(event_category);
+this.router.navigateByUrl("/tabs/tab1")
   }
   showGoingList() {
     this.fetchEvent()

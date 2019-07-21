@@ -85,3 +85,31 @@ border-radius: 15px;
 // ion-item-option {
 //   --color: #38ef7d;
 // }
+
+.activityContainer {
+  overflow-x: scroll;
+  
+  overflow-y: hidden;
+  white-space: nowrap;
+  
+      ion-button{
+          display: inline-block;
+          height: 45px;
+          width: 160px;
+          --background-activated: transparent;
+          --background: transparent;
+          border-radius: 23px;
+          
+          font-family: BebasNeue;
+          
+          font-size: 20px;
+          color: #9F9B9B;
+          letter-spacing: 0;
+
+
+  }
+}
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}

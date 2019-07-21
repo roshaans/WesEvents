@@ -10,9 +10,9 @@
  </ion-header>
  <div class="ion-padding">
     <ion-item *ngIf="user">
-       <ion-thumbnail slot="start">
+       <ion-avatar slot="start">
           <img [src]="user.photoURL">
-       </ion-thumbnail>
+       </ion-avatar>
        <ion-label text-wrap>
           <ion-text color="primary">
              <h3> <strong> {{user.displayName}} </strong></h3>

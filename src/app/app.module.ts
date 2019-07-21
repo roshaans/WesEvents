@@ -1,3 +1,4 @@
+import { Tab1Page } from './maintabs/browseEvents/tab1.page'
 
 import { FirebaseDatabaseService } from './services/firebaseDatabase/firebase-database.service';
 import { MbscModule } from '@mobiscroll/angular';
@@ -23,7 +24,6 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import {AngularFireAuth} from '@angular/fire/auth'
 import {AngularFireAuthModule} from '@angular/fire/auth'
 import {Autosize } from './autosize'
-
 @NgModule({
   declarations: [AppComponent, KeysPipe, Autosize],
   entryComponents: [],
@@ -35,6 +35,7 @@ BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [AngularFireAuth, FirebaseAuthentication,FirebaseDatabaseService,
     StatusBar,
     SplashScreen,
+    Tab1Page,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
     { provide: FirestoreSettingsToken, useValue: {} }
   ],

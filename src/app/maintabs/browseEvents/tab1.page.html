@@ -4,7 +4,7 @@
 			  <ion-menu-button></ion-menu-button>
 		   </ion-buttons>
 		   <ion-title    color = "#d33939" class="ion-text-center">
-			  WesEvents
+			  Browse Events
 		   </ion-title>
 		</ion-toolbar>
 	 </ion-header>
@@ -17,7 +17,22 @@
 		</ion-refresher>
 		<ion-searchbar  (ionInput)="filterList($event,'search')" placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear" ></ion-searchbar>
 		<div class = "activityFilter">
-		   <app-activity-filter> </app-activity-filter>
+				<div class = "activityContainer" > 
+
+						<div class = "buttonBox"  > 
+							<ion-button fill = "outline"  [color] = "allClicked ? 'danger' : 'medium' " (click) = "allClickedFunc()" >ALL</ion-button>
+					  
+						  <ion-button *ngFor = "let activity of activityEntries; index as i" fill = "outline"   [color] = "activity[1] ? 'danger' : 'medium' " (click) = "changeColor(i)" >
+						  
+							{{activity[0] | uppercase}} 
+							  
+						  </ion-button>
+						
+						</div> 
+					  
+					  </div>
+					  
+		   <!-- <app-activity-filter> </app-activity-filter> -->
 		</div>
 		<app-time-filter class = "timeFilter"></app-time-filter>
 		<app-scroll class = "days"></app-scroll>
