@@ -8,8 +8,11 @@
              {{event.event_title}}
           </ion-card-title>
           <ion-card-subtitle [ngStyle]="{'color':  'white'}">
-             {{event.event_date}}
-             <ion-chip class = "chip">
+             {{event.event_date}} |
+             {{ startTime | date:'shortTime' }} to {{ endTime | date:'shortTime' }}  
+             <br/>
+
+              <ion-chip class = "chip">
                 <ion-icon  name="{{iconsMatch[event.event_category]}}" color="dark"></ion-icon>
                 <ion-label>{{event.event_category}}</ion-label>
              </ion-chip>
@@ -18,6 +21,7 @@
                 <h2> 👍: {{event.event_goingCounter?.length}}</h2>
              </strong>
              </ion-chip> 
+            
           </ion-card-subtitle>
           <ion-grid>
              <ion-row class="ion-align-items-start">
@@ -35,6 +39,20 @@
              </ion-row>
           </ion-grid>
           <strong> Description:</strong> {{event.event_description}}
+          <div class = "ViewMore"> 
+          <ion-button (click) = "seeMore()" type = "reset" size = "small" fill = "outline" >
+            <ion-icon slot="end" name="more"></ion-icon>
+            See More
+        </ion-button>
+    </div>
+  
+    <!-- <ion-button fill = "clear" expand = "full">
+        
+            <ion-icon color = "white" size = "medium" slot="icon-only" name="arrow-dropdown"></ion-icon>
+        
+        </ion-button> -->
        </ion-card-content>
+      
     </ion-card>
+   
  </ion-item>

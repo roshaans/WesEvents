@@ -13,12 +13,12 @@ export class AutoService {
   loginUser(email: string, password: string): Promise<firebase.auth.UserCredential> {
     return firebase.auth().signInWithEmailAndPassword(email, password);
   }
-  resetPassword(email:string): Promise<void> {
+  resetPassword(email: string): Promise<void> {
     return firebase.auth().sendPasswordResetEmail(email);
   }
-  logoutUser():Promise<void> {
-  return firebase.auth().signOut();
-}
+  logoutUser(): Promise<void> {
+    return firebase.auth().signOut();
+  }
   signupUser(email: string, password: string): Promise<any> {
 
     return firebase
@@ -35,5 +35,5 @@ export class AutoService {
         throw new Error(error);
       });
   }
-  
+
 }

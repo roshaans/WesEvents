@@ -83,7 +83,6 @@ resize() {
     this.fireauth.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
-        console.log(this.user);
       }
     })
   }

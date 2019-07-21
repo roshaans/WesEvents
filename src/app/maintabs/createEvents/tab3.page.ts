@@ -62,7 +62,6 @@ resize() {
     this.fireauth.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
-        console.log(this.user);
       }
     })
   }
@@ -100,7 +99,6 @@ resize() {
   }
 
   segmentChanged(ev: any) {
-    console.log('Segment changed', ev);
     if (ev['detail']['value'] == "edit") {
       this.viewMode = false
 

@@ -49,7 +49,7 @@ export class SignupPage {
         if (res.user) {
           console.log(res.user);
           this.updateProfile();
-
+          
           this.fStore.collection("users").doc(res.user.uid).set({
             displayName: this.username,
             photoURL: `https://picsum.photos/id/${this.image}/200/200`,
@@ -79,9 +79,7 @@ export class SignupPage {
         console.log(user);
         user.updateProfile({
           displayName: this.username,
-          photoURL: `https://picsum.photos/id/${this.image}/200/200`,
-          status: this.status
-        })
+          photoURL: `https://picsum.photos/id/${this.image}/200/200`        })
           .then(() => {
             this.router.navigateByUrl('/');
           })

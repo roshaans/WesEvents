@@ -1,137 +1,137 @@
 import { Injectable } from '@angular/core';
- import  * as firebase from 'firebase/app';
+import * as firebase from 'firebase/app';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import {Event} from '../../Models/Event'
+import { Event } from '../../Models/Event'
 import { ObjectToUniqueKey } from '@firebase/database/dist/src/core/util/util';
-import {map, take} from 'rxjs/operators'
+import { map, take } from 'rxjs/operators'
 import { identifierName } from '@angular/compiler';
 
 
 @Injectable({
-  providedIn: 'root'
-  
+    providedIn: 'root'
+
 })
 
 export class FirebaseDatabaseService {
 
-eventsCollection: AngularFirestoreCollection<Event>;
-events: Observable<Event[]>;
+    eventsCollection: AngularFirestoreCollection<Event>;
+    events: Observable<Event[]>;
 
-  constructor(public fStore: AngularFirestore) {
-      this.eventsCollection = fStore.collection<Event>('events')
-        
-
-this.events = this.eventsCollection.snapshotChanges()
-.pipe(
-        map(actions => { 
-        return actions.map( a => { 
-            let data = a.payload.doc.data(); 
-            let id = a.payload.doc.id; 
-            return {id, ...data }; 
-      });
-   }))
-  }
-
-  eventCollectionRef = this.fStore.collection('events');
-
-  createEvent(event: Event, user_uid: string) {
-    var userRef = this.fStore.collection("users").doc(user_uid)
-
-   this.eventCollectionRef.add(event)
-    .then(function(docref) {
-    console.log("Event was successfully created!");
-    userRef.update({
-    createdEvents: firebase.firestore.FieldValue.arrayUnion(docref.id)
-    })
-
- 
-})
-    .catch(function(error) {
-    console.log("Error Creating Event: ", error);
-});
-
-}
-
-getEvent(id:string) {
-    return this.eventsCollection.doc<Event>(id).valueChanges().pipe(take(1), map(event => {
-        return event
-    }))
-
-}
-
-getEventIDs() { 
-    return this.events
-}
- 
-editEvent(event: Event, eventID: string) {
-
-    this.eventCollectionRef.doc(eventID).update(event )
-     .then(function(docref) {
-     console.log("Event was successfully updated!");
- 
- })
-     .catch(function(error) {
-     console.log("Error Editing Event: ", error);
- });
-}
-
-deleteEvent(event: string, user_uid: string) {
-    var eventRef = this.fStore.collection("events").doc(event)
-    this.deleteEventCreatedByArray(event, user_uid).then(() => {
-
-         eventRef.update({
-             eventDeleted: true
-         })
-
-    })
-
-}
-
-  deleteGoing(event: string, user_uid: string) {
-    var eventRef = this.eventCollectionRef.doc(event)
-    return eventRef.update({
-        event_goingCounter: firebase.firestore.FieldValue.arrayRemove(user_uid)
-    })
-  }
+    constructor(public fStore: AngularFirestore) {
+        this.eventsCollection = fStore.collection<Event>('events')
 
 
-deleteEventCreatedByArray(event: string, user_uid: string) {
-    var userRef = this.fStore.collection("users").doc(user_uid)
-    return userRef.update({
-        createdEvents: firebase.firestore.FieldValue.arrayRemove(event)
-    })
-}
+        this.events = this.eventsCollection.snapshotChanges()
+            .pipe(
+                map(actions => {
+                    return actions.map(a => {
+                        let data = a.payload.doc.data();
+                        let id = a.payload.doc.id;
+                        return { id, ...data };
+                    });
+                }))
+    }
+
+    eventCollectionRef = this.fStore.collection('events');
+
+    createEvent(event: Event, user_uid: string) {
+        var userRef = this.fStore.collection("users").doc(user_uid)
+
+        this.eventCollectionRef.add(event)
+            .then(function (docref) {
+                console.log("Event was successfully created!");
+                userRef.update({
+                    createdEvents: firebase.firestore.FieldValue.arrayUnion(docref.id)
+                })
 
 
-deleteEventFromSavedEvents(event: string, user_uid: string) {
-    var userRef = this.fStore.collection("users").doc(user_uid)
-    return userRef.update({
-        savedEvents: firebase.firestore.FieldValue.arrayRemove(event)
-    })
-}
+            })
+            .catch(function (error) {
+                console.log("Error Creating Event: ", error);
+            });
+
+    }
+
+    getEvent(id: string) {
+        return this.eventsCollection.doc<Event>(id).valueChanges().pipe(take(1), map(event => {
+            return event
+        }))
+
+    }
+
+    getEventIDs() {
+        return this.events
+    }
+
+    editEvent(event: Event, eventID: string) {
+
+        this.eventCollectionRef.doc(eventID).update(event)
+            .then(function (docref) {
+                console.log("Event was successfully updated!");
+
+            })
+            .catch(function (error) {
+                console.log("Error Editing Event: ", error);
+            });
+    }
+
+    deleteEvent(event: string, user_uid: string) {
+        var eventRef = this.fStore.collection("events").doc(event)
+        this.deleteEventCreatedByArray(event, user_uid).then(() => {
+
+            eventRef.update({
+                eventDeleted: true
+            })
+
+        })
+
+    }
+
+    deleteGoing(event: string, user_uid: string) {
+        var eventRef = this.eventCollectionRef.doc(event)
+        return eventRef.update({
+            event_goingCounter: firebase.firestore.FieldValue.arrayRemove(user_uid)
+        })
+    }
 
 
-saveEvent(id: string, user_uid: string) {
-    var userRef = this.fStore.collection("users").doc(user_uid)
-
-    userRef.update({
-        savedEvents: firebase.firestore.FieldValue.arrayUnion(id)
-    })
-
-    this.eventCollectionRef.doc(id).update({
-        event_goingCounter: firebase.firestore.FieldValue.arrayUnion(user_uid)
+    deleteEventCreatedByArray(event: string, user_uid: string) {
+        var userRef = this.fStore.collection("users").doc(user_uid)
+        return userRef.update({
+            createdEvents: firebase.firestore.FieldValue.arrayRemove(event)
+        })
+    }
 
 
-    })
-    .then(function(docref) {
-    console.log("Marked as Going!");
-   
-})
-    .catch(function(error) {
-    console.log("Error Creating Event: ", error);
-});
-}
+    deleteEventFromSavedEvents(event: string, user_uid: string) {
+        var userRef = this.fStore.collection("users").doc(user_uid)
+        return userRef.update({
+            savedEvents: firebase.firestore.FieldValue.arrayRemove(event)
+        })
+    }
+
+
+    saveEvent(id: string, user_uid: string) {
+        var userRef = this.fStore.collection("users").doc(user_uid)
+
+        userRef.update({
+            savedEvents: firebase.firestore.FieldValue.arrayUnion(id)
+        })
+
+        this.eventCollectionRef.doc(id).update({
+            event_goingCounter: firebase.firestore.FieldValue.arrayUnion(user_uid)
+
+
+        })
+            .then(function (docref) {
+                console.log("Marked as Going!");
+
+            })
+            .catch(function (error) {
+                console.log("Error Creating Event: ", error);
+            });
+    }
 
 
 }

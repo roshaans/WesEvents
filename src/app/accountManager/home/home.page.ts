@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 /**
 * Ionic 4 Firebase Email Auth
 *
@@ -10,13 +11,14 @@ import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
-
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
+  userData?: any;
   user: any;
   email: string = '';
   password: string = '';
@@ -27,15 +29,23 @@ export class HomePage {
   error: string;
   userWantsToSignup: boolean = false;
   linkError: string = '';
-  constructor(private toastController: ToastController, public loadingController: LoadingController, private fireauth: AngularFireAuth, private router: Router) { }
-
-
-  ionViewDidEnter() {
+  constructor(private fstore: AngularFirestore, private toastController: ToastController, public loadingController: LoadingController, private fireauth: AngularFireAuth, private router: Router) { }
+  ngOnInit() {
     this.fireauth.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
+        this.getData()
+
       }
     })
+
+  }
+  
+  ionViewDidEnter() {
+    
+
+
+   
   }
 
   updateEmail() {
@@ -56,7 +66,6 @@ export class HomePage {
     this.user.updateProfile({
       status: this.status})
       .then(() => {
-        this.status = '';
         this.presentToast('Status updated', false, 'bottom', 1000);
         this.error = '';
       })
@@ -97,7 +106,23 @@ export class HomePage {
         this.error = err.message;
       });
   }
-
+updateUser() {
+  this.fstore.collection("users").doc(this.user.uid).set({
+    displayName: this.username,
+    photoURL: `https://picsum.photos/id/${this.image}/200/200`,
+    status: this.status
+    
+  })
+}
+getData() {
+  this.getUserData().subscribe((data)=> {
+    this.userData = data
+    console.log(data, "data")
+  })
+}
+getUserData() {
+ return this.fstore.collection("users").doc(this.user.uid).valueChanges()
+}
   updatePassword() {
     this.user.updatePassword(this.password)
       .then(() => {

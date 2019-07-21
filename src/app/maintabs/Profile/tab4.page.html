@@ -18,6 +18,8 @@
              <h3> <strong> {{user.displayName}} </strong></h3>
           </ion-text>
           <p>{{user.email}}</p>
+          <p> <strong>Status: </strong> {{userData?.status}} </p>
+
        </ion-label>
     </ion-item>
  </div>
@@ -42,7 +44,7 @@
     </ion-refresher>
     <ion-searchbar placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear" debounce="1000"></ion-searchbar>
     <div >
-       <div class = "cards" *ngFor = "let event of events; index as i" [routerLink] ="['/card/', event]" class = "final">
+       <div class = "cards" *ngFor = "let event of events; index as i"  class = "final">
        <ion-item-sliding class = "item-sliding">
           <ion-item-options side="start">
              <ion-item-option color="danger" (click)="deleteEvent(event)">Delete</ion-item-option>

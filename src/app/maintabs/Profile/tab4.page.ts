@@ -7,20 +7,23 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {ToastController} from '@ionic/angular'
 import {UserService} from './../../services/user/user.service'
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 @Component({
   selector: 'app-tab4',
   templateUrl: './tab4.page.html',
   styleUrls: ['./tab4.page.scss'],
 })
 export class Tab4Page implements OnInit {
+  userData: any;
   user: any;
   events;
   firstTime: boolean = false;
 
-  constructor( private userService: UserService,private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router:Router) { 
+  constructor( private fstore:AngularFirestore, private userService: UserService,private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router:Router) { 
     this.fireauth.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
+        this.getData()
       }
     })
     
@@ -65,6 +68,16 @@ editEvent(event) {
 })
   
  }
+
+ getData() {
+  this.getUserData().subscribe((data)=> {
+    this.userData = data
+    console.log(data, "data")
+  })
+}
+getUserData() {
+ return this.fstore.collection("users").doc(this.user.uid).valueChanges()
+}
 settingsButtonClicked() {
   this.router.navigateByUrl('/settings');
 }

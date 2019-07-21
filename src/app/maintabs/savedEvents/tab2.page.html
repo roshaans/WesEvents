@@ -31,7 +31,7 @@
 				<!-- [routerLink] ="['/card/', event]" -->
 		   <div  class = "cards" *ngFor = "let event of events; index as i"  class = "final">
 		   <ion-item-sliding class = "item-sliding">
-			  <ion-item-options side="start">
+			  <ion-item-options side="end">
 				 <ion-item-option color="warning" (click)="notGoing(event)">Not Going!</ion-item-option>
 			  </ion-item-options>
 			  <app-card [id]="event" > </app-card>

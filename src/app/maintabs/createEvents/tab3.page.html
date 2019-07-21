@@ -1,204 +1,299 @@
 <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
-          <ion-title    color = "#d33939" class="ion-text-center">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="#d33939" class="ion-text-center">
       WesEvents
-          </ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-header>
-
-  <ion-segment  (ionChange)="segmentChanged($event) ">
-      <ion-segment-button checked value="preview">
-        <ion-icon slot = "end"name="create"></ion-icon>
-        <div class = "color">
-            Create Event
-          </div>
-      </ion-segment-button>
-      <ion-segment-button value="edit">
-        <ion-icon slot = "end" name="eye"></ion-icon>
-        <div class = "color">
-            Live Preview
-          </div>
-      </ion-segment-button>
-    </ion-segment>
-
-    
+    </ion-title>
+  </ion-toolbar>
 </ion-header>
-<ion-content *ngIf='viewMode === false'>
-  <ion-item class = "item">
-    <ion-card   color = "light" class = "newCard">
+<ion-header>
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button checked value="preview">
+      <ion-icon slot="end" name="create"></ion-icon>
+      <div class="color">
+        Create Event
+      </div>
+    </ion-segment-button>
+    <ion-segment-button value="edit">
+      <ion-icon slot="end" name="eye"></ion-icon>
+      <div class="color">
+        Live Preview
+      </div>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+<ion-content *ngIf="viewMode === false">
+  <ion-item class="item">
+    <ion-card color="light" class="newCard">
       <ion-card-content>
         <ion-card-title>
-                    {{title}}
-             
-                  </ion-card-title>
+          {{ title }}
+        </ion-card-title>
         <ion-card-subtitle>
-                    {{date}}
-                   
+          {{ date }}
+
           <ion-chip>
-            <ion-icon name="iconsMatch[{{selected}}]" color="dark"></ion-icon>
-            <ion-label>{{selected}}</ion-label>
+            <ion-icon name="iconsMatch[{{ selected }}]" color="dark"></ion-icon>
+            <ion-label>{{ selected }}</ion-label>
           </ion-chip>
         </ion-card-subtitle>
         <ion-grid>
           <ion-row class="ion-align-items-start">
-            <ion-col >
+            <ion-col>
               <div>
                 <div class="ion-text-start">
-                  <strong>Location: </strong> {{location}}
+                  <strong>Location: </strong> {{ location }}
                 </div>
               </div>
-              <div>
-                <strong>Students:</strong> {{invited}}
-                        
-              </div>
+              <div><strong>Students:</strong> {{ invited }}</div>
               <div></div>
             </ion-col>
           </ion-row>
         </ion-grid>
-        <strong> Description:</strong> {{description}}
-            
+        <strong> Description:</strong> {{ description }}
       </ion-card-content>
     </ion-card>
   </ion-item>
 </ion-content>
 
-<ion-content *ngIf = "viewMode">
+<ion-content *ngIf="viewMode">
+  <form [formGroup]="createEventForm">
+    <ion-item>
+      <ion-label position="floating">Event Title</ion-label>
+      <ion-input
+        placeholder="e.g. Fashion Show 2019..."
+        [(ngModel)]="title"
+        spellcheck="true"
+        required="true"
+        maxlength="50"
+        type="text"
+        formControlName="event_title"
+      ></ion-input>
+    </ion-item>
 
-    <form [formGroup]="createEventForm">
-        <ion-item>
-          <ion-label  position="floating">Event Title</ion-label>
-          <ion-input placeholder = "e.g. Fashion Show 2019..."[(ngModel)] = "title" spellcheck = "true" required = "true" maxlength = 50 type="text" formControlName="event_title"></ion-input>
-        </ion-item>
-      
-        <ion-item>
-           
-            <ion-label>Category</ion-label>
-              <ion-select [(ngModel)] = "selected" formControlName="event_category" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder = "Select One">
-                  <ion-select-option > </ion-select-option>
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-select
+        [(ngModel)]="selected"
+        formControlName="event_category"
+        [interfaceOptions]="customPopoverOptions"
+        interface="popover"
+        placeholder="Select One"
+      >
+        <ion-select-option> </ion-select-option>
 
-                <ion-select-option value = "custom field"> Other</ion-select-option>
-                <ion-select-option value ="Volunteering"> Volunteering </ion-select-option>
-                    <ion-select-option value ="Community"> Community </ion-select-option>
-                    <ion-select-option value ="Sports"> Sports </ion-select-option>
-                    <ion-select-option value ="Food"> Food </ion-select-option>
-                    <ion-select-option value ="Special lectures"> Special lectures </ion-select-option>
-                    <ion-select-option value ="Parties"> Parties </ion-select-option>
-                    <ion-select-option value ="Movies"> Movies </ion-select-option>
-                    <ion-select-option value ="Club Meeting"> Club Meeting </ion-select-option>
-                    <ion-select-option value ="Cultural and Language"> Cultural and Language </ion-select-option>
-                    <ion-select-option value ="Student Government"> Student Government </ion-select-option>
-                    <ion-select-option value ="Music"> Music </ion-select-option>
-                    <ion-select-option value ="Performance Art"> Performance Art </ion-select-option>
-                    <ion-select-option value ="Dance"> Dance </ion-select-option>
-                    <ion-select-option value ="Religious"> Religious </ion-select-option>
-                    <ion-select-option value ="Gaming"> Gaming </ion-select-option>
-                    <ion-select-option value ="Social Activism"> Social Activism </ion-select-option>
-                    <ion-select-option value ="Relax"> Relax </ion-select-option>
-                    <ion-select-option value ="Science"> Science </ion-select-option>
-                    <ion-select-option value ="Shopping"> Shopping </ion-select-option>
-                    <ion-select-option value ="Special Shows"> Special Shows </ion-select-option>
-                    <ion-select-option value ="Fitness"> Fitness </ion-select-option>
+        <ion-select-option value="custom field"> Other</ion-select-option>
+        <ion-select-option value="Volunteering">
+          Volunteering
+        </ion-select-option>
+        <ion-select-option value="Community"> Community </ion-select-option>
+        <ion-select-option value="Sports"> Sports </ion-select-option>
+        <ion-select-option value="Food"> Food </ion-select-option>
+        <ion-select-option value="Special lectures">
+          Special lectures
+        </ion-select-option>
+        <ion-select-option value="Parties"> Parties </ion-select-option>
+        <ion-select-option value="Movies"> Movies </ion-select-option>
+        <ion-select-option value="Club Meeting">
+          Club Meeting
+        </ion-select-option>
+        <ion-select-option value="Cultural and Language">
+          Cultural and Language
+        </ion-select-option>
+        <ion-select-option value="Student Government">
+          Student Government
+        </ion-select-option>
+        <ion-select-option value="Music"> Music </ion-select-option>
+        <ion-select-option value="Performance Art">
+          Performance Art
+        </ion-select-option>
+        <ion-select-option value="Dance"> Dance </ion-select-option>
+        <ion-select-option value="Religious"> Religious </ion-select-option>
+        <ion-select-option value="Gaming"> Gaming </ion-select-option>
+        <ion-select-option value="Social Activism">
+          Social Activism
+        </ion-select-option>
+        <ion-select-option value="Relax"> Relax </ion-select-option>
+        <ion-select-option value="Science"> Science </ion-select-option>
+        <ion-select-option value="Shopping"> Shopping </ion-select-option>
+        <ion-select-option value="Special Shows">
+          Special Shows
+        </ion-select-option>
+        <ion-select-option value="Fitness"> Fitness </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="selected == other">
+      <ion-input
+        maxlength="20"
+        formControlName="event_category"
+        required="true"
+        placeholder="Custom Category:"
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Location</ion-label>
+      <ion-select
+        [(ngModel)]="selectedLocation"
+        formControlName="event_location"
+        [interfaceOptions]="customPopoverOptions"
+        interface="alert"
+        placeholder="Select One"
+      >
+        <ion-select-option> </ion-select-option>
 
-                </ion-select>
-              
-                </ion-item>
-                <ion-item *ngIf = "selected == other"> 
-                    <ion-input maxlength = 20 formControlName="event_category" required = "true"  placeholder = "Custom Category:"> </ion-input>
-                  </ion-item>
-                    <ion-item>
+        <ion-select-option value="custom field"> Other</ion-select-option>
+        <ion-select-option value="Exley"> Exley </ion-select-option>
+        <ion-select-option value="Foss Hill"> Foss Hill </ion-select-option>
+        <ion-select-option value="Usdan University Center">
+          Usdan University Center
+        </ion-select-option>
+        <ion-select-option value="Russel House">
+          Russel House
+        </ion-select-option>
+        <ion-select-option value="Davison Art Center"
+          >Davison Art Center</ion-select-option
+        >
+        <ion-select-option value="Fayerweather">
+          Fayerweather
+        </ion-select-option>
+        <ion-select-option value="Memorial Chapel">
+          Memorial Chapel
+        </ion-select-option>
+        <ion-select-option value="Patricelli ’92 Theater">
+          Patricelli ’92 Theater
+        </ion-select-option>
+        <ion-select-option value="Powell Family Cinema">
+          Powell Family Cinema
+        </ion-select-option>
+        <ion-select-option value="Gordon Career Center">
+          Gordon Career Center
+        </ion-select-option>
+        <ion-select-option value="Resource Center">
+          Resource Center
+        </ion-select-option>
+        <ion-select-option value="Wesleyan RJ Julia Bookstore">
+          Wesleyan RJ Julia Bookstore
+        </ion-select-option>
+        <ion-select-option value="200 Church Street">
+          200 Church Street
+        </ion-select-option>
+        <ion-select-option value="Bennet Hall">Bennet Hall </ion-select-option>
+        <ion-select-option value="Butterfield Residence">
+          Butterfield Residence</ion-select-option
+        >
+        <ion-select-option value="Fauver Apartments">
+          Fauver Apartments
+        </ion-select-option>
+        <ion-select-option value="Hewitt"> Hewitt </ion-select-option>
+        <ion-select-option value="High Rise "> High Rise </ion-select-option>
+        <ion-select-option value="Low Rise"> Low Rise </ion-select-option>
+        <ion-select-option value="Nicolson"> Nicolson </ion-select-option>
+        <ion-select-option value="Olin Memorial Library">
+          Olin Memorial Library
+        </ion-select-option>
+        <ion-select-option value="Hall-Atwater Laboratory"
+          >Hall-Atwater Laboratory</ion-select-option
+        >
+        <ion-select-option value="Downey House">
+          Downey House
+        </ion-select-option>
+        <ion-select-option value="Albritton Hall"
+          >Albritton Hall
+        </ion-select-option>
+        <ion-select-option value="Boger Hall">Boger Hall</ion-select-option>
+        <ion-select-option value="Fisk Hall"> Fisk Hall </ion-select-option>
+        <ion-select-option value="Judd Hall"> Judd Hall </ion-select-option>
+        <ion-select-option value="Shanklin Laboratory">
+          Shanklin Laboratory
+        </ion-select-option>
+        <ion-select-option value="Van Vleck Observatory">
+          Van Vleck Observatory
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
 
-           <ion-label>Location</ion-label> 
-            <ion-select [(ngModel)] = "selectedLocation" formControlName="event_location" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder = "Select One">
-                <ion-select-option > </ion-select-option>
-             
-              <ion-select-option value = "custom field"> Other</ion-select-option>
-                <ion-select-option value ="Exley"> Exley </ion-select-option>
-                <ion-select-option value ="Foss Hill"> Foss Hill </ion-select-option>
-                <ion-select-option value ="Usdan University Center"> Usdan University Center </ion-select-option>
-                <ion-select-option value ="Russel House"> Russel House </ion-select-option>
-                <ion-select-option value ="Davison Art Center">Davison Art Center</ion-select-option>
-                <ion-select-option value ="Fayerweather"> Fayerweather </ion-select-option>
-                <ion-select-option value ="Memorial Chapel"> Memorial Chapel </ion-select-option>
-                <ion-select-option value ="Patricelli ’92 Theater"> Patricelli ’92 Theater </ion-select-option>
-                <ion-select-option value ="Powell Family Cinema"> Powell Family Cinema </ion-select-option>
-                <ion-select-option value ="Gordon Career Center"> Gordon Career Center </ion-select-option>
-                <ion-select-option value ="Resource Center"> Resource Center </ion-select-option>
-                <ion-select-option value ="Wesleyan RJ Julia Bookstore"> Wesleyan RJ Julia Bookstore </ion-select-option>
-                <ion-select-option value ="200 Church Street"> 200 Church Street </ion-select-option>
-                <ion-select-option value ="Bennet Hall">Bennet Hall </ion-select-option>
-                <ion-select-option value ="Butterfield Residence"> Butterfield Residence</ion-select-option>
-                <ion-select-option value ="Fauver Apartments"> Fauver Apartments </ion-select-option>
-                <ion-select-option value ="Hewitt"> Hewitt </ion-select-option>
-                <ion-select-option value ="High Rise "> High Rise  </ion-select-option>
-                <ion-select-option value ="Low Rise"> Low Rise </ion-select-option>
-                <ion-select-option value ="Nicolson"> Nicolson </ion-select-option>
-                <ion-select-option value ="Olin Memorial Library"> Olin Memorial Library </ion-select-option>
-                <ion-select-option value ="Hall-Atwater Laboratory">Hall-Atwater Laboratory</ion-select-option>
-                <ion-select-option value ="Downey House"> Downey House </ion-select-option>
-                <ion-select-option value ="Albritton Hall">Albritton Hall </ion-select-option>
-                <ion-select-option value ="Boger Hall">Boger Hall</ion-select-option>
-                <ion-select-option value ="Fisk Hall"> Fisk Hall </ion-select-option>
-                <ion-select-option value ="Judd Hall"> Judd Hall </ion-select-option>
-                <ion-select-option value ="Shanklin Laboratory"> Shanklin Laboratory </ion-select-option>
-                <ion-select-option value ="Van Vleck Observatory"> Van Vleck Observatory </ion-select-option>
-
-            </ion-select>
-
-        </ion-item>
-
-        <ion-item *ngIf = "selectedLocation == other"> 
-            <ion-input maxlength = 20 required = "true" formControlName="event_location" placeholder = "Custom Location:"> </ion-input>
-          </ion-item>
-        <ion-item>
-            <ion-label  position="floating">Invited Students</ion-label>
-            <ion-input placeholder = "e.g. All, MSA members, Students Of Color"[(ngModel)] = "invited" required = "true" maxlength = 15 type="text" formControlName="event_students"></ion-input>
-          </ion-item>
+    <ion-item *ngIf="selectedLocation == other">
+      <ion-input
+        maxlength="20"
+        required="true"
+        formControlName="event_location"
+        placeholder="Custom Location:"
+      >
+      </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Invited Students</ion-label>
+      <ion-input
+        placeholder="e.g. All, MSA members, Students Of Color"
+        [(ngModel)]="invited"
+        required="true"
+        maxlength="15"
+        type="text"
+        formControlName="event_students"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Date</ion-label>
+      <ion-input
+        [(ngModel)]="date"
+        required="true"
+        type="date"
+        formControlName="event_date"
+      ></ion-input>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
           <ion-item>
-            <ion-label position="stacked">Date</ion-label>
-            <ion-input  [(ngModel)] = "date" required = "true" type="date" formControlName="event_date"></ion-input>
+            <ion-label position="floating">Start Time</ion-label>
+            <ion-datetime
+              [(ngModel)]="starttime"
+              displayFormat="h:mm A"
+              minuteValues="0,15,30,45"
+              formControlName="event_startTime"
+            ></ion-datetime>
           </ion-item>
-          <ion-grid>
-
-            <ion-row>
-                <ion-col size = "6">
-                        <ion-item>
-                    <ion-label position="floating">Start Time</ion-label>
-                    <ion-datetime [(ngModel)] = "starttime" displayFormat="h:mm A" minuteValues="0,15,30,45" formControlName="event_startTime" ></ion-datetime>
-
-                  </ion-item>
-                  
-                </ion-col>
-                <ion-col size = "6" >
-                    <ion-item>
-                        
-                        <ion-label position="floating">End Time</ion-label>
-                        <ion-datetime [(ngModel)] = "endtime" displayFormat="h:mm A" minuteValues="0,15,30,45" formControlName="event_endTime" ></ion-datetime>
-
-                      </ion-item>
-                </ion-col>
-            </ion-row>
-          </ion-grid>
-<div padding>  
-          <ion-label class = "label" position = "fixed">Description</ion-label>
-        </div>       
-          <ion-item >
-
-            <textarea [(ngModel)] = "description" #myInput id="myInput" rows="5" maxLength="250" class = "desc" (keyup)="resize()" spellcheck = "true" placeholder = "3-4 sentences describing your event..." formControlName="event_description"></textarea>
-
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">End Time</ion-label>
+            <ion-datetime
+              [(ngModel)]="endtime"
+              displayFormat="h:mm A"
+              minuteValues="0,15,30,45"
+              formControlName="event_endTime"
+            ></ion-datetime>
           </ion-item>
-        <ion-button shape="round" color = "danger"
-        expand="block" [disabled]="!createEventForm.valid" (click)="createEvent()">Create Event</ion-button>
-
-
-    </form>
-   
-        
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div padding>
+      <ion-label class="label" position="fixed">Description</ion-label>
+    </div>
+    <ion-item>
+      <textarea
+        [(ngModel)]="description"
+        #myInput
+        id="myInput"
+        rows="5"
+        maxLength="250"
+        class="desc"
+        (keyup)="resize()"
+        spellcheck="true"
+        placeholder="3-4 sentences describing your event..."
+        formControlName="event_description"
+      ></textarea>
+    </ion-item>
+    <ion-button
+      shape="round"
+      color="danger"
+      expand="block"
+      [disabled]="!createEventForm.valid"
+      (click)="createEvent()"
+      >Create Event</ion-button
+    >
+  </form>
 </ion-content>
-
-
-
- 
