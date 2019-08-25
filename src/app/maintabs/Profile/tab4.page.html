@@ -8,6 +8,8 @@
        </ion-buttons>
     </ion-toolbar>
  </ion-header>
+ <ion-content >
+   
  <div class="ion-padding">
     <ion-item *ngIf="user">
        <ion-avatar slot="start">
@@ -18,12 +20,12 @@
              <h3> <strong> {{user.displayName}} </strong></h3>
           </ion-text>
           <p>{{user.email}}</p>
-          <p> <strong>Status: </strong> {{userData?.status}} </p>
+          <p *ngIf = "hasStatus === true"> <strong> Status: </strong> {{userData?.status}} </p>
 
        </ion-label>
     </ion-item>
  </div>
- <ion-content *ngIf = "!firstTime">
+ <ion-content *ngIf = "firstTime === true">
     <ion-card color = "darkred">
        <ion-card-header>
           <ion-card-title>
@@ -36,22 +38,34 @@
        </ion-card-content>
     </ion-card>
  </ion-content>
- <ion-content  *ngIf = "firstTime">
+ <ion-content  *ngIf = "firstTime === false">
     <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
        <ion-refresher-content
           pullingText="Pull to refresh"
           refreshingText="Refreshing events.."></ion-refresher-content>
     </ion-refresher>
-    <ion-searchbar placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear" debounce="1000"></ion-searchbar>
+    <ion-searchbar placeholder="Event Name" (ionInput)="filterList($event,'search')" animated showCancelButton="focus" cancelButtonText="Clear"></ion-searchbar>
     <div >
+        <ion-list>
+
        <div class = "cards" *ngFor = "let event of events; index as i"  class = "final">
-       <ion-item-sliding class = "item-sliding">
+       <!-- <ion-item-sliding class = "item-sliding">
           <ion-item-options side="start">
              <ion-item-option color="danger" (click)="deleteEvent(event)">Delete</ion-item-option>
              <ion-item-option color="warning" (click)="editEvent(event)">Edit</ion-item-option>
-          </ion-item-options>
-          <app-card [id]="event" > </app-card>
-       </ion-item-sliding>
+
+            </ion-item-options> -->
+          <app-card *ngIf = "event?.eventDeleted != true" [id]="event?.event_id" > </app-card>
+       <!-- </ion-item-sliding> -->
     </div>
+  </ion-list>
+  <!-- <ion-infinite-scroll threshold = "300px" (ionInfinite)="loadData($event)"> 
+      <ion-infinite-scroll-content
+      loadingSpinner="crescent"
+      [loadingText]="loadScreen">
+      </ion-infinite-scroll-content>
+
+  </ion-infinite-scroll> -->
     </div>  
  </ion-content>
+</ion-content>

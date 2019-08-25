@@ -1,7 +1,7 @@
 import { UserService } from '../services/user/user.service'
 import { Component, OnInit } from '@angular/core';
 import { FirebaseDatabaseService } from '../services/firebaseDatabase/firebase-database.service'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute,Router } from '@angular/router'
 @Component({
   selector: 'app-show-going',
   templateUrl: './show-going.page.html',
@@ -13,7 +13,7 @@ export class ShowGoingPage implements OnInit {
   goingIDs = [];
   goingUsers = [];
   members = false;
-  constructor(private route: ActivatedRoute, private user: UserService, private firebaseDatabase: FirebaseDatabaseService) { }
+  constructor(private route: ActivatedRoute, private router: Router,private user: UserService, private firebaseDatabase: FirebaseDatabaseService) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')
@@ -32,8 +32,10 @@ export class ShowGoingPage implements OnInit {
           this.goingIDs = res.event_goingCounter
 
           this.goingIDs.forEach(element => {
-            this.user.getUsername(element).subscribe((snapshot) => {
-              this.goingUsers.push(snapshot.payload.data())
+            
+            this.user.getUserdata(element).subscribe((snapshot) => {
+                            this.goingUsers.push(snapshot)
+              
             })
           });
         }
@@ -49,7 +51,11 @@ export class ShowGoingPage implements OnInit {
     }, 2000);
   }
 
-
+goToUserProfile(index) {
+  console.log("userprofile"+ this.goingIDs[index])
+  this.router.navigateByUrl("userprofile/"+ this.goingIDs[index])
+// console.log(this.goingIDs[index])
+}
 
 
 }

@@ -13,6 +13,9 @@ const routes: Routes = [
   { path: 'settings', loadChildren: './accountManager/home/home.module#HomePageModule', canActivate: [AuthGuard] },
   { path: 'homepage', loadChildren: './accountManager/homepage/homepage.module#HomepagePageModule' },
   { path: 'show-going/:id', loadChildren: './show-going/show-going.module#ShowGoingPageModule' },
+  { path: 'create-event', loadChildren: './maintabs/create-event/create-event.module#CreateEventPageModule' },
+  { path: 'about', loadChildren: './about/about.module#AboutPageModule' },
+  { path: 'userprofile/:uuid', loadChildren: './userprofile/userprofile.module#UserprofilePageModule' },
 
 ];
 

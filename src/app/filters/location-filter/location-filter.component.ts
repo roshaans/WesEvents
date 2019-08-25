@@ -24,7 +24,7 @@ export class LocationFilterComponent implements OnInit {
       this.locationEntries[index][1] = false
 
     }
-    this.tab1.filterList(this.locationEntries, "location", false)
+    // this.tab1.filterList(this.locationEntries, "location", false)
 
     
   }
@@ -47,7 +47,7 @@ export class LocationFilterComponent implements OnInit {
     element[1] = false;
 })
 }
-this.tab1.filterList(this.locationEntries, "location", true)
+// this.tab1.filterList(this.locationEntries, "location", true)
 
 
 

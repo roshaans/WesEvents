@@ -34,3 +34,7 @@ display: inline-block;
   display: flex;
   margin: auto;
 }
+ion-toolbar {
+  --background: #d21515;
+  color: white;
+}

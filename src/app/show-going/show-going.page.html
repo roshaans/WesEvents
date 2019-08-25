@@ -16,7 +16,7 @@
           </ion-card-title>
        </ion-card-header>
        <ion-card-content>
-          <h2>	<strong> Tip:</strong> Try spreading the word!!	</h2>
+          <h2>	<strong> Tip:</strong> Try spreading the word by tapping  <ion-icon name="share"></ion-icon> and sharing the event with your friends on social media!	</h2>
        </ion-card-content>
     </ion-card>
  </ion-content>
@@ -28,7 +28,15 @@
  </ion-refresher>
  <ion-searchbar  placeholder="search username" animated showCancelButton="focus" cancelButtonText="Clear" ></ion-searchbar>
  <ion-content>
-    <ion-item *ngFor = "let user of goingUsers; index as i" >
-       <strong> {{user.displayName}} </strong> 
-    </ion-item>
+     <ion-list> 
+            <ion-list-header>
+                    <ion-label>Attending Students</ion-label>
+                  </ion-list-header>
+            <ion-item detail = "true" (click) = "goToUserProfile(i)" class = "item" *ngFor = "let user of goingUsers; index as i" >
+                    <ion-avatar style = "margin-right: 10px;"> <img src="{{user.photoURL}}"></ion-avatar>
+                    
+                    {{ user.displayName}} 
+                  </ion-item>
+     </ion-list>
+   
  </ion-content>

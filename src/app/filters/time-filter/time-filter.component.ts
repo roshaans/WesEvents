@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {Tab1Page} from './../../maintabs/browseEvents/tab1.page'
 @Component({
   selector: 'app-time-filter',
   templateUrl: './time-filter.component.html',
@@ -11,9 +11,12 @@ export class TimeFilterComponent implements OnInit {
 
   timeEntries = Object.entries(this.time)
   allClicked = true;
-  constructor() { }
+  constructor(private tab1: Tab1Page) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+
+
+  }
   changeColor(index){
 
     this.allClicked  = false;
@@ -24,12 +27,10 @@ export class TimeFilterComponent implements OnInit {
       this.timeEntries[index][1] = false
 
     }
-
     
   }
 
   allClickedFunc() {
-
     if(this.allClicked == true) {
       this.allClicked = false
     } else if(this.allClicked == false) {
@@ -45,7 +46,9 @@ export class TimeFilterComponent implements OnInit {
   this.timeEntries.forEach(element => {
     element[1] = false;
 })
+
 }
+// this.tab1.filterList(this.timeEntries, "time", true)
 
 
 

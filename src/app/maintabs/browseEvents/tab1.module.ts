@@ -1,3 +1,4 @@
+ import { PopoverComponent } from './../../popover/popover.component';
 import { TimeFilterComponent } from './../../filters/time-filter/time-filter.component';
 import { ScrollComponent } from './../../filters/DaysOfWeekFilter/scroll.component';
 import { CardComponent } from './../../shared/card/card.component';
@@ -18,6 +19,7 @@ import { LocationFilterComponent } from './../../filters/location-filter/locatio
     SharedModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }])
   ],
-  declarations: [Tab1Page, ScrollComponent, LocationFilterComponent, TimeFilterComponent,ActivityFilterComponent ]
+  entryComponents: [PopoverComponent],
+    declarations: [PopoverComponent,Tab1Page, ScrollComponent, LocationFilterComponent, TimeFilterComponent,ActivityFilterComponent ]
 })
 export class Tab1PageModule {}

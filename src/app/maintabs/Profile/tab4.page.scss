@@ -9,15 +9,10 @@
     }
     
     .newCard {
-        
         display:flex;
         align-self: stretch;
        align-content: stretch;
-       
-      
-      
       }
-      
       
       .item {
         display: flex;
@@ -36,4 +31,11 @@
 height : 100% !important;  
 max-width: 60px !important;  //any size
 max-height: 60px !important; //any size 
+      }
+      ion-icon {
+        color: white;
+      } 
+      ion-toolbar {
+        --background: #d21515;
+        color: white;
       }

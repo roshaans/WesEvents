@@ -11,7 +11,7 @@
           width: 100px;
           --border-radius: 0;
           font-family: "Arial-Custom";
-          font-size: 24px;
+          font-size: 28px;
           --background: 6F6565;
 
 
@@ -23,4 +23,45 @@
   ::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* make scrollbar transparent */
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+    // border: 2px  red;
+
+}
+.today {
+    display:flex;
+    align-self: center;
+    position: absolute;
+   /* TODAY: */
+font-family: ralewayCustom;
+font-size: 15px;
+// color: #6F6565;
+letter-spacing: 0;
+    // border: 2px solid blue;
+}
+.day {
+    display:flex;
+    align-self: center;
+    // padding-top: 30px;
+    padding-top: 10px
+            // border: 2px blue solid;
+
+    // border: 2px solid purple;
+}
+.containerDate{
+    display:flex;
+    flex-direction: column;
+    align-content: space-between;
+    // border: 2px black solid;
+    padding-top: 30px;
+}
+.date{
+    /* 07: */
+font-family: Futura-Medium;
+font-size: 30px;
+// color: #FFFFFF;
+letter-spacing: 0;
 }

@@ -1,0 +1,117 @@
+<ion-header>
+    <ion-toolbar>
+       <ion-title>{{profileUser?.displayName}}'s profile</ion-title>
+       <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <div class="ion-padding">
+        <ion-item *ngIf="profileUser">
+           <ion-avatar slot="start">
+              <img [src]="profileUser.photoURL">
+           </ion-avatar>
+           <ion-label text-wrap>
+              <ion-text color="primary">
+                 <h3> <strong> {{profileUser?.displayName}} </strong></h3>
+              </ion-text>
+              <p>{{profileUser.email}}</p>
+              <p> <strong>Status: </strong> {{profileUser.status}} </p>
+           </ion-label>
+        </ion-item>
+        <ion-segment style = "padding-top: 20px;" (ionChange)="segmentChanged($event)">
+            <ion-segment-button checked value="hosted">
+              <ion-icon slot="end" name="create"></ion-icon>
+              <div class="color">
+               Hosted Events
+              </div>
+            </ion-segment-button>
+            <ion-segment-button value="saved">
+              <ion-icon slot="end" name="bookmark"></ion-icon>
+              <div class="color">
+                Saved Events
+              </div>
+            </ion-segment-button>
+          </ion-segment>
+     </div>
+    
+ </ion-header>
+ 
+ <ion-content *ngIf = "showEvents === true">
+        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content
+                   pullingText="Pull to refresh"
+                   refreshingText="Refreshing events.."></ion-refresher-content>
+             </ion-refresher>
+    <ion-content *ngIf = "firstTimeSaved == true">
+         
+        <ion-card color = "darkred">
+           <ion-card-header>
+              <ion-card-title>
+                  {{profileUser?.displayName}} has not saved any events yet!
+              </ion-card-title>
+           </ion-card-header>
+          
+        </ion-card>
+     </ion-content>
+    
+    
+     <ion-content  *ngIf = "firstTimeSaved === false">
+        
+        <div >
+           <div class = "cards" *ngFor = "let event of savedEvents; index as i"  class = "final">
+           <!-- <ion-item-sliding class = "item-sliding">
+              <ion-item-options side="start">
+                 <ion-item-option color="success" (click)="saveEvent(event)">Mark As Going</ion-item-option>
+                </ion-item-options> -->
+    
+              <app-card *ngIf = "event?.eventDeleted != true" [id]="event?.event_id" > </app-card>
+           <!-- </ion-item-sliding> -->
+        </div>
+        </div>  
+     </ion-content>
+</ion-content>
+
+
+
+
+
+
+
+
+<ion-content *ngIf = "showEvents === false"> 
+        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+                <ion-refresher-content
+                   pullingText="Pull to refresh"
+                   refreshingText="Refreshing events.."></ion-refresher-content>
+             </ion-refresher>
+    <ion-content *ngIf = "firstTime === true">
+            
+        <ion-card color = "darkred">
+           <ion-card-header>
+              <ion-card-title>
+                  {{profileUser?.displayName}} has not hosted any events yet!
+              </ion-card-title>
+           </ion-card-header>
+          
+        </ion-card>
+     </ion-content>
+    
+    
+     <ion-content  *ngIf = "firstTime === false">
+     
+        <ion-searchbar placeholder="Event Name" (ionInput)="filterList($event,'search')" animated showCancelButton="focus" cancelButtonText="Clear"></ion-searchbar>
+        <div >
+           <div class = "cards" *ngFor = "let event of events; index as i"  class = "final">
+           <ion-item-sliding class = "item-sliding">
+              <ion-item-options side="start">
+                 <ion-item-option color="success" (click)="saveEvent(event)">Mark As Going</ion-item-option>
+                </ion-item-options>
+    
+              <app-card *ngIf = "event?.eventDeleted != true" [id]="event?.event_id" > </app-card>
+           </ion-item-sliding>
+        </div>
+        </div>  
+     </ion-content>
+
+    </ion-content> 
+  

@@ -16,11 +16,10 @@ import { identifierName } from '@angular/compiler';
 export class FirebaseDatabaseService {
 
     eventsCollection: AngularFirestoreCollection<Event>;
-    events: Observable<Event[]>;
-
+    events?: Observable<Event[]>;
+    
     constructor(public fStore: AngularFirestore) {
         this.eventsCollection = fStore.collection<Event>('events')
-
 
         this.events = this.eventsCollection.snapshotChanges()
             .pipe(
@@ -37,33 +36,62 @@ export class FirebaseDatabaseService {
 
     createEvent(event: Event, user_uid: string) {
         var userRef = this.fStore.collection("users").doc(user_uid)
-
+        var id;
         this.eventCollectionRef.add(event)
             .then(function (docref) {
+               id = docref.id
                 console.log("Event was successfully created!");
                 userRef.update({
                     createdEvents: firebase.firestore.FieldValue.arrayUnion(docref.id)
                 })
+                console.log("docref IS", docref.id)
 
 
             })
             .catch(function (error) {
                 console.log("Error Creating Event: ", error);
-            });
+            })
+
+
 
     }
+    
+    addUpdate(event, update: string) {
+        this.eventCollectionRef.doc(event).update({updates: firebase.firestore.FieldValue.arrayUnion(update)
+        })
 
+        
+        // .then(()=> {
+
+        //     this.eventCollectionRef.doc("${event}/${update}").update({time_stamp:firebase.firestore.FieldValue.serverTimestamp()})
+        // })
+    }
+    getUpdates(event) {
+        var updates; 
+
+       return this.eventCollectionRef.doc(event).get()
+    }
+    deleteUpdate(event, updateToDelete) {
+        return this.eventCollectionRef.doc(event).update({
+            updates: firebase.firestore.FieldValue.arrayRemove(updateToDelete)
+        })
+    }
     getEvent(id: string) {
         return this.eventsCollection.doc<Event>(id).valueChanges().pipe(take(1), map(event => {
-            return event
+            if(event) {
+                event.event_id = id
+                return event
+            }
+           
         }))
 
     }
 
     getEventIDs() {
+     
         return this.events
     }
-
+   
     editEvent(event: Event, eventID: string) {
 
         this.eventCollectionRef.doc(eventID).update(event)
@@ -74,6 +102,8 @@ export class FirebaseDatabaseService {
             .catch(function (error) {
                 console.log("Error Editing Event: ", error);
             });
+        
+        this.eventCollectionRef.doc(eventID).update({lastUpdated: firebase.firestore.FieldValue.serverTimestamp()})
     }
 
     deleteEvent(event: string, user_uid: string) {
@@ -133,5 +163,5 @@ export class FirebaseDatabaseService {
             });
     }
 
-
+    
 }

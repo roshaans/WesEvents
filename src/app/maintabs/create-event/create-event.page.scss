@@ -1,0 +1,110 @@
+
+.card {
+    display: inline-block;
+    height: 150px;
+    width: 370px;
+
+    // border: 1px solid rgb(255, 0, 0);
+  }
+  .identify {
+    border: 1px solid orange;
+  }
+  ion-segment{
+    height: 80px;
+    background-color: #FFF;
+}
+
+ion-segment-button{
+  font-size: 16px;
+  color: red;
+  border: 0px;
+  --color-checked: red;
+  --color-checked-disabled: red;
+  border-radius: 0px;
+}
+.color{
+  color: rgb(70, 66, 66);
+}
+ion-back-button {
+  --color	: white;
+}
+.wider-popover .popover-content {
+  width: 100%;
+}
+
+.segment-button-checked{
+  background: #FFF;
+  color: var(--ion-color-primary);
+  border-bottom: 3px solid red;
+}
+.content {
+    
+  
+      display: flex;
+      flex-direction: column;
+  
+  }
+  .outer {
+    display: flex;
+    flex-direction: row;
+  }
+  .desc {
+    display:block;
+    height: 50px;
+  }
+  .realtimeText {
+text-align: center;
+padding-top: 20px;
+
+  }
+  #myInput {
+    width: calc(100% - 10px);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+.label {
+  display: flex;
+  margin:auto;
+  height: 20px;
+  margin-bottom: 5px;
+}
+ion-button{
+  color: #ffa000;
+
+}
+ion-toolbar {
+  --background: #d21515;
+  color: white;
+}
+ion-back-button {
+  --color	: white;
+}
+
+
+.image-container {
+  min-height: 200px;
+  background-size: cover;
+}
+ 
+@media (min-width: 0px) {
+  .images {
+    column-count: 2;
+  }
+}
+ 
+@media (min-width: 420px) {
+  .images {
+    column-count: 3;
+  }
+}
+ 
+@media (min-width: 720px) {
+  .images {
+    column-count: 4;
+  }
+}
+ 
+.one-image {
+  margin: 2px;
+}

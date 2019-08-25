@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { editEventPage } from './editEvent.page';
 import { ReactiveFormsModule } from '@angular/forms'
+import { UpdatePopoverComponentComponent } from './../../update-popover-component/update-popover-component.component'
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 
     RouterModule.forChild([{ path: '', component: editEventPage }])
   ],
-  declarations: [editEventPage]
+  entryComponents: [UpdatePopoverComponentComponent],
+  declarations: [UpdatePopoverComponentComponent, editEventPage]
 })
 export class EditEventPageModule {}

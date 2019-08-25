@@ -14,20 +14,41 @@ import {UserService} from './../../services/user/user.service'
 })
 export class Tab2Page implements OnInit{
   user: any;
-  events: any[];
-  firstTime: boolean = false;
+  eventIDs: string[];
+  events: Event[] = [];
+  searchTerm;
+  loadedEvents: Event[] =[];
+  connectionIsGood: Boolean = false;
+  firstTime;
   
   constructor(private userService: UserService,private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router: Router) {
-
-  }
-
-  ngOnInit() {
+  
     this.fetchEvents()
+
+  }
+  ionViewWillEnter () {
+
+        this.fetchEvents()
+
+   }
+   
+  ngOnInit() {
+
+
+    // this.fireauth.auth.onAuthStateChanged((user) => {
+    //   if (user) {
+    //     this.user = user;
+
+    
+    //   }
+    // })
+
+   
   }
 
-  notGoing(event: string) {
-      this.firebaseDatabase.deleteEventFromSavedEvents(event, this.user.uid).then( () => {
-        this.firebaseDatabase.deleteGoing(event, this.user.uid)
+  notGoing(event) {
+      this.firebaseDatabase.deleteEventFromSavedEvents(event.event_id, this.user.uid).then( () => {
+        this.firebaseDatabase.deleteGoing(event.event_id, this.user.uid)
 
         this.fetchEvents()
 
@@ -38,32 +59,59 @@ export class Tab2Page implements OnInit{
 
     fetchEvents() {
       this.userService.getSavedIds().get().subscribe((snapshot) => {
+        this.events = []
+        this.loadedEvents = []
         if ( snapshot.data().savedEvents) {
-          this.events = []
-          this.events = snapshot.data().savedEvents
-          if (this.events.length >= 1){
-            this.firstTime = true;
-          } else {
-            this.firstTime = false
+          this.eventIDs = []
+          this.eventIDs = snapshot.data().savedEvents
+          if (this.eventIDs.length > 0){
+            this.firstTime = false;
+
+          } else if (this.eventIDs.length == 0) {
+
+            this.firstTime = true
+
           }
+          if(this.eventIDs.length > 0) {
+            this.connectionIsGood = true;
+          this.eventIDs.forEach(element => {
+            this.firebaseDatabase.getEvent(element).subscribe((data)=> {
+              this.events.push(data)
+              this.loadedEvents.push(data)
+            })  
+            
+          }); 
+        
+          this.animateCSS("ion-list", "bounceInUp", null)
         }
-       
+        } else {
+          this.firstTime = true
+
+        }
+
     })
     }
-  ionViewDidEnter() {
-    this.fetchEvents()
-    this.fireauth.auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.user = user;
-       
-    
-      }
-    })
-
+    initializeItems() {
+      this.events = this.loadedEvents
+    }
+    filterList(evt) {
+      this.initializeItems();
+     const searchTerm = evt.srcElement.value;
+     if (!searchTerm) {
+       return;
+       }
+       this.events = this.events.filter(currentEvent => {
+         if (currentEvent.event_title && searchTerm) {
+         if (currentEvent.event_title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+         return true;
+         }
+         return false;
+         }
+         } );
+   }
    
-  }
   doRefresh(event) {
-   
+   this.events = []
     this.fetchEvents()
 
     setTimeout(() => {
@@ -78,6 +126,20 @@ export class Tab2Page implements OnInit{
       message: msg, 
       duration: 2000
     }).then(toast => toast.present());
+  }
+
+  animateCSS(element, animationName, callback) {
+    const node = document.querySelector(element)
+    node.classList.add('animated', animationName)
+  
+    function handleAnimationEnd() {
+        node.classList.remove('animated', animationName)
+        node.removeEventListener('animationend', handleAnimationEnd)
+  
+        if (typeof callback === 'function') callback()
+    }
+  
+    node.addEventListener('animationend', handleAnimationEnd)
   }
 }
 

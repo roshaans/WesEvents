@@ -32,14 +32,22 @@ export class UserService {
       
     
 }
-getUsername(id: string): any {
+getUserdata(id: string): any {
 
-   return this.fStore.collection("users").doc(id).snapshotChanges()
+   return this.fStore.collection("users").doc(id).valueChanges()
 } 
 
 
   getSavedIds(): AngularFirestoreDocument {
+    
     return  this.savedEventsCollection
+    
+  
+  }
+  getSavedIdForUser(uuid: string): AngularFirestoreDocument {
+    var collection = this.fStore.doc("users/"+uuid)
+
+    return  collection
     
   
   }

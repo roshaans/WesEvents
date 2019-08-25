@@ -23,11 +23,10 @@ export class SignupPage {
   password: string = '';
   error: string = '';
   username: string = '';
-  image: number;
+  image: number = Math.floor(Math.random() * 60) + 1  ;
   status?: string = '';
   constructor(private fireauth: AngularFireAuth, private router: Router, private toastController: ToastController, private platform: Platform, public loadingController: LoadingController,
     public alertController: AlertController, private fStore:AngularFirestore) {
-
   }
 
   async openLoader() {

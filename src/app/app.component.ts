@@ -4,7 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import * as firebase from 'firebase/app';
-
+import {timer} from 'rxjs/observable/timer'
 const config = {
   apiKey: "AIzaSyAda2rGGrmtWjGtg3bYvGKOv-EsZnG_Cm0",
   authDomain: "wesleyaneventsapp.firebaseapp.com",
@@ -19,7 +19,10 @@ const config = {
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
+
+  showSplash = true;
   constructor(
+    
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar
@@ -31,6 +34,8 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      timer(3000).subscribe(() => this.showSplash = false)
     });
     firebase.initializeApp(config);
 

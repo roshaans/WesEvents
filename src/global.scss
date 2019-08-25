@@ -10,3 +10,12 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 // @import '~firebaseui/dist/firebaseui.css';
+ion-toolbar {
+    --background: #d21515;
+    color: white;
+  }
+
+  ion-back-button {
+    --color	: white;
+}
+@import "~@mobiscroll/angular/dist/css/mobiscroll.scss";

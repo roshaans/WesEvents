@@ -1,11 +1,11 @@
 <div class = "timeContainer" > 
 
-    <div class = "buttonBox"  > 
+    <!-- <div class = "buttonBox"  >  -->
       <ion-button fill = "outline"  [color] = "allClicked ? 'danger' : 'medium' " (click) = "allClickedFunc()" >ALL</ion-button>
 
       <ion-button *ngFor = "let time of timeEntries; index as i" fill = "outline"   [color] = "time[1] ? 'danger' : 'medium' " (click) = "changeColor(i)" >{{time[0] | uppercase}}</ion-button>
     
-    </div> 
+    <!-- </div>  -->
   
   </div>
   

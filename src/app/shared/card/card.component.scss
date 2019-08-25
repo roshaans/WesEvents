@@ -1,6 +1,38 @@
+// @import “../theme/variables.scss”;
+
+
+:root {
+$color-red: #FF0000;
+
+}
+.optionsContainer {
+  display: flex;
+}
+.card-content-ios {
+  padding-left: 20px;
+  padding-right: 20px;
+   padding-top: 0px; 
+   padding-bottom: 0px; 
+  font-size: 16px;
+  line-height: 1.4;
+}
+.aboutDiv {
+  display: flex;
+  justify-content:  flex-start;;
+  padding-right: 5px;
+  padding-top: 5px;
+  justify-content: space-between;
+}
 .newCard {
   margin-left: auto;
   margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  // background: $base-color;
+  // border: 1px solid $color-red;
+
+  // border: 1px solid $border-dark;
+
 }
 
 .card {
@@ -19,6 +51,13 @@
       --border-color:	white;
     }
   }
+  ion-popover {
+    --width: fit-content;
+}
+
+
+
+
   .content {
     
   
@@ -46,3 +85,122 @@ color: white;
  .removedLabel {
    --color: black;
  }
+ ion-button {
+  --background-activated: red;
+ }
+
+ 
+ .createdBy {
+   display: flex;
+  //  flex-direction: row;
+   align-items: flex-end;
+   width: fit-content;
+   align-self: center;
+   justify-content: flex-start;
+   color: white;
+ }
+ .bottomLayer {
+   display: flex;
+   flex-direction: row;
+  //  align-self: center;
+ }
+ .mbsc-img-thumbnail {
+    margin: 0em; 
+    width: 8em;
+    img {
+      border-radius: 6px;
+     }
+ }
+ .locationInvitedContainer {
+  min-width: 150px;
+  padding-left: 20px;
+
+ }
+ .middleContainer{
+  display: flex;
+  flex-direction: row;
+ }
+ 
+ .sinceDate {
+  width: max-content;
+   align-self: center;
+   color: black;
+  // width: 200px;
+  // color: light;
+  font-size: 14px;
+  // margin-left: 5px;
+  // padding-top: 10px;
+  // padding-bottom: 10px;
+  padding-left: 5px;
+  padding-bottom: 5px;
+ }
+ ion-fab-list {
+  align-items: start;
+  margin-top: 50px;
+ }
+ .badge{
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
+  display: flex;
+  width: fit-content;
+  /* justify-content: center; */
+  flex-direction: row;
+  /* align-items: flex-end; */
+ }
+ .adminPanel {
+  padding: 10px;
+  display: flex;
+  justify-content:  flex-start;;
+  padding-right: 5px;
+  padding-top: 5px;
+  justify-content: space-between;
+  background-color: #6f6f6f73;
+
+ }
+ .badgeContainer {
+   display: flex;
+  //  justify-content: flex-end;
+  //  justify-content: space-around;
+  //  background-color: #6f6f6f73;
+  background-color: #fffcfc8a;
+   margin-top: 10px;
+   justify-content: space-between;
+   flex-direction: row;
+ }
+//  .normal {
+  // .item-content {
+  //   background-color: green;
+  // }
+//  }
+
+ .heartAndTimeContainer {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-content: center;
+   
+ }
+ .normal {
+  border: solid #0edc60 5px;
+ }
+ ion-fab-button {
+
+  width: 40px;
+  height: 40px;
+ }
+ .button-inner {
+  background: white;
+
+}
+.saveContainer {
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.heart {
+  width: 40px;
+  height: 40px;
+  padding-top: 5px;
+  padding-left: 5px;
+}

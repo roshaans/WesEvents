@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "41400534112",
+    "firebase_url": "https://wesleyaneventsapp.firebaseio.com",
+    "project_id": "wesleyaneventsapp",
+    "storage_bucket": "wesleyaneventsapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41400534112:android:5dd191498d92ae55",
+        "android_client_info": {
+          "package_name": "com.wesleyan.Wesevents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "41400534112-s8oiilv2j40unck2ne92bqa7380uhe2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGSiyLe9j-Vi3TSR0Ba84w6-n3f2ezD5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "41400534112-s8oiilv2j40unck2ne92bqa7380uhe2f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "41400534112-012dv9flrf91mnfvdd25qipfo7ev1ih1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wesleyan.Wesevents"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

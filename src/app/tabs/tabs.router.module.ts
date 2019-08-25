@@ -23,15 +23,6 @@ const routes: Routes = [
             loadChildren: '../maintabs/savedEvents/tab2.module#Tab2PageModule'
           }
         ]
-      },
-      {
-        path: 'tab3',
-        children: [
-          {
-            path: '',
-            loadChildren: '../maintabs/createEvents/tab3.module#Tab3PageModule'
-          }
-        ]
       },{
         path: 'tab4',
         children: [

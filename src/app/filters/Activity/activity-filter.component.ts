@@ -44,7 +44,7 @@ export class ActivityFilterComponent implements OnInit {
       this.activityEntries[index][1] = false
 
     }
-    this.tab1.filterList(this.activityEntries, "category", false)
+    // this.tab1.filterList(this.activityEntries, "category", false)
 
     
   }
@@ -71,7 +71,7 @@ export class ActivityFilterComponent implements OnInit {
 
 }
 
-this.tab1.filterList(this.activityEntries, "category", true)
+// this.tab1.filterList(this.activityEntries, "category", true)
 
 
   }

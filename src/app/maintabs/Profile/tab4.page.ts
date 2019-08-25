@@ -16,30 +16,45 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 export class Tab4Page implements OnInit {
   userData: any;
   user: any;
-  events;
+  eventIDs: string[] = [];
+  events: Event[] = [];
   firstTime: boolean = false;
-
+  searchTerm;
+  loadedEvents: Event[] =[];
+  hasStatus = false;
   constructor( private fstore:AngularFirestore, private userService: UserService,private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router:Router) { 
-    this.fireauth.auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.user = user;
-        this.getData()
-      }
-    })
     
+
   }
 
-  ionViewDidEnter() {
-    this.fetchEvent()
+
+  ionViewWillEnter () {
+  // this.fetchEvents()
+this.fetchEvents()
+
+ }
+
+ngOnInit() {
+  this.fireauth.auth.onAuthStateChanged((user) => {
+    if (user) {
+      this.user = user;
+
+      this.getData()
+
+    }
+  })
+  // this.fetchEvents()
+  this.fetchEvents()
+
 }
 deleteEvent(event) {
 
-this.firebaseDatabase.deleteEvent(event, this.user.uid)
-this.fetchEvent();
+this.firebaseDatabase.deleteEvent(event.event_id, this.user.uid)
+this.fetchEvents();
 
 }
 editEvent(event) {
-  this.router.navigateByUrl("editEvent/"+event)
+  this.router.navigateByUrl("editEvent/"+event.event_id)
 }
   showToast(msg) {
     this.toastCtrl.create({
@@ -48,31 +63,48 @@ editEvent(event) {
       duration: 2000
     }).then(toast => toast.present());
   }
-  ngOnInit() {
-    this.fetchEvent();
-    
-  }
- fetchEvent() {
+  
+ fetchEvents() {
    
   this.userService.getSavedIds().get().subscribe((snapshot) => {
+    this.events = []
+    this.loadedEvents = []
     if (snapshot.data().createdEvents) {
-      this.events = []
-      this.events = snapshot.data().createdEvents
-      if (this.events.length >= 1){
-        this.firstTime = true;
+      this.eventIDs = []
+      this.eventIDs = snapshot.data().createdEvents
+
+      if (this.eventIDs.length > 0){
+        this.firstTime = false;
       } else {
-        this.firstTime = false
+        this.firstTime = true
       }
+    } else {
+      this.firstTime = true
     }
-   
+   if(this.eventIDs.length > 0) { 
+
+    this.eventIDs.forEach(element => {
+
+      this.firebaseDatabase.getEvent(element).subscribe((data)=> {
+        this.events.push(data)
+        this.loadedEvents.push(data)
+      })  
+      
+    });
+    this.animateCSS("ion-list", "bounceInUp", null)
+
+  }
+
 })
-  
+
  }
 
  getData() {
   this.getUserData().subscribe((data)=> {
     this.userData = data
-    console.log(data, "data")
+    if (this.userData.status != "" || this.userData.status != " ") {
+      this.hasStatus = true;
+    }
   })
 }
 getUserData() {
@@ -81,14 +113,47 @@ getUserData() {
 settingsButtonClicked() {
   this.router.navigateByUrl('/settings');
 }
+initializeItems() {
+  this.events = this.loadedEvents
+}
+filterList(evt) {
+   this.initializeItems();
+  const searchTerm = evt.srcElement.value;
+  if (!searchTerm) {
+    return;
+    }
+    this.events = this.events.filter(currentEvent => {
+      if (currentEvent.event_title && searchTerm) {
+      if (currentEvent.event_title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+      return true;
+      }
+      return false;
+      }
+      } );
+}
+animateCSS(element, animationName, callback) {
+  const node = document.querySelector(element)
+  node.classList.add('animated', animationName)
 
+  function handleAnimationEnd() {
+      node.classList.remove('animated', animationName)
+      node.removeEventListener('animationend', handleAnimationEnd)
+
+      if (typeof callback === 'function') callback()
+  }
+
+  node.addEventListener('animationend', handleAnimationEnd)
+}
 doRefresh(event) {
-    this.fetchEvent();
-   
+  this.events = [];
+    this.fetchEvents();
+
   setTimeout(() => {
     event.target.complete();
   }, 2000);
 }
+
+
 }
 
 

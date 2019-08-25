@@ -13,11 +13,20 @@
 ion-text {
   color: white;
 }
+.keyboard-up{
+  height: auto !important;
+}
+
+
 ion-card {
   --background:rgba(255,255,255,0);
   box-shadow: none;
   -webkit-box-shadow: none;
   overflow: scroll;
+}
+
+.scroll-content {
+  padding-bottom: 0px !important;
 }
 .input {
   background-color: rgb(240, 240, 240);
@@ -96,3 +105,4 @@ ion-card {
 .no-scroll .scroll-content {
   overflow: hidden;
 }
+

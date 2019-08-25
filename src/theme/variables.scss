@@ -82,7 +82,7 @@
     --ion-color-darkred-contrast: #ffffff;
     --ion-color-darkred-contrast-rgb: 255, 255, 255;
     --ion-color-darkred-shade: #d33939;
-    --ion-color-darkred-tint: #f25454;
+    --ion-color-darkred-tint: #020202;
     }
     .ion-color-mediumAltered {
 
@@ -97,7 +97,17 @@
    
   
 }
-
+ion-popover{
+  ion-backdrop{
+  opacity: 0.5 !important;
+  }
+  .popover-wrapper{
+  .popover-content{
+  width:fit-content;
+  // max-width:500px;
+  }
+  }
+  }
 .ion-color-darkred {
 --ion-color-base: var(--ion-color-darkred) !important;
 --ion-color-base-rgb: var(--ion-color-darkred-rgb) !important;
@@ -130,3 +140,13 @@
     src: url('../assets/fonts/Arial-Black.ttf');
   }
   
+  @font-face {
+    font-family: 'ralewayCustom';
+    font-style: bold;
+    font-weight: bold;
+    src: url('../assets/fonts/raleway-bold.ttf');
+  }
+
+  ion-back-button {
+    --color	: white;
+}

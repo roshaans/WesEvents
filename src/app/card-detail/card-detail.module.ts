@@ -1,3 +1,4 @@
+import { MbscModule } from '@mobiscroll/angular';
 import { CardComponent } from './../shared/card/card.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,7 +16,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
+  imports: [ 
+    MbscModule, 
     CommonModule,
     FormsModule,
     IonicModule,

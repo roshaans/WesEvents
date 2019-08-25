@@ -1,23 +1,44 @@
-<ion-header>
+
+
+
+<ion-header class = "header">
 		<ion-toolbar>
-		   <ion-buttons slot="start">
-			  <ion-menu-button></ion-menu-button>
+		   <ion-buttons slot="end">
+			  <ion-button (click) = "presentPopover($event)" >
+				<ion-icon class = "quick"name="arrow-dropdown-circle"></ion-icon></ion-button>
 		   </ion-buttons>
 		   <ion-title    color = "#d33939" class="ion-text-center">
 			  Browse Events
 		   </ion-title>
 		</ion-toolbar>
 	 </ion-header>
-
-	 <ion-content>
+	 <div  *ngIf = "showScrollButton === true"> 
+	 <ion-fab  class="animated bounceIn "vertical="bottom" horizontal="start"  slot="fixed">
+			<ion-fab-button   style = "margin-bottom: 50px;" color = "light" size = "small" (click) = "scrollUp()">
+					<ion-icon   color = "dark" name="arrow-dropup-circle"></ion-icon>	
+						</ion-fab-button>
+		</ion-fab>
+	</div>
+		<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+				<ion-fab-button (click) = "fabPressed()">
+					<ion-icon name="add"></ion-icon>
+				</ion-fab-button>
+			</ion-fab>
+			<!-- <ion-fab-list side="top">
+				<ion-fab-button><ion-icon name="logo-vimeo"></ion-icon></ion-fab-button>
+			</ion-fab-list> -->
+	
+	 <ion-content   [scrollEvents]="true"
+	 (ionScroll)="scrollFunction($event)" >
+				
 		<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
 		   <ion-refresher-content
 			  pullingText="Pull to refresh"
 			  refreshingText="Refreshing events.."></ion-refresher-content>
 		</ion-refresher>
-		<ion-searchbar  (ionInput)="filterList($event,'search')" placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear" ></ion-searchbar>
+		<ion-searchbar  (ionInput)="filterList($event)" placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear" ></ion-searchbar>
 		<div class = "activityFilter">
-				<div class = "activityContainer" > 
+				<div class = "activityContainer" (click) = "activityFilterClick()"> 
 
 						<div class = "buttonBox"  > 
 							<ion-button fill = "outline"  [color] = "allClicked ? 'danger' : 'medium' " (click) = "allClickedFunc()" >ALL</ion-button>
@@ -31,19 +52,94 @@
 						</div> 
 					  
 					  </div>
-					  
 		   <!-- <app-activity-filter> </app-activity-filter> -->
 		</div>
-		<app-time-filter class = "timeFilter"></app-time-filter>
-		<app-scroll class = "days"></app-scroll>
+		<div class = "timeFilter"> 
+		<div class = "timeContainer"  (click) = "timeFilterClick()"> 
 
+				<!-- <div class = "buttonBox"  >  -->
+					<ion-button fill = "outline"  [color] = "allClickedTime ? 'danger' : 'medium' " (click) = "allClickedFuncTime()" >ALL</ion-button>
+		
+					<ion-button *ngFor = "let time of timeEntries; index as i" fill = "outline"   [color] = "time[1] ? 'danger' : 'medium' " (click) = "changeColorTime(i)" >{{time[0] | uppercase}}</ion-button>
+									<ion-button fill = "outline"  [color] = "allClickedTime ? 'danger' : 'medium' " (click) = "allClickedFuncTime()" >ALL</ion-button>
 
-		   <div  class = "cards" *ngFor = "let event of events; index as i" class = "final">
-			  <ion-item-sliding class = "item-sliding">
-				 <app-card *ngIf = "event.eventDeleted != true" [id]="event?.id" > </app-card>
-				 <ion-item-options class = "item-options" side="start">
-					<ion-item-option color = "success" (click)="saveEvent(event.id)">Mark As Going</ion-item-option>
-				 </ion-item-options>
-			  </ion-item-sliding>
-		   </div>
+				<!-- </div>  -->
+			
+			</div>
+		</div>
+
+		<div (click) = "dayFilterClick()" class = "days">
+
+				<div class="scrolling-wrapper">
+
+						<div   class="cardDays"><ion-button  [color] = "allClickedDays ? 'darkred' : 'mediumAltered'" (click) = "allClickedFuncDays()">ALL</ion-button></div>
+				
+						<div  class="cardDays"> <ion-button  *ngFor = "let days of daysEntries; index as i" [color] = "days[1][2] ? 'darkred' : 'mediumAltered'" (click) = "changeColorDays(i)">
+							<div class = "container"> 
+									<!-- [color] = "daysEntries[0][1][1] ? '#000000' : 'blue'"  -->
+							<ion-label class = "today"  *ngIf= "i == 0">
+				
+							 <strong> TODAY</strong> 
+							</ion-label>
+				
+						 
+								<div class = "containerDate"> 
+										<ion-label class = "date">     {{days[1][1] | uppercase}}
+											</ion-label>
+						<ion-label class = "day">     {{days[1][0] | uppercase}}
+							</ion-label>
+						</div>
+						</div>
+				
+						</ion-button></div>
+					 
+					</div>
+		</div>
+		<!-- <div style = "display: flex; flex-direction: row; "> -->
+				<!-- <ion-item color = "light" > -->
+			
+			
+			<ion-item> 
+			<ion-label>Sort By: </ion-label>
+				<ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Select One">
+					<ion-select-option value="latest">Latest</ion-select-option>
+					<ion-select-option value="trending">Trending</ion-select-option>
+					<!-- <ion-select-option value="black">Black</ion-select-option>
+					<ion-select-option value="red">Red</ion-select-option> -->
+				</ion-select>
+		<!-- </ion-item> -->
+		<!-- <ion-item color = "light" lines = "full">
+				
+			</ion-item> -->
+			<ion-button color = "light" (click) = "collapseButton()"> 	
+					<ion-icon slot="icon-only"  name="contract"></ion-icon>
+				</ion-button>
+			</ion-item>
+		<!-- </div> -->
+		<ion-list >
+		   <!-- <div  class = "cards"  class = "final"> -->
+			  <!-- <ion-item-sliding *ngFor = "let event of events; index as i" class = "item-sliding">
+
+				<ion-item-options class = "item-options" side="start">
+					<ion-item-option color = "success" (click)="saveEvent(event)">Mark As Going</ion-item-option>
+				 </ion-item-options> -->
+				 <!-- <ion-item  >  -->
+					 <div *ngFor = "let event of events; index as i" 	> 
+				 <app-card [id]="event.id" > </app-card>
+				</div>
+				<!-- </ion-item> -->
+				
+			  <!-- </ion-item-sliding> -->
+			 <!-- </div> -->
+			</ion-list>
+				 
+			 <ion-infinite-scroll threshold = "300px" (ionInfinite)="loadData($event)"> 
+					<ion-infinite-scroll-content
+					loadingSpinner="crescent"
+					[loadingText]="loadScreen">
+				  </ion-infinite-scroll-content>
+
+			</ion-infinite-scroll>
+			 
 	 </ion-content>
+

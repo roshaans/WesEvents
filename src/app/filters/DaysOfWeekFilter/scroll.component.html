@@ -2,6 +2,23 @@
 
     <div   class="card"><ion-button  [color] = "allClicked ? 'darkred' : 'mediumAltered'" (click) = "allClickedFunc()">ALL</ion-button></div>
 
-    <div  class="card"> <ion-button  *ngFor = "let days of daysEntries; index as i" [color] = "days[1] ? 'darkred' : 'mediumAltered'" (click) = "changeColor(i)">{{days[0]}}</ion-button></div>
+    <div  class="card"> <ion-button  *ngFor = "let days of daysEntries; index as i" [color] = "days[1][2] ? 'darkred' : 'mediumAltered'" (click) = "changeColor(i)">
+      <div class = "container"> 
+          <!-- [color] = "daysEntries[0][1][1] ? '#000000' : 'blue'"  -->
+      <ion-label class = "today"  *ngIf= "i == 0">
+
+       <strong> TODAY</strong> 
+      </ion-label>
+
+     
+        <div class = "containerDate"> 
+            <ion-label class = "date">     {{days[1][1] | uppercase}}
+              </ion-label>
+    <ion-label class = "day">     {{days[1][0] | uppercase}}
+      </ion-label>
+    </div>
+    </div>
+
+    </ion-button></div>
    
   </div>
