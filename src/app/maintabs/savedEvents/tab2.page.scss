@@ -6,7 +6,19 @@ display: inline-block;
 .item-options {
     border: 3px solid orange;
 }
+ion-segment{
+  height: 80px;
+  background-color: #FFF;
+}
 
+ion-segment-button{
+font-size: 16px;
+color: red;
+border: 0px;
+--color-checked: red;
+--color-checked-disabled: red;
+border-radius: 0px;
+}
 .newCard {
    
     display:flex;

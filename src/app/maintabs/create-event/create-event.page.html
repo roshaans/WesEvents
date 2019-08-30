@@ -8,7 +8,7 @@
             </ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-header>
+  <!-- <ion-header>
     <ion-segment (ionChange)="segmentChanged($event)">
       <ion-segment-button checked value="edit">
         <ion-icon slot="end" name="create"></ion-icon>
@@ -23,8 +23,9 @@
         </div>
       </ion-segment-button>
     </ion-segment>
-  </ion-header>
-  <ion-content *ngIf="viewMode === true">
+  </ion-header> -->
+  <!-- <ion-content
+   >
     <ion-item color = "light" class="item">
       <ion-card color="light" class="newCard">
         <ion-card-content>
@@ -56,11 +57,10 @@
         </ion-card-content>
       </ion-card>
     </ion-item>
-    <ion-button (click)="pickImage()">Pick Image</ion-button>
   
-  </ion-content>
+  </ion-content> -->
   
-  <ion-content *ngIf="viewMode === false">
+  <ion-content >
     <form [formGroup]="createEventForm">
       <ion-item  color = "light">
         <ion-label position="floating">Event Title</ion-label>
@@ -282,6 +282,49 @@
           formControlName="event_description"
         ></textarea>
       </ion-item>
+      <ion-grid><ion-row>
+
+        <ion-col *ngIf = "imageUploaded === false">
+          <ion-button color="light"   expand="block" (click)="takePhoto(0)">
+          
+          <ion-icon color = "dark"name="images"></ion-icon>
+          
+          Pick Image from Gallery
+        
+        </ion-button>
+        <ion-button color="light"   expand="block" (click)="takePhoto(1)">
+          
+            
+          <ion-icon color = "dark" name="camera"></ion-icon>        
+          Take Picture
+        </ion-button>
+        </ion-col>
+      </ion-row>
+    <ion-row *ngIf = "imageUploaded === true">
+<ion-col>
+
+  <!-- <ion-thumbnail slot="start"> -->
+    <ion-img [src]="imageURI"></ion-img>
+  <!-- </ion-thumbnail> -->
+
+</ion-col>
+
+
+    </ion-row>
+<ion-row *ngIf = "imageUploaded === true"> 
+  <ion-col>
+    <ion-button color="light"   expand="block" (click)="removePic()">
+          
+        <ion-icon color = "dark"name="trash"></ion-icon>
+        
+        Remove Picture
+      
+      </ion-button>
+    </ion-col>
+</ion-row>    
+    </ion-grid>
+     
+
       <ion-button
         shape="round"
         color="danger"

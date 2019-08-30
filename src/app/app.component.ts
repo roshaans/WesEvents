@@ -7,17 +7,23 @@ import * as firebase from 'firebase/app';
 import {timer} from 'rxjs/observable/timer'
 const config = {
   apiKey: "AIzaSyAda2rGGrmtWjGtg3bYvGKOv-EsZnG_Cm0",
+  
   authDomain: "wesleyaneventsapp.firebaseapp.com",
   databaseURL: "https://wesleyaneventsapp.firebaseio.com",
   projectId: "wesleyaneventsapp",
-  storageBucket: "",
+  storageBucket: "wesleyaneventsapp.appspot.com",
   messagingSenderId: "41400534112",
   appId: "1:41400534112:web:afbdc39393804002"
-};
+}
+
+
+
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html'
-})
+  templateUrl: 'app.component.html' })
+
+
+
 export class AppComponent {
 
   showSplash = true;

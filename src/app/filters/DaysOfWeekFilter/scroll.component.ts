@@ -21,12 +21,12 @@ export class ScrollComponent implements OnInit {
   days = {"First": [moment(this.currentDate).add(0, 'day').format('ddd'), moment(this.currentDate).add(0, 'day').format('DD'),true], "Second":  [moment(this.currentDate).add(1, 'day').format('ddd'), moment(this.currentDate).add(1, 'day').format('DD'), true], "Third": [moment(this.currentDate).add(2, 'day').format('ddd'), moment(this.currentDate).add(2, 'day').format('DD'), true], "Fourth": [moment(this.currentDate).add(3, 'day').format('ddd'), moment(this.currentDate).add(3, 'day').format('DD'), true], "Fifth": [moment(this.currentDate).add(4, 'day').format('ddd'), moment(this.currentDate).add(4, 'day').format('DD'), true], "Sixth": [moment(this.currentDate).add(5, 'day').format('ddd'), moment(this.currentDate).add(5, 'day').format('DD'), true] , "Seventh": [moment(this.currentDate).add(6, 'day').format('ddd'), moment(this.currentDate).add(6, 'day').format('DD'), true]  }
 
   daysEntries = Object.entries(this.days)
-  allClickedDays = true; 
+  allClicked = true; 
   
-  changeColorDays(index){
+  changeColor(index){
     
     
-    this.allClickedDays = false;
+    this.allClicked = false;
     if (this.daysEntries[index][1][2] == false ) {
       this.daysEntries[index][1][2] = true
     } else {
@@ -46,16 +46,16 @@ export class ScrollComponent implements OnInit {
 
   }
 
-  allClickedFuncDays() {
+  allClickedFunc() {
 
-    if(this.allClickedDays == true) {
-      this.allClickedDays = false
-    } else if(this.allClickedDays == false) {
-      this.allClickedDays = true
+    if(this.allClicked== true) {
+      this.allClicked = false
+    } else if(this.allClicked == false) {
+      this.allClicked = true
     
     }
 
-    if(this.allClickedDays  == true) {
+    if(this.allClicked  == true) {
       this.daysEntries.forEach(element => {
          element[1][2] = true;
 

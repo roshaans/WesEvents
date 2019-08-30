@@ -192,12 +192,9 @@ resize() {
   segmentChanged(ev: any) {
     if (ev['detail']['value'] == "edit") {
       this.viewMode = "edit"
-
     } else if (ev['detail']['value'] == "addUpdate"){
       this.viewMode = "addUpdate"
-    } else {
-      this.viewMode = "preview";
-    }
+    } 
    
   }
   }

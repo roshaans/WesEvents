@@ -11,15 +11,21 @@ import { Tab1Page } from './tab1.page';
 import {ActivityFilterComponent} from './../../filters/Activity/activity-filter.component'
 import {SharedModule} from './../../shared/shared.module'
 import { LocationFilterComponent } from './../../filters/location-filter/location-filter.component';
+// import { DatepickerManuallyPageComponent } from './../../datepicker-manually-page/datepicker-manually-page.component';
+
+import { ReactiveFormsModule } from '@angular/forms'
+
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
     SharedModule,
-    RouterModule.forChild([{ path: '', component: Tab1Page }])
+    ReactiveFormsModule,
+    RouterModule.forChild([{ path: '', component: Tab1Page }]),
+    
   ],
   entryComponents: [PopoverComponent],
-    declarations: [PopoverComponent,Tab1Page, ScrollComponent, LocationFilterComponent, TimeFilterComponent,ActivityFilterComponent ]
+    declarations: [ PopoverComponent,Tab1Page, ScrollComponent, LocationFilterComponent, TimeFilterComponent,ActivityFilterComponent ]
 })
 export class Tab1PageModule {}

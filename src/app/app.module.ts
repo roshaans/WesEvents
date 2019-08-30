@@ -1,7 +1,8 @@
 // import { FcmService } from './fcm.service';
 import { MbscModule } from '@mobiscroll/angular';
 import { Tab1Page } from './maintabs/browseEvents/tab1.page'
-
+import { Ionic4DatepickerModule } from
+    '@logisticinfotech/ionic4-datepicker';
 import { FirebaseDatabaseService } from './services/firebaseDatabase/firebase-database.service';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -13,7 +14,7 @@ import { FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { TapticEngine } from '@ionic-native/taptic-engine/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { Firebase } from '@ionic-native/firebase/ngx';
+import {SharedModule} from './shared/shared.module'
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -32,22 +33,34 @@ import { File } from '@ionic-native/file/ngx';
 import { Calendar } from '@ionic-native/calendar/ngx';
 import { ImageViewerComponent } from './../app/image-viewer/image-viewer.component'
 import { ImagePicker} from '@ionic-native/image-picker/ngx'
+import { HttpModule } from '@angular/http';
+import { IonicStorageModule } from '@ionic/storage';
+
+
 // import { PopoverComponent } from './popover/popover.component';
 @NgModule({
   declarations: [AppComponent, Autosize,ImageViewerComponent],
   entryComponents: [ImageViewerComponent],
   imports: [ 
+    SharedModule,
+    HttpModule,
     MbscModule,   
     ReactiveFormsModule,  
-    FormsModule, AngularFireModule.initializeApp(environment),AngularFireAuthModule, 
+    FormsModule, 
+    
+    AngularFireModule.initializeApp(environment)
+    ,AngularFireAuthModule, 
     AngularFirestoreModule, AngularFireDatabaseModule,
+    IonicStorageModule.forRoot() // <-- here
+,
 BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [AngularFireAuth, FirebaseAuthentication,FirebaseDatabaseService,
     File,
     Calendar,
+    Ionic4DatepickerModule,
     SocialSharing,
     TapticEngine,
-    Firebase,
+    
     ImagePicker,
     Camera, StatusBar,
     SplashScreen,

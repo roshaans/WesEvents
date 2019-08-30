@@ -22,6 +22,8 @@ import { PopoverController } from '@ionic/angular';
 import { EditComponentComponent } from '../../edit-component/edit-component.component';
 import { FullScreenImage, FullScreenImageOriginal } from '@ionic-native/full-screen-image';
 import { ModalController } from '@ionic/angular';
+import { Calendar } from '@ionic-native/calendar/ngx';
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -66,7 +68,7 @@ export class CardComponent implements OnInit {
  optionMessage: any;
 
 
-  constructor(public modalController: ModalController, public popoverController: PopoverController,private socialSharing: SocialSharing, private taptic: TapticEngine,private alertController: AlertController,private toastCtrl: ToastController, private fireauth: AngularFireAuth,private tab1: Tab1Page, private userService: UserService, private route: ActivatedRoute, private router: Router, private firebaseDatabase: FirebaseDatabaseService) {
+  constructor(private calendar: Calendar, public modalController: ModalController, public popoverController: PopoverController,private socialSharing: SocialSharing, private taptic: TapticEngine,private alertController: AlertController,private toastCtrl: ToastController, private fireauth: AngularFireAuth,private tab1: Tab1Page, private userService: UserService, private route: ActivatedRoute, private router: Router, private firebaseDatabase: FirebaseDatabaseService) {
     this.fireauth.auth.onAuthStateChanged((user) => {
       if (user) {
         this.user = user;
@@ -164,7 +166,10 @@ valueChanged() {
   onError(msg) {
     console.log("Sharing failed with message: " + msg);
   };
-  
+  addToCalendar() {
+    this.calendar.createEventInteractivelyWithOptions(this.event.event_title, this.event.event_location, this.event.event_description, this.event.event_startTime, this.event.event_endTime)
+
+  }
   share() {
     this.optionMessage = {
       message: 'Check out this event: ' + this.event.event_title + " on " + moment( this.event.event_date).calendar()+ " from " + moment(this.event.event_startTime).format('h:m') + " to " + moment(this.event.event_endTime).format('h:m') + ".                                                        Download WesEvents to see more events like these!                                ", // not supported on some apps (Facebook, Instagram)
@@ -230,6 +235,12 @@ valueChanged() {
     // this.taptic.impact();
 
     this.toggle = !this.toggle
+
+    if(this.toggle == false ) {
+      this.likeEvent()
+    } else {
+      this.unlikeEvent()
+    }
   }
   editEvent() {
    
@@ -271,6 +282,7 @@ valueChanged() {
       }
 
   }
+  
   notGoing() {
     this.firebaseDatabase.deleteEventFromSavedEvents(this.id, this.user.uid).then( () => {
       this.firebaseDatabase.deleteGoing(this.id, this.user.uid)
@@ -284,6 +296,27 @@ valueChanged() {
    
     this.showToast("Event Deleted")
   }
+
+
+  likeEvent() {
+    this.firebaseDatabase.likeEvent(this.id, this.user.uid)
+      this.showToast("Event Saved")
+      this.eventIsSaved = true;
+      this.taptic.impact({style: "heavy"});
+
+      this.classes = {
+        'normal': this.eventIsSaved, 
+      }
+
+  }
+  
+  unlikeEvent() {
+    this.firebaseDatabase.deleteEventFromLikedEvents(this.id, this.user.uid).then( () => {
+      this.taptic.impact({style: "heavy"});
+
+     
+    })}
+
   addUpdates() {
     this.router.navigateByUrl("editEvent/"+this.id)
 

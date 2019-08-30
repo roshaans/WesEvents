@@ -26,6 +26,7 @@
 
                     <ion-badge (click) = "seeMore()"style = "display: flex; align-items: center;align-self: center;" class = "badge"color="light"><ion-icon name="chatboxes"></ion-icon> {{updates.length}}</ion-badge>
 
+                    <ion-button *ngIf = "eventIsSaved === true" fill = "outline" color = "light" (click) = "addToCalendar()"> <ion-icon name="add"></ion-icon> <ion-icon name = "calendar"> </ion-icon> </ion-button>
                     <!-- <ion-icon color = "light"size = "large" (click) = "share()" name="share"></ion-icon> -->
 
                    
@@ -115,7 +116,7 @@
        </ion-card-content>
        <div class = "badgeContainer"> 
          <div class = "heartAndTimeContainer"> 
-        <ion-icon class = "heart" color = "light" *ngIf = "toggle === false" (click) = "toggleHeart()" slot="icon-only" name="heart-empty"> <ion-ripple-effect type = "unbounded" ></ion-ripple-effect ></ion-icon>
+        <ion-icon class = "heart" color = "light" *ngIf = "toggle === false" (click) = "toggleHeart()" slot="icon-only" name="heart-empty" > <ion-ripple-effect type = "unbounded" ></ion-ripple-effect ></ion-icon>
         <ion-icon class = "heart" color = "darkred" *ngIf = "toggle === true" (click) = "toggleHeart()" slot="icon-only" name="heart"> <ion-ripple-effect type = "unbounded"></ion-ripple-effect></ion-icon>
 
             <ion-label  *ngIf = "eventIsUpdated" class = "sinceDate" color = "light" > Updated  {{updatedDate}}         </ion-label>

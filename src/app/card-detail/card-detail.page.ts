@@ -31,7 +31,7 @@ export class CardDetailPage implements OnInit {
   })
 }
 
-createEvent() {
+addToCalendar() {
   this.calendar.createEventInteractivelyWithOptions(this.event.event_title, this.event.event_location, this.event.event_description, this.event.startTime, this.event.endTime)
 
   // if (this.platform.is('ios')) {

@@ -14,21 +14,28 @@ import {UserService} from './../../services/user/user.service'
 })
 export class Tab2Page implements OnInit{
   user: any;
-  eventIDs: string[];
   events: Event[] = [];
+  eventIDs: string[];
+  mode = "savedEvents";
   searchTerm;
   loadedEvents: Event[] =[];
   connectionIsGood: Boolean = false;
   firstTime;
   
+  likedEventIDs: string[];
+  likedEvents: Event[] = []
+  searchTermLiked;
+  loadedEventsLiked
+  firstTimeLiked;
   constructor(private userService: UserService,private fireauth: AngularFireAuth, private toastCtrl: ToastController,private firebaseDatabase: FirebaseDatabaseService, private router: Router) {
   
     this.fetchEvents()
-
+    this.fetchLikedEvents();
   }
   ionViewWillEnter () {
 
         this.fetchEvents()
+        this.fetchLikedEvents();
 
    }
    
@@ -63,7 +70,13 @@ export class Tab2Page implements OnInit{
         this.loadedEvents = []
         if ( snapshot.data().savedEvents) {
           this.eventIDs = []
+          this.likedEventIDs  = []
+
+
           this.eventIDs = snapshot.data().savedEvents
+
+         
+
           if (this.eventIDs.length > 0){
             this.firstTime = false;
 
@@ -89,10 +102,53 @@ export class Tab2Page implements OnInit{
 
         }
 
+      
+
+    })
+    }
+
+    fetchLikedEvents() {
+      this.userService.getSavedIds().get().subscribe((snapshot) => {
+        this.likedEvents = []
+        this.loadedEventsLiked = []
+        if ( snapshot.data().savedEvents) {
+          this.eventIDs = []
+          this.likedEventIDs  = []
+
+
+          this.eventIDs = snapshot.data().likedEvents
+
+         
+      if (this.likedEventIDs.length > 0){
+        this.firstTimeLiked = false;
+
+      } else if (this.likedEventIDs.length == 0) {
+
+        this.firstTimeLiked = true
+
+      }
+      if(this.likedEventIDs.length > 0) {
+        this.eventIDs.forEach(element => {
+          this.firebaseDatabase.getEvent(element).subscribe((data)=> {
+            this.likedEvents.push(data)
+            this.loadedEventsLiked.push(data)
+          })  
+          
+        }); 
+      
+        this.animateCSS("ion-list", "bounceInUp", null)
+      }
+      } else {
+        this.firstTimeLiked = true
+
+      }
     })
     }
     initializeItems() {
       this.events = this.loadedEvents
+    }
+    initializeLikedItems() {
+      this.likedEvents = this.loadedEventsLiked
     }
     filterList(evt) {
       this.initializeItems();
@@ -109,7 +165,21 @@ export class Tab2Page implements OnInit{
          }
          } );
    }
-   
+   filterListLiked(evt) {
+    this.initializeLikedItems();
+   const searchTermLiked = evt.srcElement.value;
+   if (!searchTermLiked) {
+     return;
+     }
+     this.likedEvents = this.likedEvents.filter(currentEvent => {
+       if (currentEvent.event_title && searchTermLiked) {
+       if (currentEvent.event_title.toLowerCase().indexOf(searchTermLiked.toLowerCase()) > -1) {
+       return true;
+       }
+       return false;
+       }
+       } );
+ }
   doRefresh(event) {
    this.events = []
     this.fetchEvents()
@@ -118,7 +188,14 @@ export class Tab2Page implements OnInit{
       event.target.complete();
     }, 2000);
   }
-
+  doRefreshLiked(event) {
+    this.likedEvents = []
+     this.fetchLikedEvents()
+ 
+     setTimeout(() => {
+       event.target.complete();
+     }, 2000);
+   }
 
   showToast(msg) {
     this.toastCtrl.create({
@@ -141,5 +218,19 @@ export class Tab2Page implements OnInit{
   
     node.addEventListener('animationend', handleAnimationEnd)
   }
+
+  segmentChanged(ev: any) {
+    if (ev['detail']['value'] == "savedEvents") {
+      this.mode = 'savedEvents'
+
+    } else if (ev['detail']['value'] == "likedEvents") {
+      this.mode = 'likedEvents'
+
+
+    }
+   
+  }
+
+
 }
 

@@ -8,23 +8,41 @@
 		   </ion-title>
 		</ion-toolbar>
 	 </ion-header>
-	 <ion-content *ngIf = "firstTime === true">
-			<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-					<ion-refresher-content
-					   pullingText="Pull to refresh"
-					   refreshingText="Refreshing events.."></ion-refresher-content>
-				 </ion-refresher>
-		<ion-card class="animated jello" color = "darkred">
-		   <ion-card-header>
-			  <ion-card-title>
-				 OOPS! 😅 You have no saved events.
-			  </ion-card-title>
-		   </ion-card-header>
-		   <ion-card-content>
-			  <h2>	<strong> Tip:</strong> Try saving an event by clicking "Mark As Going"!	</h2>
-		   </ion-card-content>
-		</ion-card>
-	 </ion-content>
+	    <ion-header>
+    <ion-segment (ionChange)="segmentChanged($event)">
+      <ion-segment-button checked value="savedEvents">
+        <ion-icon slot="end" name="saved"></ion-icon>
+        <div class="color">
+          Saved Events
+        </div>
+      </ion-segment-button>
+      <ion-segment-button value="likedEvents">
+        <ion-icon slot="end" name="heart"></ion-icon>
+        <div class="color">
+          Favorites
+        </div>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-header> 
+	 
+	 <div *ngIf = "mode === 'savedEvents'">
+			<ion-content *ngIf = "firstTime === true">
+					<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+							<ion-refresher-content
+							   pullingText="Pull to refresh"
+							   refreshingText="Refreshing events.."></ion-refresher-content>
+						 </ion-refresher>
+				<ion-card class="animated jello" color = "darkred">
+				   <ion-card-header>
+					  <ion-card-title>
+						 OOPS! 😅 You have no saved events.
+					  </ion-card-title>
+				   </ion-card-header>
+				   <ion-card-content>
+					  <h2>	<strong> Tip:</strong> Try saving an event by clicking "Mark As Going"!	</h2>
+				   </ion-card-content>
+				</ion-card>
+			 </ion-content>
 	 <ion-content *ngIf = "firstTime === false">
 		<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
 		   <ion-refresher-content
@@ -32,7 +50,6 @@
 			  refreshingText="Refreshing events.."></ion-refresher-content>
 		</ion-refresher>
 		<ion-searchbar  (ionInput)="filterList($event,'search')" placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear"></ion-searchbar>
-		<div *ngIf = "connectionIsGood">
 				 <!-- [routerLink] ="['/card/', event]"  -->
                 <!-- <div  class = "cards" *ngFor = "let event of events; index as i"  class = "final"> -->
                     <!-- <ion-item-sliding class = "item-sliding">
@@ -47,6 +64,48 @@
 					 </div>
 					</ion-list>
                     <!-- </ion-item-sliding> -->
-                 </div>
                 
-              </ion-content> 
+			  </ion-content> 
+			</div>
+			<div *ngIf = "mode === 'likedEvents'">
+					<ion-content *ngIf = "firstTimeLiked === true">
+							<ion-refresher slot="fixed" (ionRefresh)="doRefreshLiked($event)">
+									<ion-refresher-content
+									   pullingText="Pull to refresh"
+									   refreshingText="Refreshing events.."></ion-refresher-content>
+								 </ion-refresher>
+						<ion-card class="animated jello" color = "darkred">
+						   <ion-card-header>
+							  <ion-card-title>
+								 OOPS! 😅 You have no liked events.
+							  </ion-card-title>
+						   </ion-card-header>
+						   <ion-card-content>
+							  <h2>	<strong> Tip:</strong> Try liking an event by clicking the heart button!	</h2>
+						   </ion-card-content>
+						</ion-card>
+					 </ion-content>
+					<ion-content *ngIf = "firstTimeLiked === false">
+					   <ion-refresher slot="fixed" (ionRefresh)="doRefreshLiked($event)">
+						  <ion-refresher-content
+							 pullingText="Pull to refresh"
+							 refreshingText="Refreshing events.."></ion-refresher-content>
+					   </ion-refresher>
+					   <ion-searchbar  (ionInput)="filterListLiked($event,'search')" placeholder="Event Name" animated showCancelButton="focus" cancelButtonText="Clear"></ion-searchbar>
+								<!-- [routerLink] ="['/card/', event]"  -->
+							   <!-- <div  class = "cards" *ngFor = "let event of events; index as i"  class = "final"> -->
+								   <!-- <ion-item-sliding class = "item-sliding">
+									  <ion-item-options side="end">
+										 <ion-item-option color="warning" (click)="notGoing(event)">Not Going!</ion-item-option>
+									  </ion-item-options> -->
+									  <ion-list> 
+										   <div *ngFor = "let event of likedEvents; index as i" 	> 
+			   
+									  <app-card [id]="event?.event_id" > </app-card>
+			   
+									</div>
+								   </ion-list>
+								   <!-- </ion-item-sliding> -->
+							   
+							 </ion-content> 
+						   </div>

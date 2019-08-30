@@ -19,16 +19,16 @@
                 <ion-back-button></ion-back-button>
               </ion-buttons>
           <ion-title color="#d33939" class="ion-text-center">
-              Edit Event
+              Event Settings
                 </ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-header>
         <ion-segment (ionChange)="segmentChanged($event)">
-          <ion-segment-button checked value="preview">
+          <ion-segment-button checked value="edit">
             <ion-icon slot="end" name="create"></ion-icon>
             <div class="color">
-              Create Event
+              Edit Event
             </div>
           </ion-segment-button>
           <ion-segment-button  value="addUpdate">
@@ -37,15 +37,15 @@
                 Add Updates
               </div>
             </ion-segment-button>
-          <ion-segment-button value="edit">
+          <!-- <ion-segment-button value="edit">
             <ion-icon slot="end" name="eye"></ion-icon>
             <div class="color">
               Live Preview
             </div>
-          </ion-segment-button>
+          </ion-segment-button> -->
         </ion-segment>
       </ion-header>
-      <ion-content *ngIf="viewMode === 'edit'">
+      <!-- <ion-content>
         <ion-item class="item">
           <ion-card color="light" class="newCard">
             <ion-card-content>
@@ -78,7 +78,7 @@
           </ion-card>
         </ion-item>
       
-      </ion-content>
+      </ion-content> -->
       
       <ion-content *ngIf="viewMode == 'addUpdate'">
         
@@ -87,7 +87,7 @@
 
                 <ion-item-divider color="light" >
                     <ion-label>
-                     <strong>  Write Update </strong>
+                     <strong>  Write a brief update about your event </strong>
                     </ion-label>
 
                    
@@ -97,7 +97,7 @@
                 </ion-item>
                 <!-- <ion-item-divider color="light" > -->
                     <!-- <ion-buttons slot="secondary"> -->
-                    <ion-button expand="block" (click) = "addUpdate()"style = "display: flex; flex-direction: row; justify-content: flex-end;" color = "darkred"> 
+                    <ion-button [disabled] = "update.length < 3"expand="block" (click) = "addUpdate()"style = "display: flex; flex-direction: row; justify-content: flex-end;" color = "darkred"> 
                         <ion-icon name="add"></ion-icon>
 
                       Add Update
@@ -140,7 +140,10 @@
 
 
       </ion-content>
-      <ion-content *ngIf="viewMode == 'preview'">
+      <ion-content
+      *ngIf="viewMode == 'edit'"
+       >
+
         <form [formGroup]="createEventForm">
           <ion-item>
             <ion-label position="floating">Event Title</ion-label>

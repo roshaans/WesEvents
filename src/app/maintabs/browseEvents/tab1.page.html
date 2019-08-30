@@ -7,13 +7,18 @@
 			  <ion-button (click) = "presentPopover($event)" >
 				<ion-icon class = "quick"name="arrow-dropdown-circle"></ion-icon></ion-button>
 		   </ion-buttons>
+ <!-- <ion-buttons slot="start">
+			  <ion-button size = "large"(click) = "presentSurprise($event)" >
+				🥳</ion-button>
+		   </ion-buttons> -->
+
 		   <ion-title    color = "#d33939" class="ion-text-center">
 			  Browse Events
 		   </ion-title>
 		</ion-toolbar>
 	 </ion-header>
 	 <div  *ngIf = "showScrollButton === true"> 
-	 <ion-fab  class="animated bounceIn "vertical="bottom" horizontal="start"  slot="fixed">
+	 <ion-fab  class="animated bounceIn "vertical="bottom" horizontal="center"  slot="fixed">
 			<ion-fab-button   style = "margin-bottom: 50px;" color = "light" size = "small" (click) = "scrollUp()">
 					<ion-icon   color = "dark" name="arrow-dropup-circle"></ion-icon>	
 						</ion-fab-button>
@@ -98,24 +103,39 @@
 		<!-- <div style = "display: flex; flex-direction: row; "> -->
 				<!-- <ion-item color = "light" > -->
 			
-			
+
+				    <form [formGroup]="sort">
 			<ion-item> 
+
 			<ion-label>Sort By: </ion-label>
-				<ion-select [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Select One">
-					<ion-select-option value="latest">Latest</ion-select-option>
-					<ion-select-option value="trending">Trending</ion-select-option>
+				<ion-select value="Latest"         formControlName="filterType"
+  (ionChange)="orderBy('firstTime')"  interface="popover" placeholder="Select One">
+					<ion-select-option selected value="Latest">Latest</ion-select-option>
+					<ion-select-option  value="StartTime">Start Time</ion-select-option>
+					<ion-select-option value="Trending">Trending</ion-select-option>
 					<!-- <ion-select-option value="black">Black</ion-select-option>
 					<ion-select-option value="red">Red</ion-select-option> -->
 				</ion-select>
+
+				<!-- <ion-button color = "light" (click) = "collapseButton()"> 	
+					<ion-icon slot="icon-only"  name="contract"></ion-icon>
+				</ion-button> -->
+			</ion-item>
+				    </form>
 		<!-- </ion-item> -->
 		<!-- <ion-item color = "light" lines = "full">
 				
 			</ion-item> -->
-			<ion-button color = "light" (click) = "collapseButton()"> 	
-					<ion-icon slot="icon-only"  name="contract"></ion-icon>
-				</ion-button>
-			</ion-item>
+			
 		<!-- </div> -->
+		<ion-card *ngIf = "EventsFound === false" class="animated jello" color = "warning">
+		   <ion-card-header>
+			  <ion-card-title>
+				No events found with the given search filters. Try another filter or try reloading the page.  
+			  </ion-card-title>
+		   </ion-card-header>
+		   
+		</ion-card>
 		<ion-list >
 		   <!-- <div  class = "cards"  class = "final"> -->
 			  <!-- <ion-item-sliding *ngFor = "let event of events; index as i" class = "item-sliding">
@@ -133,7 +153,7 @@
 			 <!-- </div> -->
 			</ion-list>
 				 
-			 <ion-infinite-scroll threshold = "300px" (ionInfinite)="loadData($event)"> 
+			 <ion-infinite-scroll threshold = "100px" (ionInfinite)="loadData($event)"> 
 					<ion-infinite-scroll-content
 					loadingSpinner="crescent"
 					[loadingText]="loadScreen">

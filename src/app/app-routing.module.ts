@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './services/user/auth.guard';
+import { TutorialGuard } from './guards/tutorial.guard';
 
 const routes: Routes = [
-  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuard] },
-  { path: 'home', redirectTo: '', pathMatch: "full"},
+  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule', canActivate: [AuthGuard,TutorialGuard] },
   { path: 'card/:id', loadChildren: './card-detail/card-detail.module#CardDetailPageModule' , canActivate: [AuthGuard] },
   { path: 'editEvent/:id', loadChildren: './maintabs/editEvent/editEvent.module#EditEventPageModule' , canActivate: [AuthGuard] },
   { path: 'login', loadChildren: './accountManager/login/login.module#LoginPageModule' },
@@ -16,6 +16,8 @@ const routes: Routes = [
   { path: 'create-event', loadChildren: './maintabs/create-event/create-event.module#CreateEventPageModule' },
   { path: 'about', loadChildren: './about/about.module#AboutPageModule' },
   { path: 'userprofile/:uuid', loadChildren: './userprofile/userprofile.module#UserprofilePageModule' },
+  { path: 'home', loadChildren: './home/home.module#HomePageModule' },
+  { path: 'onboarding', loadChildren: './onboarding/onboarding.module#OnboardingPageModule' },
 
 ];
 

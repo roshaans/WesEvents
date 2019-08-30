@@ -7,12 +7,14 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
+
 import {Event} from '../../Models/Event'
 import { AngularFireAuth } from '@angular/fire/auth';
 import {iconDict} from './../../Models/CategoryIconsDictionary'
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
 import { File } from "@ionic-native/file/ngx";
-import { AlertController } from '@ionic/angular';
+import { AlertController , Platform} from '@ionic/angular';
 import * as moment from 'moment';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
@@ -44,13 +46,15 @@ resize() {
   other = "custom field";
   user: any;
   createEventForm: FormGroup;
+  imageUploaded: Boolean = false; 
+  imageURI: string; 
   viewMode = false;
    event: Event;
   
    imageResponse: any;
   options: any;
  
-  constructor(private imagePicker: ImagePicker,public alertController: AlertController, private camera: Camera, private file: File,private fireauth: AngularFireAuth, private fStore: AngularFirestore, private formBuilder: FormBuilder, private router: Router, private toastCtrl: ToastController, private FirebaseDatabase: FirebaseDatabaseService) {
+  constructor(private imagePicker: ImagePicker,public platform: Platform ,public alertController: AlertController, private camera: Camera, private file: File,private fireauth: AngularFireAuth, private fStore: AngularFirestore, private formBuilder: FormBuilder, private router: Router, private toastCtrl: ToastController, private FirebaseDatabase: FirebaseDatabaseService) {
    
     this.createEventForm = this.formBuilder.group({
       'event_title' : [null, Validators.required],
@@ -177,7 +181,7 @@ var newHour = moment(this.starttime).hour()
   }
   
   this.FirebaseDatabase.createEvent(this.event, this.user.uid)
-    this.alertController.dismiss()
+    // this.alertController.dismiss()
 
     //  this.clearFields()
     this.showToast("Event has been created. Please head to the profile section to make any edits to your event.");
@@ -209,67 +213,118 @@ var newHour = moment(this.starttime).hour()
     this.selectedLocation= "";
     this.title= ""; 
   }
-  async pickImage() {
-    const options: CameraOptions = {
-      quality: 80,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    };
 
-    try {
-      let cameraInfo = await this.camera.getPicture(options);
-      let blobInfo = await this.makeFileIntoBlob(cameraInfo);
-      let uploadInfo: any = await this.uploadToFirebase(blobInfo);
 
-      alert("File Upload Success " + uploadInfo.fileName);
-    } catch (e) {
-      console.log(e.message);
-      alert("File Upload Error " + e.message);
+  
+
+  takePhoto(sourceType:number) {
+if (this.platform.is(
+'ios'
+)){
+  const options: CameraOptions = {
+    quality: 100,
+    allowEdit: true,
+    targetWidth: 100,
+targetHeight: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
+    correctOrientation: true,
+    sourceType: sourceType,
+  }
+  this.camera.getPicture(options).then((imageData) => {
+    console.log('i am ios')
+    console.log("Image Data will print in a bit")
+    console.log(imageData, "imagedata ")
+    let base64Image = 'data:image/jpeg;base64,' + imageData;
+    this.imageURI = base64Image
+     this.imageUploaded = true;
+
+    this.uploadImage(base64Image)
+
     }
+  , (err) => {
+    console.log(err, "err")
+    // Handle error
+  });
+
+} else if (this.platform.is('android')) {
+  const options: CameraOptions = {
+    quality: 50,
+    allowEdit: true,
+    targetWidth: 100,
+targetHeight: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
+    correctOrientation: true,
+    sourceType:sourceType,
+  }
+  this.camera.getPicture(options).then((imageData) => {
+    this.imageUploaded = true;
+    console.log("Image Data will print in a bit")
+    console.log(imageData, "imagedata ")
+    let base64Image = 'data:image/jpeg;base64,' + imageData;
+    this.imageURI = base64Image
+    
+    this.uploadImage(base64Image)
+  }, (err) => {
+    console.log(err, "err")
+    // Handle error
+  });
+}   
+
+   
+  }
+  removePic() {
+    this.imageUploaded = false; 
+    this.imageURI = "";
+    this.camera.cleanup()
   }
 
-  // FILE STUFF
-  makeFileIntoBlob(_imagePath) {
-    // INSTALL PLUGIN - cordova plugin add cordova-plugin-file
-    return new Promise((resolve, reject) => {
-      let fileName = "";
-      this.file
-        .resolveLocalFilesystemUrl(_imagePath)
-        .then(fileEntry => {
-          let { name, nativeURL } = fileEntry;
 
-          // get the path..
-          let path = nativeURL.substring(0, nativeURL.lastIndexOf("/"));
-          console.log("path", path);
-          console.log("fileName", name);
 
-          fileName = name;
+  uploadImage(imageURI){
+    console.log("uplaoding Image Now")
+    // return new Promise<any>((resolve, reject) => {
+      let storageRef = firebase.storage().refFromURL('gs://wesleyaneventsapp.appspot.com');
+      console.log("storage")
+      // let imageRef = storageRef.child('image').child('imageName');
 
-          // we are provided the name, so now read the file into
-          // a buffer
-          return this.file.readAsArrayBuffer(path, name);
-        })
-        .then(buffer => {
-          // get the buffer and make a blob to be saved
-          let imgBlob = new Blob([buffer], {
-            type: "image/jpeg"
-          });
-          console.log(imgBlob.type, imgBlob.size);
-          resolve({
-            fileName,
-            imgBlob
-          });
-        })
-        .catch(e => reject(e));
-    });
+      // console.log(imageRef, "imageRef")
+      // //  this.encodeImageUri(imageURI, function(image64){
+      //   imageRef.putString(imageURI, 'data_url')
+      //   .then(snapshot => {
+      //     console.log(snapshot.downloadURL, "download")
+      //     // cons÷(snapshot.downloadURL)
+      //   }, err => {
+      //     console.log("error", err)
+      //     // reject(err);
+      //   })
+      // })
+    //  })
   }
-
+  encodeImageUri(imageUri, callback) {
+    var c = document.createElement('canvas');
+    var ctx = c.getContext("2d");
+    var img = new Image();
+    img.onload = function () {
+      var aux:any = this;
+      c.width = aux.width;
+      c.height = aux.height;
+      ctx.drawImage(img, 0, 0);
+      var dataURL = c.toDataURL("image/jpeg");
+      callback(dataURL);
+    };
+    img.src = imageUri;
+  };
   /**
    *
    * @param _imageBlobInfo
    */
   uploadToFirebase(_imageBlobInfo) {
+    // console.log(this.imageURI, "imageURI")
+
     console.log("uploadToFirebase");
     return new Promise((resolve, reject) => {
       let fileRef = firebase.storage().ref("images/" + _imageBlobInfo.fileName);

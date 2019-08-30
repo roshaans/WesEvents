@@ -162,6 +162,27 @@ export class FirebaseDatabaseService {
                 console.log("Error Creating Event: ", error);
             });
     }
+    likeEvent(id: string, user_uid: string) {
+        var userRef = this.fStore.collection("users").doc(user_uid)
+
+        userRef.update({
+            likedEvents: firebase.firestore.FieldValue.arrayUnion(id)
+        })
 
     
+    }
+    deleteEventFromLikedEvents(event: string, user_uid: string) {
+        var userRef = this.fStore.collection("users").doc(user_uid)
+        return userRef.update({
+            likedEvents: firebase.firestore.FieldValue.arrayRemove(event)
+        })
+    }
+
+    unlikeEvent(event: string, user_uid: string) {
+        var eventRef = this.eventCollectionRef.doc(event)
+        return eventRef.update({
+            likedEvents: firebase.firestore.FieldValue.arrayRemove(event)
+        })
+    }
+
 }

@@ -5,13 +5,16 @@
 export const environment = {
   production: false,
   firebase: {
-  apiKey: "AIzaSyBdRrjJcBxlJF252l1pyhVqg55lWCkWIIk",
-  authDomain: "weseventsdatabase.firebaseapp.com",
-  databaseURL: "https://weseventsdatabase.firebaseio.com",
-  projectId: "weseventsdatabase",
-  storageBucket: "weseventsdatabase.appspot.com",
-  messagingSenderId: "521874676930",
-  appId: "1:521874676930:web:263d6de232e8e798"
+   
+      apiKey: "AIzaSyAda2rGGrmtWjGtg3bYvGKOv-EsZnG_Cm0",
+      
+      authDomain: "wesleyaneventsapp.firebaseapp.com",
+      databaseURL: "https://wesleyaneventsapp.firebaseio.com",
+      projectId: "wesleyaneventsapp",
+      storageBucket: "wesleyaneventsapp.appspot.com",
+      messagingSenderId: "41400534112",
+      appId: "1:41400534112:web:afbdc39393804002"
+    
   }
 };
 

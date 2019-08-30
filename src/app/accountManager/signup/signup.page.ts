@@ -41,7 +41,7 @@ export class SignupPage {
   }
 
   signup() {
-    // if (this.email.includes("wesleyan.edu") ||  this.email.includes("WESLEYAN.edu") || this.email.includes("WESLEYAN.EDU")|| this.email.includes("WESleyan.edu")) {
+     if (this.email.toLowerCase().indexOf("@wesleyan.edu")) {
 
     this.fireauth.auth.createUserWithEmailAndPassword(this.email, this.password)
       .then(res => {
@@ -63,11 +63,11 @@ export class SignupPage {
       });
     } 
     
-    // else {
-    //     this.presentToast("Please use Wesleyan.edu Email to sign up!", false, top, 3000)
+    else {
+        this.presentToast("Please use a Wesleyan.edu Email to sign up!", false, top, 3000)
 
-    //  }
-
+     }
+    }
   
 
   
