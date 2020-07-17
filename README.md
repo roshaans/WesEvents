@@ -37,9 +37,24 @@ This was my first attempt to building a comprehensive product for fun and i've g
 21. Haptic feedback on clicking "Mark as Going" and "liking" an event. 
 22. Press hovering button to go all the way to top while browsing.
     and more....
+
+
 # Event Card Design
 
-- ## `Normal Card`
+## `Normal Card`
 
-- ## `Owner Card`
+## `Owner Card`
+
+
+# User Friendly Atmosphere
+
+## `Tips`
+
+## `OnBoarding Process`
+
+
+
+
+
+
 
