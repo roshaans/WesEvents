@@ -1,4 +1,10 @@
 # WesEvents
+> ## See the web app in action [here!](Wes.Events)
+> When signing up, please enter an email that ends with "wesleyan.edu". There is no email validation, so you can pretty much put any name before the email address on this version. 
+
+
+> ### Note
+> Most of the capabilities of the app such sharing features, haptic feedback, and choosing pictures are not available on the web app version as those are native capabilities. To get the full expreince of the app, you will need to download the app from the app store. 
 
 <p align="center">
 <img src = "Images/logo.svg" height = 300px />
@@ -10,8 +16,14 @@ campus and is equipped with a host of features that every event app should consi
 This was my first attempt to building a comprehensive product for fun and i've got to say, I've learned a great deal out of this experinece. 
 
 # Things I learned
-
-- 
+- Taking advantage of mobile device's native functionality using Cordova
+    - Sharing via instagram, messenger, and sms. 
+    - Haptic Feedback
+    - Camera Functionality
+    - Calendar Invites
+- Using Firebase Collections to store data with data best practices in mind
+- Learned to make common front-end design patterns from popular app like Fandango and Facebook come to life. 
+ 
 # Features
 1. Create new events
 2. Add unique updates to events
@@ -51,6 +63,7 @@ This was my first attempt to building a comprehensive product for fun and i've g
 ## `Tips`
 
 ## `OnBoarding Process`
+
 
 
 
