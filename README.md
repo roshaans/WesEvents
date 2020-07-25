@@ -1,4 +1,4 @@
-# WesEvents
+# 📅 WesEvents
 > ## See the web app in action [here!](https://weseventsdatabase.web.app/)
 > When signing up, please enter an email that ends with "wesleyan.edu". There is no email validation, so you can pretty much put any name before the email address on this version. 
 
