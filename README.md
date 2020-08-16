@@ -7,7 +7,7 @@
 > Most of the capabilities of the app such sharing features, haptic feedback, and choosing pictures are not available on the web app version as those are native capabilities. To get the full expreince of the app, you will need to download the app from the app store. 
 
 <p align="center">
-<img src = "Images/logo.svg" height = 300px />
+<img src = "WesEventsImages/weseventsLogo.png" height = 60px />
 </p>
 
 A crossplatform web application to make event searching easy for busy college students. The app is designed specifically centered around Wesleyan University’s 
@@ -54,15 +54,13 @@ This was my first attempt to building a comprehensive product for fun and i've g
 # Event Card Design
 
 ## `Normal Card`
+<img src = "WesEventsImages/WesEventsNormalCard.png" height = 250px />
+
 
 ## `Owner Card`
+<img src = "WesEventsImages/WesEventsAdminCard.png" height = 250px />
 
 
-# User Friendly Atmosphere
-
-## `Tips`
-
-## `OnBoarding Process`
 
 
 
