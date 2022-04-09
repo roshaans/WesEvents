@@ -73,7 +73,7 @@
     "ionic-datepicker": "^1.2.1",
     "ionic-swing": "^4.1.1",
     "ionicons": "^4.6.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "rxjs": "~6.5.1",
     "rxjs-compat": "^6.5.2",
     "tslib": "^1.9.0",
